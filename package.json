@@ -1,0 +1,16 @@
+{
+  "name": "complex-func",
+  "version": "1.0.0",
+  "description": "功能函数",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "utils",
+    "func",
+    "工具"
+  ],
+  "author": "MarAngle",
+  "license": "ISC"
+}
