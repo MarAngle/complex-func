@@ -1,6 +1,7 @@
 import axios from 'axios'
 import RequireRule from './RequireRule'
 import utils from './../data/utils'
+import environment from './../data/environment'
 import noticeData from './../option/noticeData'
 
 /*
@@ -9,7 +10,6 @@ headers
 responseType
 timeout
 */
-
 class Require {
   constructor ({ api, option, rule, status }) {
     this.api = {
@@ -22,16 +22,18 @@ class Require {
       504: '网络超时!'
     }
     this.list = []
-    this._initApi(api)
-    this._initService(option)
-    this._initRule(rule)
-    this._initStatus(status)
+    this.initApi(api)
+    this.initService(option)
+    this.initRule(rule)
+    this.initStatus(status)
   }
-  _initApi (api) {
+  // 加载api
+  initApi (api) {
     if (api.baseURL) {
       this.api.baseURL = api.baseURL
     }
   }
+  // 创建option
   buildOption (option = {}) {
     if (!option.headers) {
       option.headers = {}
@@ -41,10 +43,16 @@ class Require {
     }
     return option
   }
-  _initService (option) {
-    this.service = axios.create(this.buildOption(option))
+  // 构建service
+  buildService(option) {
+    return axios.create(this.buildOption(option))
   }
-  _initRule (rule) {
+  // 创建service
+  initService (option) {
+    this.service = this.buildOption(option)
+  }
+  // 加载规则
+  initRule (rule) {
     let firstProp
     for (let n in rule) {
       let ruleOption = rule[n]
@@ -54,13 +62,17 @@ class Require {
     if (!this.rule.default) {
       this.rule.default = this.rule[firstProp]
     }
-    console.log(`默认的请求规则处理程序为[${this.rule.default.prop}:${this.rule.default.name}]`)
+    if (environment.getEnv('real') == 'development') {
+      console.log(`默认的请求规则处理程序为[${this.rule.default.prop}:${this.rule.default.name}]`)
+    }
   }
-  _initStatus (status = {}) {
+  // 加载状态翻译值
+  initStatus (status = {}) {
     for (let n in status) {
       this.status[n] = status[n]
     }
   }
+  // 检查获取当前url对应的rule
   checkRule (url) {
     for (let n in this.rule) {
       let fg = this.rule[n].checkUrl(url)
@@ -70,6 +82,7 @@ class Require {
     }
     return this.rule.default
   }
+  // 格式化URL
   _formatUrl (url) {
     if (this.formatUrl) {
       return this.formatUrl(url, this.api.baseURL)
@@ -81,6 +94,7 @@ class Require {
       return url
     }
   }
+  // 调用service进行axios请求
   ajax (optionData = {}) {
     return new Promise((resolve, reject) => {
       this.service(optionData).then(response => {
@@ -91,6 +105,7 @@ class Require {
     })
   }
 
+  // 传参检查和格式化
   // url,
   // data = {},
   // params = {},
@@ -100,7 +115,7 @@ class Require {
   // requestCurrentDataType = 'json'
   // responseFormat = true
   // responseType = 'json'
-
+  // responseFormat = true
   check (optionData) {
     let check = {
       next: true,
@@ -168,7 +183,7 @@ class Require {
     }
     return check
   }
-
+  // 请求，自动化处理
   require (optionData) {
     return new Promise((resolve, reject) => {
       let check = this.check(optionData)
@@ -192,6 +207,7 @@ class Require {
       }
     })
   }
+  // 请求下一步操作
   requireNext (optionData, check) {
     return new Promise((resolve, reject) => {
       this.ajax(optionData).then(response => {
@@ -227,6 +243,7 @@ class Require {
       })
     })
   }
+  // 请求失败回调
   requireFail (error, optionData, ruleItem) {
     let errRes = {
       status: 'fail',
@@ -251,6 +268,7 @@ class Require {
     }
     return errRes
   }
+  // 获取status翻译值
   analyzeStatus (status) {
     if (status && this.status[status]) {
       return this.status[status]
@@ -258,6 +276,7 @@ class Require {
       return ''
     }
   }
+  // 自动显示失败msg
   showFailMsg (msgOption, content, type, title) {
     if (msgOption === undefined || msgOption === true) {
       msgOption = {
@@ -286,26 +305,30 @@ class Require {
       }
     }
   }
+  // get请求
   get (optionData = {}) {
     optionData.method = 'get'
     return this.require(optionData)
   }
+  // post请求
   post (optionData = {}) {
     optionData.method = 'post'
     return this.require(optionData)
   }
+  // post请求=>json转换成formdata
   postform (optionData = {}) {
     optionData.method = 'post'
     optionData.requestDataType = 'formdata'
     return this.require(optionData)
   }
+  // post请求=>formdata参数
   postfile (optionData = {}) {
     optionData.method = 'post'
     optionData.requestDataType = 'formdata'
     optionData.requestCurrentDataType = 'formdata'
     return this.require(optionData)
   }
-
+  // token删除
   removeToken (tokenName, prop = 'default') {
     if (this.rule[prop]) {
       return this.rule[prop].removeToken(tokenName)
@@ -314,6 +337,7 @@ class Require {
       return false
     }
   }
+  // token设置
   setToken (tokenName, data, prop = 'default') {
     if (this.rule[prop]) {
       this.rule[prop].setToken(tokenName, data)
@@ -321,6 +345,7 @@ class Require {
       console.error(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
     }
   }
+  // token获取
   getToken (tokenName, prop = 'default') {
     if (this.rule[prop]) {
       return this.rule[prop].getToken(tokenName)
@@ -331,7 +356,11 @@ class Require {
   }
 
   toString () {
-    return 'Require'
+    let ruleName = []
+    for (let n in this.rule) {
+      ruleName.push(this.rule[n].toString())
+    }
+    return `(${this.constructor.name}-rule:[${ruleName.join(',')}])`
   }
 }
 

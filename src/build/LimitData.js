@@ -1,5 +1,5 @@
 // 限制数据格式
-// 需要保证次数据对象传递到initdata中依然能生成一个limitdatad对象，保证数据的一致性
+// 需要保证类实例传递到initdata中依然能生成一个LimitData实例，保证数据的一致性
 class LimitData {
   constructor (initdata = {}, autoType) {
     this.type = 'forbid'
