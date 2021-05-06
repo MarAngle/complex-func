@@ -15,15 +15,19 @@ let environment = {
   }
 }
 
+// 设置环境变量
 environment.setEnv = function (data, prop = 'data') {
   this.env[prop] = data
 }
+// 获取环境变量
 environment.getEnv = function (prop = 'data') {
   return this.env[prop]
 }
+// 设置环境数据
 environment.setEnvMode = function (data, prop = 'data') {
   this.mode[prop] = data
 }
+// 获取环境数据
 environment.getEnvMode = function (prop = 'data') {
   return this.mode[prop]
 }
@@ -50,6 +54,7 @@ environment.setCanUse = function(prop, data) {
   this.canUse[prop] = data
 }
 
+// 获取canUse数据
 environment.getCanUse = function(prop) {
   return this.canUse[prop]
 }

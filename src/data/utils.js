@@ -1,8 +1,8 @@
 import setData from './../option/setData'
 import LimitData from './../build/LimitData'
 
-let utils = {
-}
+let utils = {}
+
 // ----- 数据类型判断相关 ----- START
 // 判断数组
 utils.isArray = function (data) {
@@ -55,6 +55,7 @@ utils.checkComplex = function (data) {
   return this.isComplex(type)
 }
 // ----- 数据类型判断相关 ----- END
+
 // ----- 数据复制相关 ----- START
 // 深拷贝数据
 utils.deepClone = function (origindata, option) {
@@ -66,7 +67,6 @@ utils.deepClone = function (origindata, option) {
   }
   return targetdata
 }
-
 // 深拷贝数据递归=>未使用尾递归，理论上内存占用会较大，等待优化方案
 utils.deepCloneData = function(origindata, targetdata, option = {}) {
   // 初始化设置项
@@ -358,7 +358,6 @@ utils.formatDataByType = function (data, type = 'string') {
   }
   return res
 }
-
 // 根据type设置对象属性值
 utils.setStrPropByType = function (item, prop, data, type = 'string', useSetData) {
   let targetdata = this.formatDataByType(data, type)
@@ -388,6 +387,14 @@ utils.mergeData = function (data, currentdata) {
   }
   return data
 }
+// 格式化数组
+utils.formatList = function (originlist, option, targetlist = []) {
+  for (let n in originlist) {
+    let item = this.formatItem(originlist[n], option)
+    targetlist.push(item)
+  }
+  return targetlist
+}
 // 格式化对象
 utils.formatItem = function (originitem, option, targetitem = {}) {
   let optionData = option.data
@@ -403,8 +410,7 @@ utils.formatItem = function (originitem, option, targetitem = {}) {
   }
   return targetitem
 }
-
-// 格式化微tree
+// 格式化list为tree
 utils.formatTree = function (originList, option = {}) {
   let idprop = option.id || 'id'
   let parentidprop = option.parentid || 'parentid'
@@ -460,6 +466,7 @@ utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop
     temp[oitem[parentidprop]] = parentTemp
   }
 }
+// 创建初级的watch功能，暂时仅供object
 utils.buildWatch = function({ data, prop, func }) {
   let type = this.getType(data)
   if (type !== 'object') {
@@ -547,6 +554,7 @@ utils.orderArrayByProp = function (list, { prop, rule }) {
     }
   }
 }
+// 数组清楚其他对象
 utils.arrayClearOther = function (list, index, startIndex = 0) {
   if (list.length - 1 >= index) {
     // 删除index + 1到结束
@@ -675,7 +683,7 @@ utils.findTargetInStr = function(str, target, option = {}) {
     return []
   }
 }
-
+// 获取指定字符串在目标字符串中的位置数组
 utils.findTargetInStrNext = function(str, target, limitNum, list = [], index = 0) {
   let data = str.indexOf(target, index)
   if (data > -1) {
@@ -689,7 +697,6 @@ utils.findTargetInStrNext = function(str, target, limitNum, list = [], index = 0
 // ----- 字符串相关 ----- END
 
 // ----- 日期相关 ----- START
-
 let timeOption = [
   {
     prop: 'year',
@@ -785,15 +792,6 @@ utils.formatDate = function (targetdate, formatdata) {
     d[titem.prop] = formatdata[titem.prop] !== undefined ? formatdata[titem.prop] : targetdate[titem.func]()
   }
   return new Date(d.year, d.month, d.day, d.hour, d.min, d.sec)
-}
-
-// 格式化数组
-utils.formatList = function (originlist, option, targetlist = []) {
-  for (let n in originlist) {
-    let item = this.formatItem(originlist[n], option)
-    targetlist.push(item)
-  }
-  return targetlist
 }
 // ----- 日期相关 ----- END
 
@@ -907,6 +905,7 @@ utils.choiceProp = function (list, prop, target = false, item, itemtarget = true
     item[prop] = itemtarget
   }
 }
+// 下载blob文件
 utils.downloadBlob = function (blobvalue, type, name) {
   let blob
   if (typeof window.Blob == 'function') {
@@ -929,7 +928,7 @@ utils.downloadBlob = function (blobvalue, type, name) {
     return true
   }
 }
-
+// 基于a标签下载文件
 utils.downloadFileByAnchor = function (url, name) {
   let anchor = document.createElement('a')
   if ('download' in anchor) {
@@ -942,7 +941,7 @@ utils.downloadFileByAnchor = function (url, name) {
     return false
   }
 }
-
+// 下载文件
 utils.downloadFile = function (data) {
   if (data) {
     let type = this.getType(data)
@@ -964,6 +963,7 @@ utils.downloadFile = function (data) {
     return false
   }
 }
+// window.open
 utils.openWindow = function (url, type = '_blank') {
   window.open(url, type)
 }
@@ -1024,7 +1024,6 @@ utils.triggerPromise = function({
     }
   }
 }
-
 // 获取限制对象
 utils.getLimitData = function (option) {
   return new LimitData(option)
