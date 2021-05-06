@@ -49,7 +49,7 @@ class Require {
   }
   // 创建service
   initService (option) {
-    this.service = this.buildOption(option)
+    this.service = this.buildService(option)
   }
   // 加载规则
   initRule (rule) {
