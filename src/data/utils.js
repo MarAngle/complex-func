@@ -324,7 +324,7 @@ utils.setPropByList = function (targetdata, propList, propData, useSetData) {
 // 根据'mainprop.prop'格式字符串获取对象值
 utils.getPropByStr = function (targetdata, strProp) {
   if (!targetdata || !strProp) {
-    return false
+    return undefined
   } else if (strProp.indexOf('.') > -1) {
     let list = strProp.split('.')
     let res = this.getPropByList(targetdata, list)
@@ -340,6 +340,7 @@ utils.setPropByStr = function (targetdata, strProp, propData, useSetData) {
   } else {
     let list = strProp.split('.')
     this.setPropByList(targetdata, list, propData, useSetData)
+    return true
   }
 }
 // 格式化对象
