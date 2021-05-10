@@ -323,9 +323,7 @@ utils.getPropByStr = function (targetdata, strProp) {
   if (!targetdata || !strProp) {
     return undefined
   } else if (strProp.indexOf('.') > -1) {
-    let list = strProp.split('.')
-    let res = this.getPropByList(targetdata, list)
-    return res
+    return this.getPropByList(targetdata, strProp.split('.'))
   } else {
     return targetdata[strProp]
   }
@@ -335,8 +333,7 @@ utils.setPropByStr = function (targetdata, strProp, propData, useSetData) {
   if (!targetdata || !strProp) {
     return false
   } else {
-    let list = strProp.split('.')
-    this.setPropByList(targetdata, list, propData, useSetData)
+    this.setPropByList(targetdata, strProp.split('.'), propData, useSetData)
     return true
   }
 }
@@ -388,8 +385,7 @@ utils.mergeData = function (data, currentdata) {
 // 格式化数组
 utils.formatList = function (originlist, option, targetlist = []) {
   for (let n in originlist) {
-    let item = this.formatItem(originlist[n], option)
-    targetlist.push(item)
+    targetlist.push(this.formatItem(originlist[n], option))
   }
   return targetlist
 }
