@@ -293,11 +293,8 @@ utils.getPropByList = function (targetdata, propList) {
   let res = targetdata
   propList = propList.filter(item => item && item.trim())
   for (let n = 0; n < propList.length; n++) {
-    if (res[propList[n]]) {
-      // res = null
-      res = res[propList[n]]
-    } else {
-      res = null
+    res = res[propList[n]]
+    if (!res) {
       break
     }
   }
