@@ -6,11 +6,6 @@ let mainfunc = {
   data: {}
 }
 
-mainfunc.printInfo = function(content = '', type = 'error') {
-  let preContent = `[complex-func]`
-  console[type](preContent + content)
-}
-
 mainfunc._initMod = function (mod, methodList) {
   if (methodList) {
     for (let i in methodList) {
@@ -50,9 +45,9 @@ mainfunc._appendMethod = function (methodName, methodData, target) {
       append = true
     } else if (methodData.replace) {
       append = true
-      this.printInfo(`appendMethod: ${methodName} is replace`, 'warn')
+      this.printMsg(`appendMethod: ${methodName} is replace`, 'warn')
     } else {
-      this.printInfo(`appendMethod: ${methodName} is defined`)
+      this.printMsg(`appendMethod: ${methodName} is defined`)
     }
     if (append) {
       if (target) {
@@ -79,7 +74,7 @@ mainfunc.init = function({
   if (root) {
     for (let n in root) {
       if (this[n]) {
-        this.printInfo(`root属性${n}设置冲突，请检查!`)
+        this.printMsg(`root属性${n}设置冲突，请检查!`)
       } else {
         this[n] = root[n]
       }

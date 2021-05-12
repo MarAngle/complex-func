@@ -211,7 +211,7 @@ class RequireRule {
       }
       return true
     } else {
-      console.error(`未指定需要删除的token`)
+      this.printMsg(`未指定需要删除的token`)
       return false
     }
   }
@@ -237,8 +237,14 @@ class RequireRule {
   _buildTokenName (prop) {
     return `${this.prop}-${prop}`
   }
-  toString () {
+  printMsg(info, type = 'error', option) {
+    utils.printMsgAct(this._selfName() + ':' + info, type, option)
+  }
+  _selfName() {
     return `(${this.constructor.name}:[${this.name}/${this.prop}])`
+  }
+  toString () {
+    return this._selfName()
   }
 }
 

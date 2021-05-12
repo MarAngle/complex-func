@@ -1,4 +1,4 @@
-import _utils from './../data/utils'
+import utils from './../data/utils'
 
 const base = {
   num: '0-9',
@@ -22,7 +22,7 @@ class RuleData {
   }
   initMain(initdata) {
     if (!initdata) {
-      this._printInfo('init无参数!')
+      this.printMsg('init无参数!')
       return false
     }
     // 类型
@@ -81,20 +81,20 @@ class RuleData {
     if (propList === true) {
       for (let n in data) {
         let info = data[n]
-        if (_utils.getType(info) == 'object') {
+        if (utils.getType(info) == 'object') {
           regStr += this.buildRegData(true, info)
         } else {
           regStr += info
         }
       }
     } else {
-      let type = _utils.getType(propList)
+      let type = utils.getType(propList)
       if (type == 'array') {
         for (let i = 0; i < propList.length; i++) {
           let prop = propList[i]
           let info = data[prop]
-          if (_utils.getType(info) == 'object') {
-            regStr += this.buildRegData(_utils.getType(prop) == 'array' ? prop : true, info)
+          if (utils.getType(info) == 'object') {
+            regStr += this.buildRegData(utils.getType(prop) == 'array' ? prop : true, info)
           } else {
             regStr += info
           }
@@ -113,7 +113,7 @@ class RuleData {
       if (merge) {
         reg = this.buildReg(reg, merge)
       }
-      let type = _utils.getType(reg)
+      let type = utils.getType(reg)
       if (type != 'reg') {
         reg = new RegExp(reg)
       }
@@ -122,11 +122,14 @@ class RuleData {
       return this.data(data, option)
     }
   }
-  _printInfo(info, type = 'error') {
-    console[type](this._selfName() + ':' + info)
+  printMsg(info, type = 'error', option) {
+    utils.printMsgAct(this._selfName() + ':' + info, type, option)
   }
   _selfName() {
     return `[${this.constructor.name}]`
+  }
+  toString() {
+    return this._selfName()
   }
 }
 export default RuleData

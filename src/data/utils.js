@@ -3,6 +3,24 @@ import LimitData from './../build/LimitData'
 
 let utils = {}
 
+// 信息输出
+utils.printMsg = function(content = '', type = 'error', option) {
+  let preContent = `[complex-func]`
+  this.printMsgAct(preContent + content, type, option)
+}
+
+utils.printMsgAct = function(content = '', type = 'error', option = {}) {
+  if (type == 'error') {
+    content = new Error(content)
+  }
+  console[type](content)
+  if (option.data) {
+    if (!option.type) {
+      option.type = type
+    }
+    console[option.type](option.data)
+  }
+}
 // ----- 数据类型判断相关 ----- START
 // 判断数组
 utils.isArray = function (data) {

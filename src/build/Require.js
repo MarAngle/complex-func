@@ -57,13 +57,15 @@ class Require {
     for (let n in rule) {
       let ruleOption = rule[n]
       this.rule[ruleOption.prop] = new RequireRule(ruleOption)
-      firstProp = ruleOption.prop
+      if (!firstProp) {
+        firstProp = ruleOption.prop
+      }
     }
     if (!this.rule.default) {
       this.rule.default = this.rule[firstProp]
     }
     if (environment.getEnv('real') == 'development') {
-      console.log(`默认的请求规则处理程序为[${this.rule.default.prop}:${this.rule.default.name}]`)
+      this.printMsg(`默认的请求规则处理程序为[${this.rule.default._selfName()}]`, 'log')
     }
   }
   // 加载状态翻译值
@@ -333,7 +335,7 @@ class Require {
     if (this.rule[prop]) {
       return this.rule[prop].removeToken(tokenName)
     } else {
-      console.error(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
     }
   }
@@ -342,7 +344,7 @@ class Require {
     if (this.rule[prop]) {
       this.rule[prop].setToken(tokenName, data)
     } else {
-      console.error(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
     }
   }
   // token获取
@@ -350,17 +352,23 @@ class Require {
     if (this.rule[prop]) {
       return this.rule[prop].getToken(tokenName)
     } else {
-      console.error(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
     }
   }
 
-  toString () {
+  _selfName () {
     let ruleName = []
     for (let n in this.rule) {
-      ruleName.push(this.rule[n].toString())
+      ruleName.push(this.rule[n]._selfName())
     }
-    return `(${this.constructor.name}-rule:[${ruleName.join(',')}])`
+    return `(${this.constructor.name}:[${ruleName.join(',')}])`
+  }
+  printMsg(info, type = 'error', option) {
+    utils.printMsgAct(this._selfName() + ':' + info, type, option)
+  }
+  toString() {
+    return this._selfName()
   }
 }
 

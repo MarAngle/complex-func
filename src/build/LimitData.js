@@ -28,8 +28,5 @@ class LimitData {
       return this.list.indexOf(data) < 0
     }
   }
-  selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 export default LimitData
