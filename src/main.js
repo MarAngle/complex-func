@@ -1,5 +1,7 @@
-import Require from './build/Require'
 import utils from './data/utils'
+import rule from './data/rule'
+import environment from './data/environment'
+import Require from './build/Require'
 import notice from './option/noticeData'
 
 let mainfunc = {
@@ -105,6 +107,18 @@ mainfunc.initNotice = function(noticeInitData = {}) {
   }
   mainfunc._initMod(notice)
 }
+
+mainfunc._initMod(rule, [
+  {
+    originprop: 'check',
+    prop: 'checkRule'
+  },
+  {
+    originprop: 'build',
+    prop: 'buildRule'
+  }
+])
+mainfunc._initMod(environment)
 
 mainfunc._initMod(utils)
 
