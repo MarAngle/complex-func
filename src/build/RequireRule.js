@@ -192,7 +192,7 @@ class RequireRule {
       data = tokenRule.data
     }
     if (!data) {
-      data = utils.getLocalTemp(this._buildTokenName(prop))
+      data = utils.getLocalData(this._buildTokenName(prop))
       if (data) {
         this.setToken(prop, data, true)
       }
@@ -231,7 +231,7 @@ class RequireRule {
       this.token.data[tokenName].data = data
     }
     if (!noSave) {
-      utils.setLocalTemp(this._buildTokenName(tokenName), data)
+      utils.setLocalData(this._buildTokenName(tokenName), data)
     }
   }
   _buildTokenName (prop) {

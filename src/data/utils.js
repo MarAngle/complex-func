@@ -808,46 +808,49 @@ utils.formatDate = function (targetdate, formatdata) {
 // ----- 日期相关 ----- END
 
 // ----- 本地缓存函数 ----- START
-let localTemp = {
+let localDataOption = {
   pre: 'default'
 }
-utils.setLocalTempPre = function (pre) {
-  localTemp.pre = pre
+utils.setLocalDataPre = function (pre) {
+  localDataOption.pre = pre
+}
+utils.buildLocalDataName = function(name) {
+  return localDataOption.pre + name
 }
 // 设置缓存
-utils.setLocalTemp = function (prop, data, time) {
-  prop = `${localTemp.pre}-${prop}`
-  localStorage.setItem(prop, data)
-  if (time) {
-    let timeprop = prop + '_time'
-    localStorage.setItem(timeprop, new Date().getTime())
+utils.setLocalData = function (name, value) {
+  name = this.buildLocalDataName(name)
+  let currentData = {
+    value: value,
+    time: Date.now()
   }
+  localStorage.setItem(name, JSON.stringify(currentData))
 }
 // 获取缓存
-utils.getLocalTemp = function (prop, time, refresh) {
-  prop = `${localTemp.pre}-${prop}`
-  let data = localStorage.getItem(prop)
-  if (data && time) {
-    let timeprop = prop + '_time'
-    let currenttime = new Date().getTime()
-    let localtime = localStorage.getItem(timeprop)
-    time = time * 60
-    if ((currenttime - localtime) > time) {
-      data = false
-    } else if (refresh) {
-      localStorage.setItem(timeprop, currenttime)
+utils.getLocalData = function (name, time, refresh) {
+  name = this.buildLocalDataName(name)
+  let localData = localStorage.getItem(name)
+  if (localData) {
+    localData = JSON.parse(localData)
+    if (time) {
+      let currentTime = Date.now()
+      time = time * 1000
+      if ((currentTime - localData.time) > time) {
+        localData.value = null
+      }
     }
+    if (refresh) {
+      this.setLocalData(name, localData.value)
+    }
+    return localData.value
+  } else {
+    return undefined
   }
-  return data
 }
 // 清除缓存
-utils.removeLocalTemp = function (prop, time) {
-  prop = `${localTemp.pre}-${prop}`
-  localStorage.removeItem(prop)
-  if (time) {
-    let timeprop = prop + '_time'
-    localStorage.removeItem(timeprop)
-  }
+utils.removeLocalData = function (name) {
+  name = this.buildLocalDataName(name)
+  localStorage.removeItem(name)
 }
 // ----- 本地缓存函数 ----- END
 
