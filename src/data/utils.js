@@ -163,7 +163,7 @@ utils.updateData = function (targetdata, origindata, option = {}) {
 /**
  * 基于originlist更新targetlist列表数据
  * @param {*} targetlist 目标列表
- * @param {*} originlist 原数据列表
+ * @param {*} originlist 源数据列表
  * @param {*} payload
  *  type列表转换类型
  *  push布尔值新数据推送与否
@@ -175,16 +175,18 @@ utils.updateData = function (targetdata, origindata, option = {}) {
 utils.updateList = function (targetlist, originlist, payload = {}) {
   // 生成check函数
   if (!payload.check) {
-    console.error('请传递check函数判断相同对象')
+    this.printMsg('请传递check函数判断相同对象')
     return
   } else {
     let type = this.getType(payload.check)
     if (type !== 'function') {
       let checkOption = type == 'string' ? { prop: payload.check } : payload.check
-      payload.check = function (titem, oitem) {
-        if (!checkOption.equal) {
+      if (!checkOption.equal) {
+        payload.check = function (titem, oitem) {
           return titem[checkOption.prop] == oitem[checkOption.prop]
-        } else {
+        }
+      } else {
+        payload.check = function (titem, oitem) {
           return titem[checkOption.prop] === oitem[checkOption.prop]
         }
       }
@@ -298,83 +300,76 @@ utils.appendProp = function (data, propname, propdata, type = 'json') {
 utils.showJson = function (json) {
   console.log(JSON.stringify(json))
 }
-// 获取对象的属性，该函数用户获取对象不确定是否存在时调用
-utils.getProp = function (targetdata, prop, nocontent = false) {
-  if (targetdata && targetdata[prop]) {
-    return targetdata[prop]
-  } else {
-    return nocontent
-  }
-}
+
 // 根据属性列表获取对象属性
 utils.getPropByList = function (targetdata, propList) {
-  let res = targetdata
+  let data = targetdata
   propList = propList.filter(item => item && item.trim())
   for (let n = 0; n < propList.length; n++) {
-    res = res[propList[n]]
-    if (!res) {
+    data = data[propList[n]]
+    if (!data) {
       break
     }
   }
-  return res
+  return data
+}
+// 根据'mainprop.prop'格式字符串获取对象值
+utils.getProp = function (targetdata, prop) {
+  if (!targetdata || !prop) {
+    return undefined
+  } else if (prop.indexOf('.') > -1) {
+    return this.getPropByList(targetdata, prop.split('.'))
+  } else {
+    return targetdata[prop]
+  }
 }
 // 根据属性列表设置属性
 utils.setPropByList = function (targetdata, propList, propData, useSetData) {
-  let res = targetdata
+  let data = targetdata
   for (let n = 0; n < propList.length; n++) {
     if (n < propList.length - 1) {
-      if (!res[propList[n]]) {
-        res[propList[n]] = {}
+      if (!data[propList[n]]) {
+        data[propList[n]] = {}
       }
-      res = res[propList[n]]
+      data = data[propList[n]]
     } else {
       if (!useSetData) {
-        res[propList[n]] = propData
+        data[propList[n]] = propData
       } else {
-        setData.set(res, propList[n], propData)
+        setData.set(data, propList[n], propData)
       }
     }
   }
 }
-// 根据'mainprop.prop'格式字符串获取对象值
-utils.getPropByStr = function (targetdata, strProp) {
-  if (!targetdata || !strProp) {
-    return undefined
-  } else if (strProp.indexOf('.') > -1) {
-    return this.getPropByList(targetdata, strProp.split('.'))
-  } else {
-    return targetdata[strProp]
-  }
-}
 // 根据a.b字符串设置属性
-utils.setPropByStr = function (targetdata, strProp, propData, useSetData) {
-  if (!targetdata || !strProp) {
+utils.setProp = function (targetdata, prop, propData, useSetData) {
+  if (!targetdata || !prop) {
     return false
   } else {
-    this.setPropByList(targetdata, strProp.split('.'), propData, useSetData)
+    this.setPropByList(targetdata, prop.split('.'), propData, useSetData)
     return true
   }
 }
 // 格式化对象
-utils.formatDataByType = function (data, type = 'string') {
-  let res
+utils.formatDataByType = function (originData, type = 'string') {
+  let data
   if (type == 'boolean') {
-    if (data) {
-      res = true
+    if (originData) {
+      data = true
     } else {
-      res = false
+      data = false
     }
   } else if (type == 'number') {
-    res = this.getNum(data, 'origin')
+    data = this.getNum(originData, 'origin')
   } else {
-    res = data
+    data = originData
   }
-  return res
+  return data
 }
 // 根据type设置对象属性值
-utils.setStrPropByType = function (item, prop, data, type = 'string', useSetData) {
+utils.setPropByType = function (item, prop, data, type = 'string', useSetData) {
   let targetdata = this.formatDataByType(data, type)
-  this.setPropByStr(item, prop, targetdata, useSetData)
+  this.setProp(item, prop, targetdata, useSetData)
 }
 // 根据item[prop]不存在时赋值默认值defaultdata
 utils.reBuildProp = function (item, prop, defaultdata) {
@@ -425,16 +420,16 @@ utils.formatItem = function (originitem, option, targetitem = {}) {
 // 格式化list为tree
 utils.formatTree = function (originList, option = {}) {
   let idprop = option.id || 'id'
-  let parentidprop = option.parentid || 'parentid'
-  let childrenprop = option.children || 'children'
+  let parentIdProp = option.parentid || 'parentid'
+  let childrenProp = option.children || 'children'
   let temp = {}
   let mainlist = []
   for (let n in originList) {
-    this.formatTreeNext(temp, originList[n], idprop, parentidprop, childrenprop)
+    this.formatTreeNext(temp, originList[n], idprop, parentIdProp, childrenProp)
   }
   for (let n in temp) {
     if (!temp[n].isdata) {
-      mainlist = mainlist.concat(temp[n].data[childrenprop])
+      mainlist = mainlist.concat(temp[n].data[childrenProp])
     }
   }
   temp = null
@@ -446,7 +441,7 @@ utils.formatTree = function (originList, option = {}) {
   1.判断自己的数据是否已经模拟，创建或者赋值
   2.判断父节点是否存在，挂载上去
 */
-utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop) {
+utils.formatTreeNext = function (temp, oitem, idprop, parentIdProp, childrenProp) {
   let itemTemp = temp[oitem[idprop]]
   // 存在值则说明此时存在虚拟构建的数据
   if (itemTemp) {
@@ -456,52 +451,52 @@ utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop
     }
   } else {
     // 遍历到此时暂时未有该对象的子对象出现，因此直接实际构建数据
-    oitem[childrenprop] = []
+    oitem[childrenProp] = []
     itemTemp = {
       isdata: true,
       data: oitem
     }
     temp[oitem[idprop]] = itemTemp
   }
-  let parentTemp = temp[oitem[parentidprop]]
+  let parentTemp = temp[oitem[parentIdProp]]
   // 存在父节点则插入数据到父节点的列表中，此时不需要判断父节点的构建是否是虚拟构建
   if (parentTemp) {
-    parentTemp.data[childrenprop].push(itemTemp.data)
+    parentTemp.data[childrenProp].push(itemTemp.data)
   } else {
     // 不存在父节点则虚拟构建父节点并直接赋值到列表中
     parentTemp = {
       isdata: false, // 数据实际构建判断
       data: {
-        [childrenprop]: [itemTemp.data]
+        [childrenProp]: [itemTemp.data]
       }
     }
-    temp[oitem[parentidprop]] = parentTemp
+    temp[oitem[parentIdProp]] = parentTemp
   }
 }
 // 创建初级的watch功能，暂时仅供object
 utils.buildWatch = function({ data, prop, func }) {
   let type = this.getType(data)
   if (type !== 'object') {
-    console.error('buildWatch中data只能接收object')
+    this.printMsg('buildWatch中data只能接收object')
     return false
   }
   if (!prop) {
-    console.error('buildWatch中需要传递prop')
+    this.printMsg('buildWatch中需要传递prop')
     return false
   }
   if (!func) {
-    console.error('buildWatch中需要传递func')
+    this.printMsg('buildWatch中需要传递func')
     return false
   }
   const property = Object.getOwnPropertyDescriptor(data, prop)
   if (property && property.configurable === false) {
-    console.error('data配置中configurable为false')
+    this.printMsg('data配置中configurable为false')
     return false
   }
   const getter = property && property.get
   const setter = property && property.set
   if ((getter && !setter) || (!getter && setter)) {
-    console.error('data配置中getter和setter仅存在一项，需要同时配置')
+    this.printMsg('data配置中getter和setter仅存在一项，需要同时配置')
     return false
   }
   let val
@@ -547,7 +542,7 @@ utils.showArrayProp = function (list, prop) {
   let proplist = []
   for (let i = 0; i < list.length; i++) {
     let item = list[i]
-    proplist.push(this.getPropByStr(item, prop))
+    proplist.push(this.getProp(item, prop))
   }
   console.log(JSON.stringify(proplist))
 }
@@ -557,7 +552,7 @@ utils.orderArrayByProp = function (list, { prop, rule }) {
     let ruleprop = rule[i]
     for (let n = i; n < list.length; n++) {
       let item = list[n]
-      if (this.getPropByStr(item, prop) == ruleprop) {
+      if (this.getProp(item, prop) == ruleprop) {
         // 当前位置删除并在需求位置添加上
         list.splice(n, 1)
         list.splice(i, 0, item)
@@ -691,7 +686,7 @@ utils.findTargetInStr = function(str, target, option = {}) {
     }
     return this.findTargetInStrNext(str, target, limitNum)
   } else {
-    console.error('str/target参数不存在')
+    this.printMsg('str/target参数不存在')
     return []
   }
 }
@@ -1035,7 +1030,7 @@ utils.triggerPromise = function({
     })
   } else {
     if (!this.triggerFunc(error, code)) {
-      console.error(`triggerPromise函数运行错误，code: ${code}`)
+      this.printMsg(`triggerPromise函数运行错误，code: ${code}`)
     }
   }
 }

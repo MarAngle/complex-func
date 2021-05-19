@@ -1,5 +1,8 @@
 ### 2.0.11ing
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData
+- getPropByStr/setPropByStr/setStrPropByType => getProp/setProp/setPropByType
+- 函数变量语义化
+- 代码结构优化
 
 ### 2.0.10
 - 优化printMsg函数，添加printMsgAct函数，优化整体错误输出相关
