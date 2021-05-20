@@ -168,7 +168,7 @@ utils.updateData = function (targetdata, origindata, option = {}) {
  *  type列表转换类型
  *  push布尔值新数据推送与否
  *  check相同判断函数或者属性值
- *  update更新函数或者参数function/object/und(targetitem目标数据/originitem源数据)
+ *  update更新函数或者参数function/object/und(targetItem目标数据/originItem源数据)
  *  format新数据格式化函数
  *  destroy删除数据回调
  */
@@ -214,16 +214,16 @@ utils.updateList = function (targetlist, originlist, option = {}) {
   let cacheOriginList = originlist.slice()
   let cacheTargetPropList = []
   // 相同元素修改
-  for (let n = 0; n < targetlist.length; n++) {
-    let targetitem = targetlist[n]
+  for (let index = 0; index < targetlist.length; index++) {
+    let targetItem = targetlist[index]
     let isFind = false
     for (let i = 0; i < cacheOriginList.length; i++) {
-      let originitem = cacheOriginList[i]
-      if (option.check(targetitem, originitem)) {
+      let originItem = cacheOriginList[i]
+      if (option.check(targetItem, originItem)) {
         if (updateType == 'function') {
-          option.update(targetitem, originitem)
+          option.update(targetItem, originItem)
         } else {
-          this.updateData(targetitem, originitem, option.update)
+          this.updateData(targetItem, originItem, option.update)
         }
         cacheOriginList.splice(i, 1)
         isFind = true
@@ -231,13 +231,13 @@ utils.updateList = function (targetlist, originlist, option = {}) {
       }
     }
     if (!isFind) {
-      cacheTargetPropList.push(n)
+      cacheTargetPropList.push(index)
     }
   }
-  // 旧元素删除判断，当存在未命中的index且type为total时，更新整个数据，删除未命中的数据
+  // 旧元素删除判断 => 当存在未命中的index且type为total时，更新整个数据，删除未命中的数据
   if (cacheTargetPropList.length > 0 && option.type == 'total') {
-    for (let k = cacheTargetPropList.length - 1; k >= 0; k--) {
-      let index = cacheTargetPropList[k]
+    for (let n = cacheTargetPropList.length - 1; n >= 0; n--) {
+      let index = cacheTargetPropList[n]
       let delList = targetlist.splice(index, 1)
       if (option.destroy) {
         option.destroy(delList[0])
@@ -246,12 +246,12 @@ utils.updateList = function (targetlist, originlist, option = {}) {
   }
   // 新元素加入
   if (option.push && cacheOriginList.length > 0) {
-    for (let j = 0; j < cacheOriginList.length; j++) {
-      let originitem = cacheOriginList[j]
+    for (let k = 0; k < cacheOriginList.length; k++) {
+      let originItem = cacheOriginList[k]
       if (option.format) {
-        originitem = option.format(originitem)
+        originItem = option.format(originItem)
       }
-      targetlist.push(originitem)
+      targetlist.push(originItem)
     }
   }
 }
@@ -279,22 +279,22 @@ utils.hasProp = function (item, prop) {
 // 对象转换为formdata数据
 utils.jsonToForm = function (jsonData) {
   let formData = new FormData()
-  for (let v in jsonData) {
-    let type = utils.getType(jsonData[v])
+  for (let prop in jsonData) {
+    let type = utils.getType(jsonData[prop])
     if (type === 'object') {
-      formData.append(v, this.jsonToForm(jsonData[v]))
+      formData.append(prop, this.jsonToForm(jsonData[prop]))
     } else {
-      formData.append(v, jsonData[v])
+      formData.append(prop, jsonData[prop])
     }
   }
   return formData
 }
 // 添加数据
-utils.appendProp = function (data, propname, propdata, type = 'json') {
+utils.appendProp = function (data, propName, propData, type = 'json') {
   if (type == 'json') {
-    data[propname] = propdata
+    data[propName] = propData
   } else if (type == 'formdata') {
-    data.append(propname, propdata)
+    data.append(propName, propData)
   }
 }
 utils.showJson = function (json) {
@@ -302,8 +302,8 @@ utils.showJson = function (json) {
 }
 
 // 根据属性列表获取对象属性
-utils.getPropByList = function (targetdata, propList) {
-  let data = targetdata
+utils.getPropByList = function (targetData, propList) {
+  let data = targetData
   propList = propList.filter(item => item && item.trim())
   for (let n = 0; n < propList.length; n++) {
     data = data[propList[n]]
@@ -314,18 +314,18 @@ utils.getPropByList = function (targetdata, propList) {
   return data
 }
 // 根据'mainprop.prop'格式字符串获取对象值
-utils.getProp = function (targetdata, prop) {
-  if (!targetdata || !prop) {
+utils.getProp = function (targetData, prop) {
+  if (!targetData || !prop) {
     return undefined
   } else if (prop.indexOf('.') > -1) {
-    return this.getPropByList(targetdata, prop.split('.'))
+    return this.getPropByList(targetData, prop.split('.'))
   } else {
-    return targetdata[prop]
+    return targetData[prop]
   }
 }
 // 根据属性列表设置属性
-utils.setPropByList = function (targetdata, propList, propData, useSetData) {
-  let data = targetdata
+utils.setPropByList = function (targetData, propList, propData, useSetData) {
+  let data = targetData
   for (let n = 0; n < propList.length; n++) {
     if (n < propList.length - 1) {
       if (!data[propList[n]]) {
@@ -342,11 +342,11 @@ utils.setPropByList = function (targetdata, propList, propData, useSetData) {
   }
 }
 // 根据a.b字符串设置属性
-utils.setProp = function (targetdata, prop, propData, useSetData) {
-  if (!targetdata || !prop) {
+utils.setProp = function (targetData, prop, propData, useSetData) {
+  if (!targetData || !prop) {
     return false
   } else {
-    this.setPropByList(targetdata, prop.split('.'), propData, useSetData)
+    this.setPropByList(targetData, prop.split('.'), propData, useSetData)
     return true
   }
 }
@@ -371,68 +371,68 @@ utils.setPropByType = function (item, prop, data, type = 'string', useSetData) {
   let targetdata = this.formatDataByType(data, type)
   this.setProp(item, prop, targetdata, useSetData)
 }
-// 根据item[prop]不存在时赋值默认值defaultdata
-utils.reBuildProp = function (item, prop, defaultdata) {
+// 当item[prop]不存在时设置默认值defaultData，存在时不做操作，注意判断条件是存在属性而不是属性值为真
+utils.setDefaultData = function (item, prop, defaultData) {
   if (!this.hasProp(item, prop)) {
-    item[prop] = defaultdata
+    item[prop] = defaultData
   }
 }
-// 基于新数据格式化当前数据函数
-utils.mergeData = function (data, currentdata) {
-  if (!currentdata) {
-    currentdata = {}
+// 合并数据函数，基于源数据originData格式化目标数据targetData函数
+utils.mergeData = function (targetData, originData) {
+  if (!originData) {
+    originData = {}
   }
-  for (let n in currentdata) {
-    let type = this.getType(currentdata[n])
+  for (let n in originData) {
+    let type = this.getType(originData[n])
     if (type == 'object') {
-      if (!data[n]) {
-        data[n] = {}
+      if (!targetData[n]) {
+        targetData[n] = {}
       }
-      this.mergeData(data[n], currentdata[n])
+      this.mergeData(targetData[n], originData[n])
     } else {
-      data[n] = currentdata[n]
+      targetData[n] = originData[n]
     }
   }
-  return data
+  return targetData
 }
 // 格式化数组
-utils.formatList = function (originlist, option, targetlist = []) {
-  for (let n in originlist) {
-    targetlist.push(this.formatItem(originlist[n], option))
+utils.formatList = function (originList, option, targetList = []) {
+  for (let n in originList) {
+    targetList.push(this.formatItem(originList[n], option))
   }
-  return targetlist
+  return targetList
 }
 // 格式化对象
-utils.formatItem = function (originitem, option, targetitem = {}) {
+utils.formatItem = function (originItem, option, targetItem = {}) {
   let optionData = option.data
   let optionUnadd = option.unadd
-  for (let n in originitem) {
+  for (let n in originItem) {
     if (optionData[n]) {
-      targetitem[optionData[n]] = originitem[n]
+      targetItem[optionData[n]] = originItem[n]
     } else {
       if (!optionUnadd) {
-        targetitem[n] = originitem[n]
+        targetItem[n] = originItem[n]
       }
     }
   }
-  return targetitem
+  return targetItem
 }
 // 格式化list为tree
 utils.formatTree = function (originList, option = {}) {
   let idprop = option.id || 'id'
-  let parentIdProp = option.parentid || 'parentid'
+  let parentIdProp = option.parentId || 'parentId'
   let childrenProp = option.children || 'children'
-  let temp = {}
+  let dataCache = {}
   let mainlist = []
   for (let n in originList) {
-    this.formatTreeNext(temp, originList[n], idprop, parentIdProp, childrenProp)
+    this.formatTreeNext(dataCache, originList[n], idprop, parentIdProp, childrenProp)
   }
-  for (let n in temp) {
-    if (!temp[n].isdata) {
-      mainlist = mainlist.concat(temp[n].data[childrenProp])
+  for (let n in dataCache) {
+    if (!dataCache[n].isdata) {
+      mainlist = mainlist.concat(dataCache[n].data[childrenProp])
     }
   }
-  temp = null
+  dataCache = null
   return mainlist
 }
 /*
@@ -441,36 +441,36 @@ utils.formatTree = function (originList, option = {}) {
   1.判断自己的数据是否已经模拟，创建或者赋值
   2.判断父节点是否存在，挂载上去
 */
-utils.formatTreeNext = function (temp, oitem, idprop, parentIdProp, childrenProp) {
-  let itemTemp = temp[oitem[idprop]]
+utils.formatTreeNext = function (dataCache, originItem, idProp, parentIdProp, childrenProp) {
+  let itemCache = dataCache[originItem[idProp]]
   // 存在值则说明此时存在虚拟构建的数据
-  if (itemTemp) {
-    itemTemp.isdata = true
-    for (let n in oitem) {
-      itemTemp.data[n] = oitem[n]
+  if (itemCache) {
+    itemCache.isdata = true
+    for (let n in originItem) {
+      itemCache.data[n] = originItem[n]
     }
   } else {
     // 遍历到此时暂时未有该对象的子对象出现，因此直接实际构建数据
-    oitem[childrenProp] = []
-    itemTemp = {
+    originItem[childrenProp] = []
+    itemCache = {
       isdata: true,
-      data: oitem
+      data: originItem
     }
-    temp[oitem[idprop]] = itemTemp
+    dataCache[originItem[idProp]] = itemCache
   }
-  let parentTemp = temp[oitem[parentIdProp]]
+  let parentCache = dataCache[originItem[parentIdProp]]
   // 存在父节点则插入数据到父节点的列表中，此时不需要判断父节点的构建是否是虚拟构建
-  if (parentTemp) {
-    parentTemp.data[childrenProp].push(itemTemp.data)
+  if (parentCache) {
+    parentCache.data[childrenProp].push(itemCache.data)
   } else {
     // 不存在父节点则虚拟构建父节点并直接赋值到列表中
-    parentTemp = {
+    parentCache = {
       isdata: false, // 数据实际构建判断
       data: {
-        [childrenProp]: [itemTemp.data]
+        [childrenProp]: [itemCache.data]
       }
     }
-    temp[oitem[parentIdProp]] = parentTemp
+    dataCache[originItem[parentIdProp]] = parentCache
   }
 }
 // 创建初级的watch功能，暂时仅供object
@@ -549,10 +549,10 @@ utils.showArrayProp = function (list, prop) {
 // 数组排序
 utils.orderArrayByProp = function (list, { prop, rule }) {
   for (let i = 0; i < rule.length; i++) {
-    let ruleprop = rule[i]
+    let ruleProp = rule[i]
     for (let n = i; n < list.length; n++) {
       let item = list[n]
-      if (this.getProp(item, prop) == ruleprop) {
+      if (this.getProp(item, prop) == ruleProp) {
         // 当前位置删除并在需求位置添加上
         list.splice(n, 1)
         list.splice(i, 0, item)
@@ -582,8 +582,8 @@ utils.arrayClearOther = function (list, index, startIndex = 0) {
 
 // ----- 数字相关 ----- START
 // 数字操作
-utils.getNum = function (original, type = 'round', radix = 2, NANZERO = true) { // 格式化数字
-  let num = parseFloat(original)
+utils.getNum = function (originNum, type = 'round', radix = 2, NANZERO = true) { // 格式化数字
+  let num = parseFloat(originNum)
   if (isNaN(num)) {
     if (NANZERO) {
       num = 0
@@ -815,11 +815,11 @@ utils.buildLocalDataName = function(name) {
 // 设置缓存
 utils.setLocalData = function (name, value) {
   name = this.buildLocalDataName(name)
-  let currentData = {
+  let localData = {
     value: value,
     time: Date.now()
   }
-  localStorage.setItem(name, JSON.stringify(currentData))
+  localStorage.setItem(name, JSON.stringify(localData))
 }
 // 获取缓存
 utils.getLocalData = function (name, time, refresh) {
@@ -872,19 +872,19 @@ utils.getQueryUrl = function (url) {
 }
 // 解析query数据（#判断根据实际情况）
 utils.getQueryData = function (url) {
-  let querydata = {}
-  let queryurl = this.getQueryUrl(url)
-  if (queryurl) {
-    let querylist = queryurl.split('&')
-    for (let n in querylist) {
-      let oitem = querylist[n]
+  let queryData = {}
+  let queryUrl = this.getQueryUrl(url)
+  if (queryUrl) {
+    let queryList = queryUrl.split('&')
+    for (let n in queryList) {
+      let oitem = queryList[n]
       if (oitem) {
         oitem = oitem.split('=')
-        querydata[oitem[0]] = oitem[1]
+        queryData[oitem[0]] = oitem[1]
       }
     }
   }
-  return querydata
+  return queryData
 }
 // 设置query url
 utils.formatQueryUrl = function (url, data) {
@@ -906,35 +906,35 @@ utils.formatQueryUrl = function (url, data) {
 // ----- 功能函数 ----- END
 
 // ----- 公用函数 ----- START
-// 更改list列表中选择的prop属性为指定值target,存在item则item更改为itemtarget
-utils.choiceProp = function (list, prop, target = false, item, itemtarget = true) {
+// 更改list列表中选择的prop属性为指定值target,存在item则item更改为itemTarget
+utils.choiceProp = function (list, prop, target = false, item, itemTarget = true) {
   for (let n in list) {
     list[n][prop] = target
   }
   if (item) {
-    item[prop] = itemtarget
+    item[prop] = itemTarget
   }
 }
 // 下载blob文件
-utils.downloadBlob = function (blobvalue, type, name) {
+utils.downloadBlob = function (blobValue, type, name) {
   let blob
   if (typeof window.Blob == 'function') {
-    blob = new Blob([blobvalue], { type: type })
+    blob = new Blob([blobValue], { type: type })
   } else {
     let BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder
-    let bb = new BlobBuilder()
-    bb.append(blobvalue)
-    blob = bb.getBlob(type)
+    let blobData = new BlobBuilder()
+    blobData.append(blobValue)
+    blob = blobData.getBlob(type)
   }
   let URL = window.URL || window.webkitURL
-  let bloburl = URL.createObjectURL(blob)
-  if (this.downloadFileByAnchor(bloburl, name)) {
+  let blobUrl = URL.createObjectURL(blob)
+  if (this.downloadFileByAnchor(blobUrl, name)) {
     return true
   } else if (navigator.msSaveBlob) {
     navigator.msSaveBlob(blob, name)
     return true
   } else {
-    location.href = bloburl
+    window.location.href = blobUrl
     return true
   }
 }

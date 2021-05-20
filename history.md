@@ -1,6 +1,7 @@
-### 2.0.11ing
+### 2.0.11
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData
 - getPropByStr/setPropByStr/setStrPropByType => getProp/setProp/setPropByType
+- reBuildProp => setDefaultData
 - 函数变量语义化
 - 代码结构优化
 
