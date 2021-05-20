@@ -313,16 +313,42 @@ utils.getPropByList = function (targetData, propList) {
   }
   return data
 }
-// 根据'mainprop.prop'格式字符串获取对象值
-utils.getProp = function (targetData, prop) {
+/*
+  根据'mainprop.prop'格式字符串获取对象值
+  intervalRepeat作为分隔符的判断值
+    =>为真时连续分隔符将会全部删除
+    =>为否时则连续和开始结束分隔符保留
+      =>此时.可作为属性
+      =>.a将直接取.a属性,.a..b取[.a][.b]
+      =>理论上无法进行[a.]属性的获取
+*/
+utils.getProp = function (targetData, prop, intervalRepeat = false) {
   if (!targetData || !prop) {
     return undefined
-  } else if (prop.indexOf('.') > -1) {
-    return this.getPropByList(targetData, prop.split('.'))
   } else {
-    return targetData[prop]
+    const interval = '.'
+    let originPropList = prop.split(interval)
+    let propList = []
+    let lastEmpty = 0
+    for (let n = 0; n < originPropList.length; n++) {
+      let originProp = originPropList[n]
+      if (originProp) {
+        if (lastEmpty && !intervalRepeat) {
+          originProp = interval.repeat(lastEmpty) + originProp
+          lastEmpty = 0
+        }
+        propList.push(originProp)
+      } else {
+        lastEmpty++
+      }
+    }
+    if (lastEmpty) {
+      propList.push(interval.repeat(lastEmpty))
+    }
+    return this.getPropByList(targetData, propList)
   }
 }
+
 // 根据属性列表设置属性
 utils.setPropByList = function (targetData, propList, propData, useSetData) {
   let data = targetData
@@ -346,7 +372,8 @@ utils.setProp = function (targetData, prop, propData, useSetData) {
   if (!targetData || !prop) {
     return false
   } else {
-    this.setPropByList(targetData, prop.split('.'), propData, useSetData)
+    let propList = prop != '.' ? prop.split('.') : [prop]
+    this.setPropByList(targetData, propList, propData, useSetData)
     return true
   }
 }
