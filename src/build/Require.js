@@ -256,7 +256,7 @@ class Require {
       errRes.code = 'server error'
       let msg = ruleItem.requireFail(errRes)
       if (!msg) {
-        msg = this.analyzeStatus(error.response.status)
+        msg = this.parseStatus(error.response.status)
         if (!msg) {
           msg = '服务器请求失败，请刷新重试或联系管理员！'
         }
@@ -271,7 +271,7 @@ class Require {
     return errRes
   }
   // 获取status翻译值
-  analyzeStatus (status) {
+  parseStatus (status) {
     if (status && this.status[status]) {
       return this.status[status]
     } else {

@@ -1,3 +1,6 @@
+### 2.0.12ing
+- analyze=>parse作为分析相关字段名称
+
 ### 2.0.11
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData
 - getPropByStr/setPropByStr/setStrPropByType => getProp/setProp/setPropByType
