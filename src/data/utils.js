@@ -162,94 +162,94 @@ utils.updateData = function (targetdata, origindata, option = {}) {
 }
 /**
  * 基于originlist更新targetlist列表数据
- * @param {*} targetlist 目标列表
- * @param {*} originlist 源数据列表
- * @param {*} payload
+ * @param {*} targetlist 目标列表:需要进行更新的列表
+ * @param {*} originlist 源数据列表:最新数据，以此为基准对目标列表数据进行更新
+ * @param {*} option 设置项
  *  type列表转换类型
  *  push布尔值新数据推送与否
  *  check相同判断函数或者属性值
- *  update更新函数或者参数function/object/und
+ *  update更新函数或者参数function/object/und(targetitem目标数据/originitem源数据)
  *  format新数据格式化函数
  *  destroy删除数据回调
  */
-utils.updateList = function (targetlist, originlist, payload = {}) {
+utils.updateList = function (targetlist, originlist, option = {}) {
   // 生成check函数
-  if (!payload.check) {
+  if (!option.check) {
     this.printMsg('请传递check函数判断相同对象')
     return
   } else {
-    let type = this.getType(payload.check)
+    let type = this.getType(option.check)
     if (type !== 'function') {
-      let checkOption = type == 'string' ? { prop: payload.check } : payload.check
+      let checkOption = type == 'string' ? { prop: option.check } : option.check
       if (!checkOption.equal) {
-        payload.check = function (titem, oitem) {
-          return titem[checkOption.prop] == oitem[checkOption.prop]
+        option.check = function (tItem, oItem) {
+          return tItem[checkOption.prop] == oItem[checkOption.prop]
         }
       } else {
-        payload.check = function (titem, oitem) {
-          return titem[checkOption.prop] === oitem[checkOption.prop]
+        option.check = function (tItem, oItem) {
+          return tItem[checkOption.prop] === oItem[checkOption.prop]
         }
       }
     }
   }
   // 默认方法类型
-  if (!payload.type) {
-    payload.type = 'total'
+  if (!option.type) {
+    option.type = 'total'
   }
   // 默认方法类型
-  if (payload.push === undefined) {
-    payload.push = true
+  if (option.push === undefined) {
+    option.push = true
   }
   // 更新操作设置
   let updateType = 'option'
-  if (!payload.update) {
-    payload.update = {}
+  if (!option.update) {
+    option.update = {}
   } else {
-    let type = this.getType(payload.update)
+    let type = this.getType(option.update)
     if (type == 'function') {
       updateType = 'function'
     }
   }
   // 复制数组数据避免对原数据的修改=>仅限于数组层面
-  let cacheoriginlist = originlist.slice()
-  let cachetargetproplist = []
+  let cacheOriginList = originlist.slice()
+  let cacheTargetPropList = []
   // 相同元素修改
   for (let n = 0; n < targetlist.length; n++) {
     let targetitem = targetlist[n]
     let isFind = false
-    for (let i = 0; i < cacheoriginlist.length; i++) {
-      let originitem = cacheoriginlist[i]
-      if (payload.check(targetitem, originitem)) {
+    for (let i = 0; i < cacheOriginList.length; i++) {
+      let originitem = cacheOriginList[i]
+      if (option.check(targetitem, originitem)) {
         if (updateType == 'function') {
-          payload.update(targetitem, originitem)
+          option.update(targetitem, originitem)
         } else {
-          this.updateData(targetitem, originitem, payload.update)
+          this.updateData(targetitem, originitem, option.update)
         }
-        cacheoriginlist.splice(i, 1)
+        cacheOriginList.splice(i, 1)
         isFind = true
         break
       }
     }
     if (!isFind) {
-      cachetargetproplist.push(n)
+      cacheTargetPropList.push(n)
     }
   }
-  // 旧元素删除判断，当存在未命中的index切type为total时，更新整个数据，删除未命中的数据
-  if (cachetargetproplist.length > 0 && payload.type == 'total') {
-    for (let k = cachetargetproplist.length - 1; k >= 0; k--) {
-      let n = cachetargetproplist[k]
-      let dellist = targetlist.splice(n, 1)
-      if (payload.destroy) {
-        payload.destroy(dellist[0])
+  // 旧元素删除判断，当存在未命中的index且type为total时，更新整个数据，删除未命中的数据
+  if (cacheTargetPropList.length > 0 && option.type == 'total') {
+    for (let k = cacheTargetPropList.length - 1; k >= 0; k--) {
+      let index = cacheTargetPropList[k]
+      let delList = targetlist.splice(index, 1)
+      if (option.destroy) {
+        option.destroy(delList[0])
       }
     }
   }
   // 新元素加入
-  if (payload.push && cacheoriginlist.length > 0) {
-    for (let j in cacheoriginlist) {
-      let originitem = cacheoriginlist[j]
-      if (payload.format) {
-        originitem = payload.format(originitem)
+  if (option.push && cacheOriginList.length > 0) {
+    for (let j = 0; j < cacheOriginList.length; j++) {
+      let originitem = cacheOriginList[j]
+      if (option.format) {
+        originitem = option.format(originitem)
       }
       targetlist.push(originitem)
     }
