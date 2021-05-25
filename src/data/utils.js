@@ -500,56 +500,94 @@ utils.formatTreeNext = function (dataCache, originItem, idProp, parentIdProp, ch
     dataCache[originItem[parentIdProp]] = parentCache
   }
 }
-// 创建初级的watch功能，暂时仅供object
-utils.buildWatch = function({ data, prop, func }) {
-  let type = this.getType(data)
-  if (type !== 'object') {
-    this.printMsg('buildWatch中data只能接收object')
-    return false
-  }
-  if (!prop) {
-    this.printMsg('buildWatch中需要传递prop')
-    return false
-  }
-  if (!func) {
-    this.printMsg('buildWatch中需要传递func')
-    return false
-  }
-  const property = Object.getOwnPropertyDescriptor(data, prop)
+// 创建响应式数据
+// 需要考虑存在getter时是否进行val的设置？
+utils.defineReactive = function(data, key, val, option = {}) {
+  const property = Object.getOwnPropertyDescriptor(data, key)
   if (property && property.configurable === false) {
-    this.printMsg('data配置中configurable为false')
+    this.printMsg('defineReactive时data配置中configurable不能为false')
     return false
   }
   const getter = property && property.get
   const setter = property && property.set
   if ((getter && !setter) || (!getter && setter)) {
-    this.printMsg('data配置中getter和setter仅存在一项，需要同时配置')
+    this.printMsg('defineReactive时data配置中getter和setter需要同时配置')
     return false
   }
-  let val
-  if ((!getter)) {
-    val = data[prop]
+  let descriptor = option.descriptor || {}
+  if (descriptor.configurable === undefined) {
+    descriptor.configurable = true
   }
-  Object.defineProperty(data, prop, {
-    get: function() {
-      const value = getter ? getter.call(data) : val
+  if (descriptor.enumerable === undefined) {
+    descriptor.enumerable = true
+  }
+  // 这里判断提前，减少内部操作的判断
+  if (getter) {
+    // getter/setter存在时
+    descriptor.get = function() {
+      const value = getter.call(data)
+      if (option.get) {
+        option.get(value)
+      }
       return value
-    },
-    set: function(newVal) {
-      const value = getter ? getter.call(data) : val
+    }
+    descriptor.set = function(newVal) {
+      const value = getter.call(data)
       if (newVal !== value) {
-        if (setter) {
-          setter.call(data, newVal)
-        } else {
-          val = newVal
-        }
-        if (func) {
-          func(newVal, value)
+        setter.call(data, newVal)
+        if (option.set) {
+          option.set(newVal, value)
         }
       }
     }
+    // 存在getter和setter时需要通过setter将值修正为当前val的值
+    descriptor.set(val)
+  } else {
+    descriptor.get = function() {
+      if (option.get) {
+        option.get(val)
+      }
+      return val
+    }
+    descriptor.set = function(newVal) {
+      if (newVal !== val) {
+        let oldVal = val
+        val = newVal
+        if (option.set) {
+          option.set(val, oldVal)
+        }
+      }
+    }
+  }
+  Object.defineProperty(data, key, descriptor)
+  return true
+}
+
+utils.defineWatch = function({
+  data,
+  key,
+  get,
+  set
+}) {
+  let type = typeof data
+  if (type !== 'object') {
+    this.printMsg('defineWatch中data只能接收object')
+    return false
+  }
+  if (!key) {
+    this.printMsg('defineWatch中需要传递key')
+    return false
+  }
+  if (!get && !set) {
+    this.printMsg('defineWatch中需要传递get/set')
+    return false
+  }
+  return this.defineReactive(data, key, data[key], {
+    get: get,
+    set: set
   })
 }
+
 // ----- 对象相关操作 ----- END
 
 // ----- 数组相关操作 ----- START
