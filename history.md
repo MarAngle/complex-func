@@ -3,6 +3,7 @@
 - getProp函数的优化，实现[.prop]属性的获取
 - buildWatch=>defineWatch
 - 添加defineReactive
+- fillStr=>fillString，优化使用ES6语法
 
 ### 2.0.11
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData

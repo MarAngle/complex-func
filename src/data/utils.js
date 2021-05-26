@@ -800,17 +800,19 @@ for (let ni = 0; ni < 10; ni++) {
   letterData.number.push(ni.toString())
 }
 // 字符串函数
-utils.fillStr = function (str, interval = '0', target = 2, type = 'head') {
+utils.fillString = function (str, targetLength = 2, padString = '0', to = 'start', unDivision) {
   str = str.toString()
-  interval = interval.toString()
-  for (let i = 0; str.length < target; i++) {
-    if (type == 'head') {
-      str = interval + str
-    } else if (type == 'foot') {
-      str = str + interval
-    } else {
-      return str
+  padString = padString.toString()
+  if (unDivision) {
+    let repeatNum = Math.ceil((targetLength - str.length) / padString.length)
+    if (repeatNum > 0) {
+      targetLength = str.length + padString.length * repeatNum
     }
+  }
+  if (to == 'start') {
+    str = str.padStart(targetLength, padString)
+  } else if (to == 'end') {
+    str = str.padEnd(targetLength, padString)
   }
   return str
 }
@@ -943,7 +945,7 @@ utils.formatTimeData = function (TimeData) {
   for (let n in timeOption) {
     let titem = timeOption[n]
     TimeData.origin[titem.prop] = TimeData.date[titem.func]() + titem.offset
-    TimeData.str[titem.prop] = this.fillStr(TimeData.origin[titem.prop], '0', titem.maxsize)
+    TimeData.str[titem.prop] = this.fillString(TimeData.origin[titem.prop], titem.maxsize, '0')
   }
 }
 utils.timeToStr = function (time, start = 0, end = 5, spitlist, nofill) {
@@ -954,7 +956,7 @@ utils.timeToStr = function (time, start = 0, end = 5, spitlist, nofill) {
   let dateObj = new Date(time)
   for (let i = start; i <= end; i++) {
     if (!nofill) {
-      res += this.fillStr(dateObj[timeOption[i].func]() + timeOption[i].offset)
+      res += this.fillString(dateObj[timeOption[i].func]() + timeOption[i].offset, 2, '0')
     } else {
       res += (dateObj[timeOption[i].func]() + timeOption[i].offset).toString()
     }
