@@ -501,7 +501,7 @@ utils.formatTreeNext = function (dataCache, originItem, idProp, parentIdProp, ch
   }
 }
 // 创建响应式数据
-// 需要考虑存在getter时是否进行val的设置？
+// 存在get/set时writable属性的设置不生效
 utils.defineReactive = function(data, key, val, option = {}) {
   const property = Object.getOwnPropertyDescriptor(data, key)
   if (property && property.configurable === false) {
@@ -562,13 +562,8 @@ utils.defineReactive = function(data, key, val, option = {}) {
   Object.defineProperty(data, key, descriptor)
   return true
 }
-
-utils.defineWatch = function({
-  data,
-  key,
-  get,
-  set
-}) {
+// 监控对象属性
+utils.defineWatch = function(data, key, option = {}) {
   let type = typeof data
   if (type !== 'object') {
     this.printMsg('defineWatch中data只能接收object')
@@ -578,14 +573,130 @@ utils.defineWatch = function({
     this.printMsg('defineWatch中需要传递key')
     return false
   }
-  if (!get && !set) {
+  if (!option.get && !option.set) {
     this.printMsg('defineWatch中需要传递get/set')
     return false
   }
-  return this.defineReactive(data, key, data[key], {
-    get: get,
-    set: set
-  })
+  return this.defineReactive(data, key, data[key], option)
+}
+// 创建响应式数据
+// 存在get/set时writable属性的设置不生效
+utils.newDefineReactive = function(data, key, val, option = {}) {
+  const property = Object.getOwnPropertyDescriptor(data, key)
+  if (property && property.configurable === false) {
+    this.printMsg('defineReactive时data配置中configurable不能为false')
+    return false
+  }
+  const getter = property && property.get
+  const setter = property && property.set
+  if ((getter && !setter) || (!getter && setter)) {
+    this.printMsg('defineReactive时data配置中getter和setter需要同时配置')
+    return false
+  }
+  let descriptor = option.descriptor || {}
+  let deep = option.deep || false
+  let num = option.num || 0
+  let buildChildSet
+  delete option.deep
+  if (deep) {
+    let currentProp = option.currentProp || ''
+    buildChildSet = function(obj) {
+      if (typeof obj == 'object') {
+        for (let n in obj) {
+          let nextProp = currentProp ? currentProp + '.' + n : n
+          console.log(nextProp)
+          num++
+          utils.newDefineReactive(obj, n, obj[n], {
+            deep: true,
+            currentProp: nextProp,
+            num: num,
+            set: function(newValue, oldValue) {
+              option.set(newValue, oldValue, nextProp, num)
+            }
+          })
+        }
+      }
+    }
+  }
+  if (descriptor.configurable === undefined) {
+    descriptor.configurable = true
+  }
+  if (descriptor.enumerable === undefined) {
+    descriptor.enumerable = true
+  }
+  // 这里判断提前，减少内部操作的判断
+  if (getter) {
+    // getter/setter存在时
+    descriptor.get = function() {
+      const value = getter.call(data)
+      if (option.get) {
+        option.get(value)
+      }
+      return value
+    }
+    descriptor.set = function(newVal) {
+      const value = getter.call(data)
+      if (newVal !== value) {
+        setter.call(data, newVal)
+        if (option.set) {
+          if (deep) {
+            buildChildSet(newVal)
+          }
+          option.set(newVal, value)
+        }
+      }
+    }
+    // 存在getter和setter时需要通过setter将值修正为当前val的值
+    const value = getter.call(data)
+    if (val !== value) {
+      descriptor.set(val)
+    } else {
+      if (deep) {
+        buildChildSet(val)
+      }
+    }
+  } else {
+    descriptor.get = function() {
+      if (option.get) {
+        option.get(val)
+      }
+      return val
+    }
+    descriptor.set = function(newVal) {
+      if (newVal !== val) {
+        let oldVal = val
+        val = newVal
+        if (option.set) {
+          if (deep) {
+            buildChildSet(newVal)
+          }
+          option.set(val, oldVal)
+        }
+      }
+    }
+    if (deep) {
+      buildChildSet(val)
+    }
+  }
+  Object.defineProperty(data, key, descriptor)
+  return true
+}
+// 监控对象属性
+utils.newDefineWatch = function(data, key, option = {}) {
+  let type = typeof data
+  if (type !== 'object') {
+    this.printMsg('defineWatch中data只能接收object')
+    return false
+  }
+  if (!key) {
+    this.printMsg('defineWatch中需要传递key')
+    return false
+  }
+  if (!option.get && !option.set) {
+    this.printMsg('defineWatch中需要传递get/set')
+    return false
+  }
+  return this.newDefineReactive(data, key, data[key], option)
 }
 
 // ----- 对象相关操作 ----- END
