@@ -579,9 +579,10 @@ utils.defineWatch = function(data, key, option = {}) {
   }
   return this.defineReactive(data, key, data[key], option)
 }
+// 深度响应属性返回错误，等待后期修复
 // 创建响应式数据
 // 存在get/set时writable属性的设置不生效
-utils.newDefineReactive = function(data, key, val, option = {}) {
+utils.defineDeepReactive = function(data, key, val, option = {}) {
   const property = Object.getOwnPropertyDescriptor(data, key)
   if (property && property.configurable === false) {
     this.printMsg('defineReactive时data配置中configurable不能为false')
@@ -603,10 +604,10 @@ utils.newDefineReactive = function(data, key, val, option = {}) {
     buildChildSet = function(obj) {
       if (typeof obj == 'object') {
         for (let n in obj) {
-          let nextProp = currentProp ? currentProp + '.' + n : n
-          console.log(nextProp)
           num++
-          utils.newDefineReactive(obj, n, obj[n], {
+          let nextProp = currentProp ? currentProp + '.' + n : n
+          console.log(obj, n, nextProp, num)
+          utils.defineDeepReactive(obj, n, obj[n], {
             deep: true,
             currentProp: nextProp,
             num: num,
@@ -682,7 +683,7 @@ utils.newDefineReactive = function(data, key, val, option = {}) {
   return true
 }
 // 监控对象属性
-utils.newDefineWatch = function(data, key, option = {}) {
+utils.defineDeepWatch = function(data, key, option = {}) {
   let type = typeof data
   if (type !== 'object') {
     this.printMsg('defineWatch中data只能接收object')
@@ -696,7 +697,7 @@ utils.newDefineWatch = function(data, key, option = {}) {
     this.printMsg('defineWatch中需要传递get/set')
     return false
   }
-  return this.newDefineReactive(data, key, data[key], option)
+  return this.defineDeepReactive(data, key, data[key], option)
 }
 
 // ----- 对象相关操作 ----- END
