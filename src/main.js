@@ -3,6 +3,7 @@ import rule from './data/rule'
 import environment from './data/environment'
 import Require from './build/Require'
 import notice from './option/noticeData'
+import worker from './data/worker'
 
 let mainfunc = {
   data: {}
@@ -121,5 +122,12 @@ mainfunc._initMod(rule, [
 mainfunc._initMod(environment)
 
 mainfunc._initMod(utils)
+
+mainfunc._initMod(worker, [
+  {
+    originprop: 'set',
+    prop: 'setWorker'
+  }
+])
 
 export default mainfunc

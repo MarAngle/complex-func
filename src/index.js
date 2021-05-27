@@ -12,18 +12,6 @@ mainfunc.install = function(Vue, options = {}) {
   Vue.prototype._func = this
 }
 
-worker.set({
-  func: function(list) {
-    list.push('111')
-    return list
-  },
-  self: null,
-  args: [[1, 23]]
-}).then(
-  res => { console.log(res) },
-  err => { console.log(err) }
-)
-
 export { rule, environment, notice, worker }
 
 export default mainfunc

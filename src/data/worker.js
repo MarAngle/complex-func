@@ -3,42 +3,30 @@ import _utils from './utils'
 
 let worker = {}
 
-// 格式化func
-worker.formatFunc = function(func) {
-  let res = {
-    type: _utils.getType(func),
-    isPromise: false,
-    next: false,
-    data: func
-  }
-  if (res.type == 'function') {
-    res.next = true
-    if (_utils.isPromise(func)) {
-      res.isPromise = true
-    }
-  }
-  return res
-}
-
 // 获取分支JS代码
-worker.getContent = function(func) {
+worker.getContent = function(func, isSync, log) {
   let content
-  if (!func.isPromise) {
+  if (!isSync) {
     content = `
       onmessage = function (e) {
-        var func = ${func.data.toString()}
+        ${log ? 'console.log("Worker Start")' : ''}
+        var func = ${func.toString()}
         var res = func.apply(null, e.data.args)
         postMessage({ status: 'success', data: res })
+        ${log ? 'console.log("Worker Finish")' : '' }
       }
     `
   } else {
     content = `
       onmessage = function (e) {
-        var func = ${func.data.toString()}
+        ${log ? 'console.log("Worker Start")' : '' }
+        var func = ${func.toString()}
         func.apply(null, e.data.args).then(res => {
           postMessage({ status: 'success', data: res })
+          ${log ? 'console.log("Worker Success")' : '' }
         }, err => {
           postMessage({ status: 'fail', data: err })
+          ${log ? 'console.log("Worker Fail")' : '' }
         })
       }
     `
@@ -47,12 +35,12 @@ worker.getContent = function(func) {
 }
 
 // 执行
-worker.doit = function({ func, args }) {
+worker.doit = function({ func, args, isSync, log }) {
   return new Promise((resolve, reject) => {
-    func = this.formatFunc(func)
-    if (func.next) {
+    let type = _utils.getType(func)
+    if (type == 'function') {
       if (_environment.getCanUse('Worker')) {
-        let content = this.getContent(func)
+        let content = this.getContent(func, isSync, log)
         let blob = new Blob([content])
         let dofunc = new Worker(window.URL.createObjectURL(blob))
         dofunc.onerror = function (e) {
@@ -70,11 +58,11 @@ worker.doit = function({ func, args }) {
           args: args
         })
       } else {
-        if (!func.isPromise) {
-          let data = func.data.apply(null, args)
+        if (!isSync) {
+          let data = func.apply(null, args)
           resolve(data)
         } else {
-          func.data.apply(null, args).then(res => {
+          func.apply(null, args).then(res => {
             resolve(res)
           }, err => {
             reject(err)
@@ -82,7 +70,7 @@ worker.doit = function({ func, args }) {
         }
       }
     } else {
-      reject({ status: 'fail', code: 'func-error', type: func.type })
+      reject({ status: 'fail', code: 'func-error', type: type })
     }
   })
 }
