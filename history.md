@@ -4,6 +4,7 @@
 - buildWatch=>defineWatch
 - 添加defineReactive
 - fillStr=>fillString，优化使用ES6语法
+- 添加worker线程模块，基本实现线程操作，接受函数和传参，Promise的形式返回函数运行结果
 
 ### 2.0.11
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData

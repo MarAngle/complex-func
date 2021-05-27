@@ -9,6 +9,7 @@ let environment = {
     real: ''
   },
   canUse: {
+    Worker: false,
     Proxy: false,
     Symbol: false,
     MutationObserver: false
@@ -34,6 +35,7 @@ environment.getEnvMode = function (prop = 'data') {
 
 environment.checkUse = function() {
   const showError = false
+  this.checkUseItem('Worker', 'Worker', showError)
   this.checkUseItem('Proxy', 'Proxy', showError)
   this.checkUseItem('Symbol', 'Symbol', showError)
   this.checkUseItem('MutationObserver', 'MutationObserver', showError)
