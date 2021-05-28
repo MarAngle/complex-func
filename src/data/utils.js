@@ -1124,7 +1124,9 @@ utils.downloadFileByAnchor = function (url, name) {
     anchor.setAttribute('download', name)
     anchor.href = url
     anchor.click()
-    anchor = null
+    setTimeout(function() {
+      anchor = null
+    }, 1000)
     return true
   } else {
     return false
