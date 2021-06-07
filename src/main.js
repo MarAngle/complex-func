@@ -1,11 +1,13 @@
 import utils from './data/utils'
 import rule from './data/rule'
+import current from './data/current'
 import environment from './data/environment'
 import Require from './build/Require'
 import notice from './option/noticeData'
 import worker from './data/worker'
 
 let mainfunc = {
+  current: current,
   data: {}
 }
 
@@ -119,6 +121,7 @@ mainfunc._initMod(rule, [
     prop: 'buildRule'
   }
 ])
+
 mainfunc._initMod(environment)
 
 mainfunc._initMod(utils)
