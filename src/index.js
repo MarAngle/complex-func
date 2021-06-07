@@ -9,7 +9,12 @@ mainfunc.install = function(Vue, options = {}) {
   // 设置属性重置为Vue.set
   setData.setVue(Vue)
   this.init(options)
-  Vue.prototype._func = this
+  if (options.prop === undefined) {
+    options.prop = '_func'
+  }
+  if (options.prop) {
+    Vue.prototype[options.prop] = this
+  }
 }
 
 export { rule, environment, notice, worker }

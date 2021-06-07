@@ -1,4 +1,4 @@
-### 2.0.12ing
+### 2.0.12
 - analyze=>parse作为分析相关字段名称
 - getProp函数的优化，实现[.prop]属性的获取
 - buildWatch=>defineWatch
@@ -6,6 +6,7 @@
 - fillStr=>fillString，优化使用ES6语法
 - 添加worker线程模块，基本实现线程操作，接受函数和传参，Promise的形式返回函数运行结果
 - downloadFileByAnchor延时删除dom
+- 挂载到Vue原型链设置方法添加，可指定属性
 
 ### 2.0.11
 - 优化整体的本地缓存相关函数，后缀由LocalTemp更改为LocalData
