@@ -42,29 +42,31 @@ utils.isBlob = function (data) {
 utils.isPromise = function (fn) {
   return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
 }
-// 获取数据类型 undefined boolean string object number function array null reg symbol date
-utils.getType = function (data) {
+// 获取数据类型 undefined boolean string number function symbol null object array file blob regexp date
+utils.getType = function (data, simple) {
   let type = typeof (data)
   if (type === 'object') {
     if (data === null) {
-      type = 'null'
-    } else if (this.isArray(data)) {
-      type = 'array'
-    } else if (this.isFile(data)) {
-      type = 'file'
-    } else if (this.isBlob(data)) {
-      type = 'blob'
-    } else if (data instanceof RegExp) {
-      type = 'reg'
-    } else if (data instanceof Date) {
-      type = 'date'
+      type = null
+    } else if (!simple) {
+      if (this.isArray(data)) {
+        type = 'array'
+      } else if (this.isFile(data)) {
+        type = 'file'
+      } else if (this.isBlob(data)) {
+        type = 'blob'
+      } else if (data instanceof RegExp) {
+        type = 'regexp'
+      } else if (data instanceof Date) {
+        type = 'date'
+      }
     }
   }
   return type
 }
 // 复杂数据结构 => 这里指的是赋值是更改的内存指针结构而不是内存地址 function存疑/file待判断
 utils.isComplex = function (data) {
-  let complex = ['object', 'function', 'array']
+  let complex = ['object', 'array']
   return complex.indexOf(data) > -1
 }
 // 获取对象是否是复杂类型
@@ -1161,16 +1163,16 @@ utils.openWindow = function (url, type = '_blank') {
 // ----- 公用函数 ----- END
 
 // ----- 复杂函数 ----- START
-// 触发函数
+// 指定对象存在且为函数触发对应函数
 utils.triggerFunc = function (func, ...args) {
-  if (func && this.getType(func) === 'function') {
+  if (func && typeof func === 'function') {
     func(...args)
     return true
   } else {
     return false
   }
 }
-// 触发Promise函数
+// 触发Promise函数:接收func必须返回Promise或者promise为Promise对象
 utils.triggerPromise = function({
   func,
   args,
@@ -1186,7 +1188,7 @@ utils.triggerPromise = function({
   if (!promise) {
     if (!func) {
       next = false
-      code = 'noArgs'
+      code = 'argsError'
     } else {
       if (!args) {
         args = []
@@ -1215,6 +1217,41 @@ utils.triggerPromise = function({
     }
   }
 }
+// 触发函数，通过回调的形式触发函数，存在callback时则直接进行下一步操作，可接收同步函数和Promise函数
+utils.runFunction = function(func, args, callback) {
+  let mainRes = {
+    status: 'fail',
+    code: ''
+  }
+  function next(callbackRes) {
+    if (callback) {
+      callback(callbackRes)
+    }
+  }
+  if (typeof func == 'function') {
+    let data = func(...args)
+    if (this.isPromise(data)) {
+      data.then(res => {
+        mainRes.status = 'success'
+        mainRes.data = res
+        next(mainRes)
+      }, err => {
+        mainRes.code = 'promiseError'
+        mainRes.data = err
+        next(mainRes)
+      })
+    } else {
+      mainRes.status = 'success'
+      mainRes.data = data
+      next(mainRes)
+    }
+  } else {
+    mainRes.code = 'argsError'
+    this.printMsg(`triggerTargetFunc函数运行错误，code: ${mainRes.code}`)
+    next(mainRes)
+  }
+}
+
 // 获取限制对象
 utils.getLimitData = function (option) {
   return new LimitData(option)
