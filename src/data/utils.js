@@ -1115,7 +1115,7 @@ utils.downloadBlob = function (blobValue, type, name) {
     navigator.msSaveBlob(blob, name)
     return true
   } else {
-    window.location.href = blobUrl
+    this.openWindow(blobUrl)
     return true
   }
 }
