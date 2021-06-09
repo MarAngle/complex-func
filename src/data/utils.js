@@ -22,6 +22,10 @@ utils.printMsgAct = function(content = '', type = 'error', option = {}) {
   }
 }
 // ----- 数据类型判断相关 ----- START
+// 判断Promise
+utils.isPromise = function (fn) {
+  return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
+}
 // 判断数组
 utils.isArray = function (data) {
   if (Array.isArray) {
@@ -38,16 +42,12 @@ utils.isFile = function (data) {
 utils.isBlob = function (data) {
   return Object.prototype.toString.call(data) === '[object Blob]'
 }
-// 判断Promise
-utils.isPromise = function (fn) {
-  return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
-}
 // 获取数据类型 undefined boolean string number function symbol null object array file blob regexp date
 utils.getType = function (data, simple) {
   let type = typeof (data)
   if (type === 'object') {
     if (data === null) {
-      type = null
+      type = 'null'
     } else if (!simple) {
       if (this.isArray(data)) {
         type = 'array'
