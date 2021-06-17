@@ -11,9 +11,10 @@ utils.printMsg = function(content = '', type = 'error', option) {
 
 utils.printMsgAct = function(content = '', type = 'error', option = {}) {
   if (type == 'error') {
-    content = new Error(content)
+    console[type](new Error(content))
+  } else {
+    console[type](content)
   }
-  console[type](content)
   if (option.data) {
     if (!option.type) {
       option.type = type
