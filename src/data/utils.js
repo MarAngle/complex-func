@@ -262,9 +262,14 @@ utils.updateList = function (targetlist, originlist, option = {}) {
 // ----- 对象相关操作 ----- START
 // 判断对象存在属性
 utils.hasProp = function (data, prop) {
-  if (!data[prop]) {
+  if (data[prop] === undefined) {
     if (!Object.prototype.hasOwnProperty.call(data, prop)) {
-      return Object.keys(data).includes(prop)
+      for (let n in data) {
+        if (n == prop) {
+          return true
+        }
+      }
+      return false
     } else {
       return true
     }
