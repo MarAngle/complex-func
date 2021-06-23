@@ -18,18 +18,18 @@ type deepCloneOption = undefined | {
 }
 
 type utils = {
-  printMsg?: (content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
-  printMsgAct?: (content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
-  isPromise?: (data: any) => boolean,
-  isArray?: (data: unknown) => boolean,
-  isFile?: (data: unknown) => boolean,
-  isBlob?: (data: unknown) => boolean,
-  getType?: (data: unknown, simple?: boolean) => getTypeType,
-  isComplex?: (data: string) => boolean,
-  checkComplex?: (data: unknown) => boolean,
-  deepClone?: (origindata: deepCloneOriginData, option?: deepCloneOption) => object,
-  deepCloneData?: (origindata: deepCloneOriginData, targetdata: object, option?: deepCloneOption) => object,
-  deepCloneDataNext?: (origindata: deepCloneOriginData, targetdata: object, option?: deepCloneOption, currentnum?: number, currentprop?: string) => object
+  printMsg?: (this: utils, content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
+  printMsgAct?: (this: utils, content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
+  isPromise?: (this: utils, data: any) => boolean,
+  isArray?: (this: utils, data: unknown) => boolean,
+  isFile?: (this: utils, data: unknown) => boolean,
+  isBlob?: (this: utils, data: unknown) => boolean,
+  getType?: (this: utils, data: unknown, simple?: boolean) => getTypeType,
+  isComplex?: (this: utils, data: string) => boolean,
+  checkComplex?: (this: utils, data: unknown) => boolean,
+  deepClone?: (this: utils, origindata: deepCloneOriginData, option?: deepCloneOption) => object,
+  deepCloneData?: (this: utils, origindata: deepCloneOriginData, targetdata: object, option?: deepCloneOption) => object,
+  deepCloneDataNext?: (this: utils, origindata: deepCloneOriginData, targetdata: object, option?: deepCloneOption, currentnum?: number, currentprop?: string) => object
 }
 
 let utils: utils = {}
@@ -37,7 +37,7 @@ let utils: utils = {}
 // 信息输出
 utils.printMsg = function(content = '', type = 'error', option) {
   let preContent = `[complex-func]`
-  utils.printMsgAct(preContent + content, type, option)
+  this.printMsgAct(preContent + content, type, option)
 }
 
 utils.printMsgAct = function(content = '', type = 'error', option = {}) {
@@ -81,11 +81,11 @@ utils.getType = function (data, simple) {
     if (data === null) {
       type = 'null'
     } else if (!simple) {
-      if (utils.isArray(data)) {
+      if (this.isArray(data)) {
         type = 'array'
-      } else if (utils.isFile(data)) {
+      } else if (this.isFile(data)) {
         type = 'file'
-      } else if (utils.isBlob(data)) {
+      } else if (this.isBlob(data)) {
         type = 'blob'
       } else if (data instanceof RegExp) {
         type = 'regexp'
@@ -103,8 +103,8 @@ utils.isComplex = function (data) {
 }
 // 获取对象是否是复杂类型
 utils.checkComplex = function (data) {
-  let type = utils.getType(data)
-  return utils.isComplex(type)
+  let type = this.getType(data)
+  return this.isComplex(type)
 }
 // ----- 数据类型判断相关 ----- END
 
@@ -115,7 +115,7 @@ utils.deepClone = function (origindata, option) {
   if (!option) {
     targetdata = JSON.parse(JSON.stringify(origindata))
   } else {
-    targetdata = utils.deepCloneData(origindata, targetdata, option)
+    targetdata = this.deepCloneData(origindata, targetdata, option)
   }
   return targetdata
 }
@@ -131,7 +131,7 @@ utils.deepCloneData = function(origindata, targetdata, option = {}) {
   }
   // 限制字段设置
   if (!option.limitData) {
-    option.limitData = utils.getLimitData(option.limit)
+    option.limitData = this.getLimitData(option.limit)
   }
   // 被限制字段操作
   if (!option.limittype) {
@@ -141,10 +141,10 @@ utils.deepCloneData = function(origindata, targetdata, option = {}) {
   if (!option.depth) {
     option.depth = true
   }
-  return utils.deepCloneDataNext(origindata, targetdata, option)
+  return this.deepCloneDataNext(origindata, targetdata, option)
 }
 utils.deepCloneDataNext = function (origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
-  let type = utils.getType(origindata)
+  let type = this.getType(origindata)
   // 复杂对象进行递归
   if (type == 'object' || type == 'array') {
     let unDeep = true
