@@ -1,7 +1,38 @@
 import setData from './../option/setData'
 import LimitData from './../build/LimitData'
 
-let utils = {}
+type printMsgContent = string
+type printMsgType = 'log' | 'warn' | 'error'
+type printMsgOption = undefined | {
+  type?: string,
+  data?: string
+}
+type getTypeType = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'function' | 'object' | 'null' | 'array' | 'file' | 'blob' | 'regexp' | 'date'
+type deepCloneOriginData = unknown
+type deepCloneOption = undefined | {
+  type?: 'total' | 'add',
+  limittype?: 'clear' | '',
+  depth?: true | number,
+  limit?: unknown,
+  limitData?: undefined | LimitData
+}
+
+type utils = {
+  printMsg?: (this: utils, content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
+  printMsgAct?: (this: utils, content: printMsgContent, type?: printMsgType, option?: printMsgOption) => void,
+  isPromise?: (this: utils, data: any) => boolean,
+  isArray?: (this: utils, data: unknown) => boolean,
+  isFile?: (this: utils, data: unknown) => boolean,
+  isBlob?: (this: utils, data: unknown) => boolean,
+  getType?: (this: utils, data: unknown, simple?: boolean) => getTypeType,
+  isComplex?: (this: utils, data: string) => boolean,
+  checkComplex?: (this: utils, data: unknown) => boolean,
+  deepClone?: (this: utils, origindata: deepCloneOriginData, option?: deepCloneOption) => object,
+  deepCloneData?: (this: utils, origindata: deepCloneOriginData, targetdata: object, option?: deepCloneOption) => object,
+  deepCloneDataNext?: (this: utils, origindata: deepCloneOriginData, targetdata: any, option?: deepCloneOption, currentnum?: number, currentprop?: string) => object
+}
+
+let utils: utils = {}
 
 // 信息输出
 utils.printMsg = function(content = '', type = 'error', option) {
@@ -45,7 +76,7 @@ utils.isBlob = function (data) {
 }
 // 获取数据类型 undefined boolean string number function symbol null object array file blob regexp date
 utils.getType = function (data, simple) {
-  let type = typeof (data)
+  let type:getTypeType = typeof (data)
   if (type === 'object') {
     if (data === null) {
       type = 'null'
@@ -138,7 +169,7 @@ utils.deepCloneDataNext = function (origindata, targetdata, option = {}, current
     } else {
       // 当前深度递增
       currentnum++
-      for (let i in origindata) {
+      for (let i in origindata as object | any[]) {
         let nextprop = currentprop ? currentprop + '.' + i : i
         // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
         if (!option.limitData.getLimit(nextprop)) {
@@ -147,9 +178,9 @@ utils.deepCloneDataNext = function (origindata, targetdata, option = {}, current
       }
     }
   } else if (type === 'date') {
-    targetdata = new Date(origindata)
-  } else if (type === 'reg') {
-    targetdata = new RegExp(origindata)
+    targetdata = new Date(origindata as Date)
+  } else if (type === 'regexp') {
+    targetdata = new RegExp(origindata as RegExp)
   } else {
     targetdata = origindata
   }
