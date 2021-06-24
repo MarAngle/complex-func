@@ -6,6 +6,8 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 import worker from './data/worker'
 
+let requiredata
+
 let mainfunc = {
   current: current,
   data: {}
@@ -99,7 +101,7 @@ mainfunc.init = function({
 }
 
 mainfunc.initRequire = function (requireInitData) {
-  let requiredata = new Require(requireInitData)
+  requiredata = new Require(requireInitData)
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
@@ -132,5 +134,7 @@ mainfunc._initMod(worker, [
     prop: 'setWorker'
   }
 ])
+
+export { requiredata }
 
 export default mainfunc

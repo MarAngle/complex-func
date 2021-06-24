@@ -3,6 +3,7 @@
 - printMsgAct优化，添加Error判断
 - isError
 - utils代码格式优化
+- 暴露requiredata
 
 ### 2.0.13
 - 创建current当前时间相关函数，直接挂载到跟属性中，通过属性调用对应的方法，鉴于性能直接加载
