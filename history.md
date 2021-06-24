@@ -1,6 +1,6 @@
 ### 2.0.14ing
 - hasProp逻辑优化，错误修复
-- printMsgAct优化
+- printMsgAct优化，添加Error判断
 - isError
 - utils代码格式优化
 

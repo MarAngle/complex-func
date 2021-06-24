@@ -59,15 +59,19 @@ let localDataOption = {
 
 let utils = {
   // 信息输出
-  printMsg: function(content = '', type = 'error', option) {
-    let preContent = `[complex-func]`
-    this.printMsgAct(preContent + content, type, option)
+  printMsg: function(msg = '', type = 'error', option) {
+    let preMsg = `[complex-func]`
+    this.printMsgAct(preMsg + msg, type, option)
   },
-  printMsgAct: function(content = '', type = 'error', option = {}) {
+  printMsgAct: function(msg = '', type = 'error', option = {}) {
     if (type == 'error') {
-      console[type](new Error(content))
+      if (!this.isError(msg)) {
+        console[type](new Error(msg))
+      } else {
+        console[type](msg)
+      }
     } else {
-      console[type](content)
+      console[type](msg)
     }
     if (option.data) {
       if (!option.type) {
