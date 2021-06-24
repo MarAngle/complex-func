@@ -77,12 +77,16 @@ let utils = {
     }
   },
   // ----- 数据类型判断相关 ----- START
+  // 判断Error
+  isError: function(data) {
+    return Object.prototype.toString.call(data) === '[object Error]'
+  },
   // 判断Promise
-  isPromise: function (fn) {
+  isPromise: function(fn) {
     return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
   },
   // 判断数组
-  isArray: function (data) {
+  isArray: function(data) {
     if (Array.isArray) {
       return Array.isArray(data)
     } else {
@@ -90,15 +94,15 @@ let utils = {
     }
   },
   // 判断文件
-  isFile: function (data) {
+  isFile: function(data) {
     return Object.prototype.toString.call(data) === '[object File]'
   },
   // 判断BLOB
-  isBlob: function (data) {
+  isBlob: function(data) {
     return Object.prototype.toString.call(data) === '[object Blob]'
   },
   // 获取数据类型 undefined boolean string number function symbol null object array file blob regexp date
-  getType: function (data, simple) {
+  getType: function(data, simple) {
     let type = typeof (data)
     if (type === 'object') {
       if (data === null) {
@@ -120,19 +124,19 @@ let utils = {
     return type
   },
   // 复杂数据结构 => 这里指的是赋值是更改的内存指针结构而不是内存地址 function存疑/file待判断
-  isComplex: function (data) {
+  isComplex: function(data) {
     let complex = ['object', 'array']
     return complex.indexOf(data) > -1
   },
   // 获取对象是否是复杂类型
-  checkComplex: function (data) {
+  checkComplex: function(data) {
     let type = this.getType(data)
     return this.isComplex(type)
   },
   // ----- 数据类型判断相关 ----- END
   // ----- 数据复制相关 ----- START
   // 深拷贝数据
-  deepClone: function (origindata, option) {
+  deepClone: function(origindata, option) {
     let targetdata
     if (!option) {
       targetdata = JSON.parse(JSON.stringify(origindata))
@@ -165,7 +169,7 @@ let utils = {
     }
     return this.deepCloneDataNext(origindata, targetdata, option)
   },
-  deepCloneDataNext: function (origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
+  deepCloneDataNext: function(origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
     let type = this.getType(origindata)
     // 复杂对象进行递归
     if (type == 'object' || type == 'array') {
@@ -209,7 +213,7 @@ let utils = {
     return targetdata
   },
   // 基于origindata更新targetdata数据,type默认为add
-  updateData: function (targetdata, origindata, option = {}) {
+  updateData: function(targetdata, origindata, option = {}) {
     if (!option.type) {
       option.type = 'add'
     }
@@ -228,7 +232,7 @@ let utils = {
    *  format新数据格式化函数
    *  destroy删除数据回调
    */
-  updateList: function (targetlist, originlist, option = {}) {
+  updateList: function(targetlist, originlist, option = {}) {
     // 生成check函数
     if (!option.check) {
       this.printMsg('请传递check函数判断相同对象')
@@ -238,11 +242,11 @@ let utils = {
       if (type !== 'function') {
         let checkOption = type == 'string' ? { prop: option.check } : option.check
         if (!checkOption.equal) {
-          option.check = function (tItem, oItem) {
+          option.check = function(tItem, oItem) {
             return tItem[checkOption.prop] == oItem[checkOption.prop]
           }
         } else {
-          option.check = function (tItem, oItem) {
+          option.check = function(tItem, oItem) {
             return tItem[checkOption.prop] === oItem[checkOption.prop]
           }
         }
@@ -315,7 +319,7 @@ let utils = {
 
   // ----- 对象相关操作 ----- START
   // 判断对象存在属性
-  hasProp: function (data, prop) {
+  hasProp: function(data, prop) {
     if (data[prop] === undefined) {
       if (!Object.prototype.hasOwnProperty.call(data, prop)) {
         for (let n in data) {
@@ -332,7 +336,7 @@ let utils = {
     }
   },
   // 对象转换为formdata数据
-  jsonToForm: function (jsonData) {
+  jsonToForm: function(jsonData) {
     let formData = new FormData()
     for (let prop in jsonData) {
       let type = utils.getType(jsonData[prop])
@@ -345,18 +349,18 @@ let utils = {
     return formData
   },
   // 添加数据
-  appendProp: function (data, propName, propData, type = 'json') {
+  appendProp: function(data, propName, propData, type = 'json') {
     if (type == 'json') {
       data[propName] = propData
     } else if (type == 'formdata') {
       data.append(propName, propData)
     }
   },
-  showJson: function (json) {
+  showJson: function(json) {
     console.log(JSON.stringify(json))
   },
   // 根据属性列表获取对象属性
-  getPropByList: function (targetData, propList) {
+  getPropByList: function(targetData, propList) {
     let data = targetData
     propList = propList.filter(item => item && item.trim())
     for (let n = 0; n < propList.length; n++) {
@@ -376,7 +380,7 @@ let utils = {
         =>.a将直接取.a属性,.a..b取[.a][.b]
         =>理论上无法进行[a.]属性的获取
   */
-  getProp: function (targetData, prop, intervalRepeat = false) {
+  getProp: function(targetData, prop, intervalRepeat = false) {
     if (!targetData || !prop) {
       return undefined
     } else {
@@ -403,7 +407,7 @@ let utils = {
     }
   },
   // 根据属性列表设置属性
-  setPropByList: function (targetData, propList, propData, useSetData) {
+  setPropByList: function(targetData, propList, propData, useSetData) {
     let data = targetData
     for (let n = 0; n < propList.length; n++) {
       if (n < propList.length - 1) {
@@ -421,7 +425,7 @@ let utils = {
     }
   },
   // 根据a.b字符串设置属性
-  setProp: function (targetData, prop, propData, useSetData) {
+  setProp: function(targetData, prop, propData, useSetData) {
     if (!targetData || !prop) {
       return false
     } else {
@@ -431,7 +435,7 @@ let utils = {
     }
   },
   // 格式化对象
-  formatDataByType: function (originData, type = 'string') {
+  formatDataByType: function(originData, type = 'string') {
     let data
     if (type == 'boolean') {
       if (originData) {
@@ -447,18 +451,18 @@ let utils = {
     return data
   },
   // 根据type设置对象属性值
-  setPropByType: function (item, prop, data, type = 'string', useSetData) {
+  setPropByType: function(item, prop, data, type = 'string', useSetData) {
     let targetdata = this.formatDataByType(data, type)
     this.setProp(item, prop, targetdata, useSetData)
   },
   // 当item[prop]不存在时设置默认值defaultData，存在时不做操作，注意判断条件是存在属性而不是属性值为真
-  setDefaultData: function (item, prop, defaultData) {
+  setDefaultData: function(item, prop, defaultData) {
     if (!this.hasProp(item, prop)) {
       item[prop] = defaultData
     }
   },
   // 合并数据函数，基于源数据originData格式化目标数据targetData函数
-  mergeData: function (targetData, originData) {
+  mergeData: function(targetData, originData) {
     if (!originData) {
       originData = {}
     }
@@ -476,14 +480,14 @@ let utils = {
     return targetData
   },
   // 格式化数组
-  formatList: function (originList, option, targetList = []) {
+  formatList: function(originList, option, targetList = []) {
     for (let n in originList) {
       targetList.push(this.formatItem(originList[n], option))
     }
     return targetList
   },
   // 格式化对象
-  formatItem: function (originItem, option, targetItem = {}) {
+  formatItem: function(originItem, option, targetItem = {}) {
     let optionData = option.data
     let optionUnadd = option.unadd
     for (let n in originItem) {
@@ -498,7 +502,7 @@ let utils = {
     return targetItem
   },
   // 格式化list为tree
-  formatTree: function (originList, option = {}) {
+  formatTree: function(originList, option = {}) {
     let idprop = option.id || 'id'
     let parentIdProp = option.parentId || 'parentId'
     let childrenProp = option.children || 'children'
@@ -521,7 +525,7 @@ let utils = {
     1.判断自己的数据是否已经模拟，创建或者赋值
     2.判断父节点是否存在，挂载上去
   */
-  formatTreeNext: function (dataCache, originItem, idProp, parentIdProp, childrenProp) {
+  formatTreeNext: function(dataCache, originItem, idProp, parentIdProp, childrenProp) {
     let itemCache = dataCache[originItem[idProp]]
     // 存在值则说明此时存在虚拟构建的数据
     if (itemCache) {
@@ -755,18 +759,18 @@ let utils = {
   // ----- 对象相关操作 ----- END
   // ----- 数组相关操作 ----- START
   // 判断数据在数组中
-  inArray: function (item, list) {
+  inArray: function(item, list) {
     if (list.indexOf(item) > -1) {
       return true
     } else {
       return false
     }
   },
-  clearArray: function (list) {
+  clearArray: function(list) {
     list.splice(0, list.length)
   },
   // 数组属性快速输出
-  showArrayProp: function (list, prop) {
+  showArrayProp: function(list, prop) {
     let proplist = []
     for (let i = 0; i < list.length; i++) {
       let item = list[i]
@@ -775,7 +779,7 @@ let utils = {
     console.log(JSON.stringify(proplist))
   },
   // 数组排序
-  orderArrayByProp: function (list, { prop, rule }) {
+  orderArrayByProp: function(list, { prop, rule }) {
     for (let i = 0; i < rule.length; i++) {
       let ruleProp = rule[i]
       for (let n = i; n < list.length; n++) {
@@ -790,7 +794,7 @@ let utils = {
     }
   },
   // 数组清楚其他对象
-  arrayClearOther: function (list, index, startIndex = 0) {
+  arrayClearOther: function(list, index, startIndex = 0) {
     if (list.length - 1 >= index) {
       // 删除index + 1到结束
       let endIndex = index + 1
@@ -809,7 +813,7 @@ let utils = {
   // ----- 数组相关操作 ----- END
   // ----- 数字相关 ----- START
   // 数字操作
-  getNum: function (originNum, type = 'round', radix = 2, NANZERO = true) { // 格式化数字
+  getNum: function(originNum, type = 'round', radix = 2, NANZERO = true) { // 格式化数字
     let num = parseFloat(originNum)
     if (isNaN(num)) {
       if (NANZERO) {
@@ -823,11 +827,11 @@ let utils = {
     return num
   },
   // 获取从start开始, 最大值为size - 1 的随机数,开始和结束的可能平均
-  getRandomNum: function (start = 0, size = 10) {
+  getRandomNum: function(start = 0, size = 10) {
     return start + Math.floor(Math.random() * size)
   },
   // 从列表中随机取值
-  getRandomInList: function (list) {
+  getRandomInList: function(list) {
     let size = list.length
     let index = this.getRandomNum(0, size)
     return list[index]
@@ -835,7 +839,7 @@ let utils = {
   // ----- 数字相关 ----- END
   // ----- 字符串相关 ----- START
   // 字符串函数
-  fillString: function (str, targetLength = 2, padString = '0', to = 'start', unDivision) {
+  fillString: function(str, targetLength = 2, padString = '0', to = 'start', unDivision) {
     str = str.toString()
     padString = padString.toString()
     if (unDivision) {
@@ -852,7 +856,7 @@ let utils = {
     return str
   },
   // 清除开始结束空格，仅对字符串有效
-  trimData: function (data) {
+  trimData: function(data) {
     let type = this.getType(data)
     if (type == 'string') {
       data = data.trim()
@@ -860,7 +864,7 @@ let utils = {
     return data
   },
   // 获取随机字符串
-  getRandomData: function ({ size, letter }) {
+  getRandomData: function({ size, letter }) {
     let data = ''
     for (let n = 0; n < size; n++) {
       data = data + this.getRandomLetter(letter)
@@ -868,7 +872,7 @@ let utils = {
     return data
   },
   // 获取随机字符=>列表生成考虑提前，避免重复逻辑，分离该函数
-  getRandomLetter: function (letter) {
+  getRandomLetter: function(letter) {
     let list = []
     if (!letter) {
       letter = {
@@ -919,14 +923,14 @@ let utils = {
 
   // ----- 日期相关 ----- START
   // 日期操作函数
-  buildTimeData: function () {
+  buildTimeData: function() {
     return {
       date: null,
       origin: {}, // 数字数据
       str: {} // 字符串数据
     }
   },
-  getTimeData: function (act, time) {
+  getTimeData: function(act, time) {
     let TimeData = this.buildTimeData()
     if (act == 'time') {
       TimeData.date = new Date(time)
@@ -936,7 +940,7 @@ let utils = {
     this.formatTimeData(TimeData)
     return TimeData
   },
-  formatTimeData: function (TimeData) {
+  formatTimeData: function(TimeData) {
     TimeData.origin.time = TimeData.date.getTime()
     TimeData.str.time = TimeData.origin.time.toString()
     for (let n in timeOption) {
@@ -945,7 +949,7 @@ let utils = {
       TimeData.str[titem.prop] = this.fillString(TimeData.origin[titem.prop], titem.maxsize, '0')
     }
   },
-  timeToStr: function (time, start = 0, end = 5, spitlist, nofill) {
+  timeToStr: function(time, start = 0, end = 5, spitlist, nofill) {
     if (!spitlist) {
       spitlist = ['-', '-', ' ', ':', ':', '']
     }
@@ -963,7 +967,7 @@ let utils = {
     }
     return res
   },
-  formatDate: function (targetdate, formatdata) {
+  formatDate: function(targetdate, formatdata) {
     if (!formatdata) {
       formatdata = {
         year: targetdate.getFullYear()
@@ -979,14 +983,14 @@ let utils = {
   // ----- 日期相关 ----- END
 
   // ----- 本地缓存函数 ----- START
-  setLocalDataPre: function (pre) {
+  setLocalDataPre: function(pre) {
     localDataOption.pre = pre
   },
   buildLocalDataName: function(name) {
     return localDataOption.pre + name
   },
   // 设置缓存
-  setLocalData: function (name, value) {
+  setLocalData: function(name, value) {
     name = this.buildLocalDataName(name)
     let localData = {
       value: value,
@@ -995,7 +999,7 @@ let utils = {
     localStorage.setItem(name, JSON.stringify(localData))
   },
   // 获取缓存
-  getLocalData: function (name, time, refresh) {
+  getLocalData: function(name, time, refresh) {
     name = this.buildLocalDataName(name)
     let localData = localStorage.getItem(name)
     if (localData) {
@@ -1016,17 +1020,17 @@ let utils = {
     }
   },
   // 清除缓存
-  removeLocalData: function (name) {
+  removeLocalData: function(name) {
     name = this.buildLocalDataName(name)
     localStorage.removeItem(name)
   },
   // ----- 本地缓存函数 ----- END
 
   // ----- 功能函数 ----- START
-  getCharCode: function (str, index = 0) {
+  getCharCode: function(str, index = 0) {
     return str.charCodeAt(index)
   },
-  strCodeNum: function (str) {
+  strCodeNum: function(str) {
     let num = 0
     for (let n = 0; n < str.length; n++) {
       num = num + this.getCharCode(str, n)
@@ -1034,17 +1038,17 @@ let utils = {
     return num
   },
   // 字符转换
-  encodeURI: function (str) {
-    return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+  encodeURI: function(str) {
+    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
       return '%' + c.charCodeAt(0).toString(16)
     })
   },
   // 获取query字段
-  getQueryUrl: function (url) {
+  getQueryUrl: function(url) {
     return url.split('?')[1]
   },
   // 解析query数据（#判断根据实际情况）
-  getQueryData: function (url) {
+  getQueryData: function(url) {
     let queryData = {}
     let queryUrl = this.getQueryUrl(url)
     if (queryUrl) {
@@ -1060,7 +1064,7 @@ let utils = {
     return queryData
   },
   // 设置query url
-  formatQueryUrl: function (url, data) {
+  formatQueryUrl: function(url, data) {
     let type = 'init'
     if (url.indexOf('?') > -1) {
       type = 'extra'
@@ -1080,7 +1084,7 @@ let utils = {
 
   // ----- 公用函数 ----- START
   // 更改list列表中选择的prop属性为指定值target,存在item则item更改为itemTarget
-  choiceProp: function (list, prop, target = false, item, itemTarget = true) {
+  choiceProp: function(list, prop, target = false, item, itemTarget = true) {
     for (let n in list) {
       list[n][prop] = target
     }
@@ -1089,7 +1093,7 @@ let utils = {
     }
   },
   // 下载blob文件
-  downloadBlob: function (blobValue, type, name) {
+  downloadBlob: function(blobValue, type, name) {
     let blob
     if (typeof window.Blob == 'function') {
       blob = new Blob([blobValue], { type: type })
@@ -1112,7 +1116,7 @@ let utils = {
     }
   },
   // 基于a标签下载文件
-  downloadFileByAnchor: function (url, name) {
+  downloadFileByAnchor: function(url, name) {
     let anchor = document.createElement('a')
     if ('download' in anchor) {
       anchor.setAttribute('download', name)
@@ -1127,7 +1131,7 @@ let utils = {
     }
   },
   // 下载文件
-  downloadFile: function (data) {
+  downloadFile: function(data) {
     if (data) {
       let type = this.getType(data)
       if (type == 'string') {
@@ -1149,14 +1153,14 @@ let utils = {
     }
   },
   // window.open
-  openWindow: function (url, type = '_blank') {
+  openWindow: function(url, type = '_blank') {
     window.open(url, type)
   },
   // ----- 公用函数 ----- END
 
   // ----- 复杂函数 ----- START
   // 指定对象存在且为函数触发对应函数
-  triggerFunc: function (func, ...args) {
+  triggerFunc: function(func, ...args) {
     if (func && typeof func === 'function') {
       func(...args)
       return true
@@ -1244,11 +1248,11 @@ let utils = {
     }
   },
   // 获取限制对象
-  getLimitData: function (option) {
+  getLimitData: function(option) {
     return new LimitData(option)
   },
   // 文件属性转换
-  transformFile: function (from, to, data, filename) {
+  transformFile: function(from, to, data, filename) {
     return new Promise((resolve) => {
       if (from == 'BASE64') {
         let arr = data.split(',')
@@ -1269,7 +1273,7 @@ let utils = {
         if (to == 'BASE64') {
           let reader = new FileReader()
           reader.readAsDataURL(data)
-          reader.onload = function (e) {
+          reader.onload = function(e) {
             resolve({ data: e.target.result })
           }
         } else if (to == 'BLOB') {
@@ -1279,7 +1283,7 @@ let utils = {
         if (to == 'BASE64') {
           let reader = new FileReader()
           reader.readAsDataURL(data)
-          reader.onload = function (e) {
+          reader.onload = function(e) {
             resolve({ data: e.target.result })
           }
         } else if (to == 'FILE') {
@@ -1302,9 +1306,9 @@ let utils = {
   * @param wait 延迟执行毫秒数
   * @param immediate true 表立即执行，false 表非立即执行
   */
-  debounce: function (func, wait, immediate) {
+  debounce: function(func, wait, immediate) {
     let timeout
-    return function () {
+    return function() {
       const context = this
       const args = [...arguments]
       if (timeout) {
@@ -1333,12 +1337,12 @@ let utils = {
    * @param wait 延迟执行毫秒数
    * @param type 1 表时间戳版，2 表定时器版
    */
-  throttle: function (func, wait, type = 1) {
+  throttle: function(func, wait, type = 1) {
     let previous, timeout
     if (type === 1) {
       previous = 0
     }
-    return function () {
+    return function() {
       let context = this
       let args = arguments
       if (type === 1) {
