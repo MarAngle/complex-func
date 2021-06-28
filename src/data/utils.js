@@ -193,9 +193,9 @@ let utils = {
         targetdata = origindata
       } else {
         // 循环引用判断
-        targetdata = map.get(origindata)
-        if (targetdata) {
-          return targetdata
+        let cachedata = map.get(origindata)
+        if (cachedata) {
+          targetdata = cachedata
         } else {
           // 此时进行深拷贝循环
           currentnum++
