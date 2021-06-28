@@ -159,14 +159,8 @@ let utils = {
       } else {
         result = type === 'object' ? {} : []
         map.set(origindata, result)
-        if (type === 'object') {
-          for (let key in origindata) {
-            result[key] = this.deepCloneData(origindata[key], map)
-          }
-        } else {
-          origindata.forEach((item, index) => {
-            result[index] = this.deepCloneData(item, map)
-          })
+        for (let key in origindata) {
+          result[key] = this.deepCloneData(origindata[key], map)
         }
         return result
       }
@@ -174,26 +168,49 @@ let utils = {
       return origindata
     }
   },
-  deepCloneDataWithOption: function(origindata, option = {}, map = new Map()) {
+  deepCloneDataWithOption: function(origindata, option) {
+    if (typeof option !== 'object') {
+      option = {}
+    }
+    // 限制字段设置
+    if (!option.limitData) {
+      option.limitData = this.getLimitData(option.limit)
+    }
+    // 深度设置项,为否包括0时不限制深度,数组本身也是深度
+    if (!option.depth) {
+      option.depth = true
+    }
+    return this.deepCloneDataNext(origindata, option)
+  },
+  deepCloneDataWithOptionNext: function(origindata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
     let type = this.getType(origindata)
     // 复杂对象进行递归
-    if (type === 'object' || type === 'array') {
-      let result = map.get(origindata)
-      if (result) {
-        return result
+    if (type == 'object' || type == 'array') {
+      let unDeep = true
+      // 检查当前depth
+      if (option.depth === true || currentnum <= option.depth + 1) {
+        // 此时进行递归操作
+        unDeep = false
+      }
+      if (unDeep) {
+        return origindata
       } else {
-        result = type === 'object' ? {} : []
-        map.set(origindata, result)
-        if (type === 'object') {
-          for (let key in origindata) {
-            result[key] = this.deepCloneData(origindata[key], map)
-          }
+        let result = map.get(origindata)
+        if (result) {
+          return result
         } else {
-          origindata.forEach((item, index) => {
-            result[index] = this.deepCloneData(item, map)
-          })
+          currentnum++
+          result = type === 'object' ? {} : []
+          map.set(origindata, result)
+          for (let key in origindata) {
+            let nextprop = currentprop ? currentprop + '.' + key : key
+            // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
+            if (!option.limitData.getLimit(nextprop)) {
+              result[key] = this.deepCloneDataNext(origindata[key], option, currentnum, nextprop, map)
+            }
+          }
+          return result
         }
-        return result
       }
     } else {
       return origindata
