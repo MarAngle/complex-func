@@ -140,14 +140,18 @@ let utils = {
   // ----- 数据类型判断相关 ----- END
   // ----- 数据复制相关 ----- START
   // 格式化UpdateOption
-  formatUpdateDataOption: function(option, type = 'total') {
+  formatUpdateDataOption: function(option, defaultOption = {}) {
     // 初始化设置项
     if (typeof option !== 'object') {
       option = {}
     }
     // 格式化类型
     if (!option.type) {
-      option.type = type
+      option.type = defaultOption.type ? defaultOption.type : 'total'
+    }
+    // 格式化类型
+    if (option.reset === undefined) {
+      option.reset = defaultOption.reset !== undefined ? defaultOption.reset : false
     }
     // 限制字段设置
     if (!option.limitData) {
@@ -168,7 +172,9 @@ let utils = {
     return targetdata
   },
   updateDataWidthOption: function(origindata, targetdata, option) {
-    option = this.formatUpdateDataOption(option, 'add')
+    option = this.formatUpdateDataOption(option, {
+      type: 'add'
+    })
     return this.updateDataWidthOptionNext(origindata, targetdata, option)
   },
   updateDataWidthOptionNext: function(origindata, targetdata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
@@ -176,6 +182,7 @@ let utils = {
     // 复杂对象进行递归
     if (type == 'object' || type == 'array') {
       let unDeep = true
+      let reset = false
       // 检查当前depth
       if (option.depth === true || currentnum <= option.depth + 1) {
         // 初始化目标值
@@ -187,6 +194,11 @@ let utils = {
             ！此时可能会出现赋值数据中的限制字段无效的情况发生
           */
           unDeep = false
+        } else if (option.reset) {
+          // 类型不同时，reset为真则进行循环模式
+          unDeep = false
+          // 设置重置操作
+          reset = true
         }
       }
       if (unDeep) {
@@ -199,6 +211,9 @@ let utils = {
         } else {
           // 此时进行深拷贝循环
           currentnum++
+          if (reset) {
+            targetdata = type === 'object' ? {} : []
+          }
           map.set(origindata, targetdata)
           for (let key in origindata) {
             let nextprop = currentprop ? currentprop + '.' + key : key
@@ -244,44 +259,46 @@ let utils = {
     }
   },
   deepCloneDataWithOption: function(origindata, option) {
-    option = this.formatUpdateDataOption(option)
-    return this.deepCloneDataWithOptionNext(origindata, option)
+    option = this.formatUpdateDataOption(option, {
+      reset: true
+    })
+    return this.updateDataWidthOptionNext(origindata, undefined, option)
   },
-  deepCloneDataWithOptionNext: function(origindata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
-    let type = this.getType(origindata)
-    let targetdata
-    // 复杂对象进行递归
-    if (type == 'object' || type == 'array') {
-      let unDeep = true
-      // 检查当前depth
-      if (option.depth === true || currentnum <= option.depth + 1) {
-        // 初始化目标值
-        unDeep = false
-      }
-      if (unDeep) {
-        targetdata = origindata
-      } else {
-        // 循环引用判断
-        targetdata = map.get(origindata)
-        if (!targetdata) {
-          // 此时进行深拷贝循环
-          currentnum++
-          targetdata = type === 'object' ? {} : []
-          map.set(origindata, targetdata)
-          for (let key in origindata) {
-            let nextprop = currentprop ? currentprop + '.' + key : key
-            // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
-            if (!option.limitData.getLimit(nextprop)) {
-              targetdata[key] = this.updateDataWidthOptionNext(origindata[key], targetdata[key], option, currentnum, nextprop, map)
-            }
-          }
-        }
-      }
-    } else {
-      targetdata = origindata
-    }
-    return targetdata
-  },
+  // deepCloneDataWithOptionNext: function(origindata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
+  //   let type = this.getType(origindata)
+  //   let targetdata
+  //   // 复杂对象进行递归
+  //   if (type == 'object' || type == 'array') {
+  //     let unDeep = true
+  //     // 检查当前depth
+  //     if (option.depth === true || currentnum <= option.depth + 1) {
+  //       // 初始化目标值
+  //       unDeep = false
+  //     }
+  //     if (unDeep) {
+  //       targetdata = origindata
+  //     } else {
+  //       // 循环引用判断
+  //       targetdata = map.get(origindata)
+  //       if (!targetdata) {
+  //         // 此时进行深拷贝循环
+  //         currentnum++
+  //         targetdata = type === 'object' ? {} : []
+  //         map.set(origindata, targetdata)
+  //         for (let key in origindata) {
+  //           let nextprop = currentprop ? currentprop + '.' + key : key
+  //           // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
+  //           if (!option.limitData.getLimit(nextprop)) {
+  //             targetdata[key] = this.updateDataWidthOptionNext(origindata[key], targetdata[key], option, currentnum, nextprop, map)
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } else {
+  //     targetdata = origindata
+  //   }
+  //   return targetdata
+  // },
   // ----- 数据复制相关 ----- END
 
   // ----- 对象相关操作 ----- START
