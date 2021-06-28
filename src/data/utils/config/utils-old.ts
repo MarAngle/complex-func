@@ -1,6 +1,3 @@
-import setData from './../option/setData'
-import LimitData from './../build/LimitData'
-
 type printMsgContent = string
 type printMsgType = 'log' | 'warn' | 'error'
 type printMsgOption = undefined | {
