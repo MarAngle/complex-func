@@ -264,41 +264,6 @@ let utils = {
     })
     return this.updateDataWidthOptionNext(origindata, undefined, option)
   },
-  // deepCloneDataWithOptionNext: function(origindata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
-  //   let type = this.getType(origindata)
-  //   let targetdata
-  //   // 复杂对象进行递归
-  //   if (type == 'object' || type == 'array') {
-  //     let unDeep = true
-  //     // 检查当前depth
-  //     if (option.depth === true || currentnum <= option.depth + 1) {
-  //       // 初始化目标值
-  //       unDeep = false
-  //     }
-  //     if (unDeep) {
-  //       targetdata = origindata
-  //     } else {
-  //       // 循环引用判断
-  //       targetdata = map.get(origindata)
-  //       if (!targetdata) {
-  //         // 此时进行深拷贝循环
-  //         currentnum++
-  //         targetdata = type === 'object' ? {} : []
-  //         map.set(origindata, targetdata)
-  //         for (let key in origindata) {
-  //           let nextprop = currentprop ? currentprop + '.' + key : key
-  //           // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
-  //           if (!option.limitData.getLimit(nextprop)) {
-  //             targetdata[key] = this.updateDataWidthOptionNext(origindata[key], targetdata[key], option, currentnum, nextprop, map)
-  //           }
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     targetdata = origindata
-  //   }
-  //   return targetdata
-  // },
   /**
    * 基于originlist更新targetlist列表数据
    * @param {*} targetlist 目标列表:需要进行更新的列表
