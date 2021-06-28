@@ -139,64 +139,184 @@ let utils = {
   },
   // ----- 数据类型判断相关 ----- END
   // ----- 数据复制相关 ----- START
-  // 深拷贝，complete是否调用完全体
+  // 深拷贝数据
   deepClone: function(origindata, option) {
+    let targetdata
     if (!option) {
-      return JSON.parse(JSON.stringify(origindata))
-    } else if (option === true) {
-      return this.deepCloneData(origindata)
+      targetdata = JSON.parse(JSON.stringify(origindata))
     } else {
-      return this.deepCloneDataWithOption(origindata, option)
+      targetdata = this.deepCloneData(origindata, targetdata, option)
     }
+    return targetdata
   },
-  deepCloneData: function(origindata, map = new Map()) {
+  // 深拷贝数据递归=>未使用尾递归，理论上内存占用会较大，等待优化方案
+  deepCloneData: function(origindata, targetdata, option = {}) {
+    // 初始化设置项
+    if (option === true) {
+      option = {}
+    }
+    // 格式化类型
+    if (!option.type) {
+      option.type = 'total'
+    }
+    // 限制字段设置
+    if (!option.limitData) {
+      option.limitData = this.getLimitData(option.limit)
+    }
+    // 被限制字段操作
+    if (!option.limittype) {
+      option.limittype = 'clear'
+    }
+    // 深度设置项,为否包括0时不限制深度,数组本身也是深度
+    if (!option.depth) {
+      option.depth = true
+    }
+    return this.deepCloneDataNext(origindata, targetdata, option)
+  },
+  deepCloneDataNext: function(origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
     let type = this.getType(origindata)
     // 复杂对象进行递归
-    if (type === 'object' || type === 'array') {
-      let result = map.get(origindata)
-      if (result) {
-        return result
-      } else {
-        result = type === 'object' ? {} : []
-        map.set(origindata, result)
-        if (type === 'object') {
-          for (let key in origindata) {
-            result[key] = this.deepCloneData(origindata[key], map)
-          }
-        } else {
-          origindata.forEach((item, index) => {
-            result[index] = this.deepCloneData(item, map)
-          })
+    if (type == 'object' || type == 'array') {
+      let unDeep = true
+      // 检查当前depth
+      if (option.depth === true || currentnum <= option.depth + 1) {
+        // 此时进行递归操作
+        unDeep = false
+        // 初始化目标值
+        let targetType = this.getType(targetdata)
+        let resetTarget = false
+        if (option.type == 'total') {
+          resetTarget = true
+        } else if (targetType != type) {
+          resetTarget = true
         }
-        return result
+        if (resetTarget) {
+          targetdata = type == 'object' ? {} : []
+        }
       }
+      if (unDeep) {
+        targetdata = origindata
+      } else {
+        // 当前深度递增
+        currentnum++
+        for (let i in origindata) {
+          let nextprop = currentprop ? currentprop + '.' + i : i
+          // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
+          if (!option.limitData.getLimit(nextprop)) {
+            targetdata[i] = this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop)
+          }
+        }
+      }
+    } else if (type === 'date') {
+      targetdata = new Date(origindata)
+    } else if (type === 'reg') {
+      targetdata = new RegExp(origindata)
     } else {
-      return origindata
+      targetdata = origindata
     }
+    return targetdata
   },
-  deepCloneDataWithOption: function(origindata, option = {}, map = new Map()) {
-    let type = this.getType(origindata)
-    // 复杂对象进行递归
-    if (type === 'object' || type === 'array') {
-      let result = map.get(origindata)
-      if (result) {
-        return result
-      } else {
-        result = type === 'object' ? {} : []
-        map.set(origindata, result)
-        if (type === 'object') {
-          for (let key in origindata) {
-            result[key] = this.deepCloneData(origindata[key], map)
+  // 基于origindata更新targetdata数据,type默认为add
+  updateData: function(targetdata, origindata, option = {}) {
+    if (!option.type) {
+      option.type = 'add'
+    }
+    targetdata = this.deepCloneData(origindata, targetdata, option)
+    return targetdata
+  },
+  /**
+   * 基于originlist更新targetlist列表数据
+   * @param {*} targetlist 目标列表:需要进行更新的列表
+   * @param {*} originlist 源数据列表:最新数据，以此为基准对目标列表数据进行更新
+   * @param {*} option 设置项
+   *  type列表转换类型
+   *  push布尔值新数据推送与否
+   *  check相同判断函数或者属性值
+   *  update更新函数或者参数function/object/und(targetItem目标数据/originItem源数据)
+   *  format新数据格式化函数
+   *  destroy删除数据回调
+   */
+  updateList: function(targetlist, originlist, option = {}) {
+    // 生成check函数
+    if (!option.check) {
+      this.printMsg('请传递check函数判断相同对象')
+      return
+    } else {
+      let type = this.getType(option.check)
+      if (type !== 'function') {
+        let checkOption = type == 'string' ? { prop: option.check } : option.check
+        if (!checkOption.equal) {
+          option.check = function(tItem, oItem) {
+            return tItem[checkOption.prop] == oItem[checkOption.prop]
           }
         } else {
-          origindata.forEach((item, index) => {
-            result[index] = this.deepCloneData(item, map)
-          })
+          option.check = function(tItem, oItem) {
+            return tItem[checkOption.prop] === oItem[checkOption.prop]
+          }
         }
-        return result
       }
+    }
+    // 默认方法类型
+    if (!option.type) {
+      option.type = 'total'
+    }
+    // 默认方法类型
+    if (option.push === undefined) {
+      option.push = true
+    }
+    // 更新操作设置
+    let updateType = 'option'
+    if (!option.update) {
+      option.update = {}
     } else {
-      return origindata
+      let type = this.getType(option.update)
+      if (type == 'function') {
+        updateType = 'function'
+      }
+    }
+    // 复制数组数据避免对原数据的修改=>仅限于数组层面
+    let cacheOriginList = originlist.slice()
+    let cacheTargetPropList = []
+    // 相同元素修改
+    for (let index = 0; index < targetlist.length; index++) {
+      let targetItem = targetlist[index]
+      let isFind = false
+      for (let i = 0; i < cacheOriginList.length; i++) {
+        let originItem = cacheOriginList[i]
+        if (option.check(targetItem, originItem)) {
+          if (updateType == 'function') {
+            option.update(targetItem, originItem)
+          } else {
+            this.updateData(targetItem, originItem, option.update)
+          }
+          cacheOriginList.splice(i, 1)
+          isFind = true
+          break
+        }
+      }
+      if (!isFind) {
+        cacheTargetPropList.push(index)
+      }
+    }
+    // 旧元素删除判断 => 当存在未命中的index且type为total时，更新整个数据，删除未命中的数据
+    if (cacheTargetPropList.length > 0 && option.type == 'total') {
+      for (let n = cacheTargetPropList.length - 1; n >= 0; n--) {
+        let index = cacheTargetPropList[n]
+        let delList = targetlist.splice(index, 1)
+        if (option.destroy) {
+          option.destroy(delList[0])
+        }
+      }
+    }
+    // 新元素加入
+    if (option.push && cacheOriginList.length > 0) {
+      for (let k = 0; k < cacheOriginList.length; k++) {
+        let originItem = cacheOriginList[k]
+        if (option.format) {
+          originItem = option.format(originItem)
+        }
+        targetlist.push(originItem)
+      }
     }
   },
   // ----- 数据复制相关 ----- END
