@@ -139,88 +139,6 @@ let utils = {
   },
   // ----- 数据类型判断相关 ----- END
   // ----- 数据复制相关 ----- START
-  // 深拷贝，complete是否调用完全体
-  deepClone: function(origindata, option) {
-    if (!option) {
-      return JSON.parse(JSON.stringify(origindata))
-    } else if (option === true) {
-      return this.deepCloneData(origindata)
-    } else {
-      return this.deepCloneDataWithOption(origindata, option)
-    }
-  },
-  deepCloneData: function(origindata, map = new Map()) {
-    let type = this.getType(origindata)
-    // 复杂对象进行递归
-    if (type === 'object' || type === 'array') {
-      let result = map.get(origindata)
-      if (result) {
-        return result
-      } else {
-        result = type === 'object' ? {} : []
-        map.set(origindata, result)
-        for (let key in origindata) {
-          result[key] = this.deepCloneData(origindata[key], map)
-        }
-        return result
-      }
-    } else {
-      return origindata
-    }
-  },
-  deepCloneDataWithOption: function(origindata, option = {}) {
-    // 限制字段设置
-    if (!option.limitData) {
-      option.limitData = this.getLimitData(option.limit)
-    }
-    // 深度设置项,为否包括0时不限制深度,数组本身也是深度
-    if (!option.depth) {
-      option.depth = true
-    }
-    return this.deepCloneDataNext(origindata, option)
-  },
-  deepCloneDataWithOptionNext: function(origindata, option = {}, currentnum = 1, currentprop = '', map = new Map()) {
-    let type = this.getType(origindata)
-    // 复杂对象进行递归
-    if (type == 'object' || type == 'array') {
-      let unDeep = true
-      // 检查当前depth
-      if (option.depth === true || currentnum <= option.depth + 1) {
-        // 此时进行递归操作
-        unDeep = false
-      }
-      if (unDeep) {
-        return origindata
-      } else {
-        let result = map.get(origindata)
-        if (result) {
-          return result
-        } else {
-          currentnum++
-          result = type === 'object' ? {} : []
-          map.set(origindata, result)
-          for (let key in origindata) {
-            let nextprop = currentprop ? currentprop + '.' + key : key
-            // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
-            if (!option.limitData.getLimit(nextprop)) {
-              result[key] = this.deepCloneDataNext(origindata[key], option, currentnum, nextprop, map)
-            }
-          }
-          return result
-        }
-      }
-    } else {
-      return origindata
-    }
-  },
-  // 基于origindata更新targetdata数据,type默认为add
-  updateData: function(targetdata, origindata, option = {}) {
-    if (!option.type) {
-      option.type = 'add'
-    }
-    targetdata = this.updateDataWidthOption(origindata, targetdata, option)
-    return targetdata
-  },
   // 格式化UpdateOption
   formatUpdateDataOption: function(option, type = 'total') {
     // 初始化设置项
@@ -235,15 +153,19 @@ let utils = {
     if (!option.limitData) {
       option.limitData = this.getLimitData(option.limit)
     }
-    // 被限制字段操作
-    if (!option.limittype) {
-      option.limittype = 'clear'
-    }
     // 深度设置项,为否包括0时不限制深度,数组本身也是深度
     if (!option.depth) {
       option.depth = true
     }
     return option
+  },
+  // 基于origindata更新targetdata数据,type默认为add
+  updateData: function(targetdata, origindata, option = {}) {
+    if (!option.type) {
+      option.type = 'add'
+    }
+    targetdata = this.updateDataWidthOption(origindata, targetdata, option)
+    return targetdata
   },
   updateDataWidthOption: function(origindata, targetdata, option) {
     option = this.formatUpdateDataOption(option, 'add')
@@ -292,6 +214,39 @@ let utils = {
       targetdata = origindata
     }
     return targetdata
+  },
+  // 深拷贝，complete是否调用完全体
+  deepClone: function(origindata, option) {
+    if (!option) {
+      return JSON.parse(JSON.stringify(origindata))
+    } else if (option === true) {
+      return this.deepCloneData(origindata)
+    } else {
+      return this.deepCloneDataWithOption(origindata, option)
+    }
+  },
+  deepCloneData: function(origindata, map = new Map()) {
+    let type = this.getType(origindata)
+    // 复杂对象进行递归
+    if (type === 'object' || type === 'array') {
+      let result = map.get(origindata)
+      if (result) {
+        return result
+      } else {
+        result = type === 'object' ? {} : []
+        map.set(origindata, result)
+        for (let key in origindata) {
+          result[key] = this.deepCloneData(origindata[key], map)
+        }
+        return result
+      }
+    } else {
+      return origindata
+    }
+  },
+  deepCloneDataWithOption: function(origindata, option) {
+    option = this.formatUpdateDataOption(option, 'add')
+    return this.updateDataWidthOptionNext(origindata, undefined, option)
   },
   // ----- 数据复制相关 ----- END
 
