@@ -5,6 +5,8 @@ import worker from './data/worker'
 import setData from './option/setData'
 import notice from './option/noticeData'
 
+import './test/index'
+
 mainfunc.install = function(Vue, options = {}) {
   // 设置属性重置为Vue.set
   setData.setVue(Vue)

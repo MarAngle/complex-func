@@ -1,0 +1,24 @@
+import test from './../main/index'
+import worker from './../../data/worker'
+
+(function() {
+  worker.set({
+    func: function(list) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ a: 1 })
+        }, 2000)
+      })
+    },
+    args: [[1, 23]],
+    isSync: true,
+    log: true
+  }).then(
+    res => {
+      if (res.a != 1) {
+        console.error('worker数据错误')
+      }
+     },
+    err => { console.log(err) }
+  )
+})();

@@ -151,14 +151,14 @@ let utils = {
     }
     // 格式化类型
     if (option.reset === undefined) {
-      option.reset = defaultOption.reset !== undefined ? defaultOption.reset : false
+      option.reset = defaultOption.reset !== undefined ? defaultOption.reset : true
     }
     // 限制字段设置
     if (!option.limitData) {
       option.limitData = this.getLimitData(option.limit)
     }
-    // 深度设置项,为否包括0时不限制深度,数组本身也是深度
-    if (!option.depth) {
+    // 深度设置项,为否不包括0时不限制深度,数组本身也是深度
+    if (!option.depth && option.depth !== 0) {
       option.depth = true
     }
     return option
@@ -184,7 +184,7 @@ let utils = {
       let unDeep = true
       let reset = false
       // 检查当前depth
-      if (option.depth === true || currentnum <= option.depth + 1) {
+      if (option.depth === true || currentnum <= option.depth) {
         // 初始化目标值
         let targetType = this.getType(targetdata)
         if (targetType === type) {
@@ -259,9 +259,7 @@ let utils = {
     }
   },
   deepCloneDataWithOption: function(origindata, option) {
-    option = this.formatUpdateDataOption(option, {
-      reset: true
-    })
+    option = this.formatUpdateDataOption(option, {})
     return this.updateDataWidthOptionNext(origindata, undefined, option)
   },
   /**
