@@ -1341,8 +1341,8 @@ let utils = {
   },
   LoadContents: function(contents, fn) {
     let contentList = contents.keys()
-    contentList.forEach((item, index) => {
-      this.triggerFunc(fn, item, index)
+    contentList.forEach((path, index) => {
+      this.triggerFunc(fn, contents(path), path, index)
     })
   },
   // 函数防抖，触发事件N秒后执行函数，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
