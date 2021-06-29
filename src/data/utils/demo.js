@@ -1,6 +1,5 @@
+import getType from './getType'
 
-function showJson(json) {
-  console.log(JSON.stringify(json))
-}
+function demo
 
-export default showJson
+export default demo

@@ -811,14 +811,6 @@ let utils = {
   },
   // ----- 对象相关操作 ----- END
   // ----- 数组相关操作 ----- START
-  // 判断数据在数组中
-  inArray: function(item, list) {
-    if (list.indexOf(item) > -1) {
-      return true
-    } else {
-      return false
-    }
-  },
   clearArray: function(list) {
     list.splice(0, list.length)
   },
