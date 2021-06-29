@@ -1,6 +1,18 @@
 import setData from './../option/setData'
 import LimitData from './../build/LimitData'
 
+// function LoadContents(contents, fn) {
+//   let contentList = contents.keys()
+//   contentList.forEach((path, index) => {
+//     fn(contents(path), path, index)
+//   })
+// }
+
+// const _data = require.context('./utils', false, /\.js$/)
+// LoadContents(_data, (item, path) => {
+//   console.log(item, path)
+// })
+
 let letterData = {
   small: [],
   big: [],
