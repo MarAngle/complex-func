@@ -84,6 +84,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 import worker from './data/worker'
 
+// import './test/index'
 // import './buildText'
 
 let requiredata
