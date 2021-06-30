@@ -1,5 +1,10 @@
 import getQueryUrl from './getQueryUrl'
 
+/**
+ * 解析query数据（#此处不做判断）
+ * @param {string} url
+ * @returns {object}
+ */
 function getQueryData(url) {
   let queryData = {}
   let queryUrl = getQueryUrl(url)

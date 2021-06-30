@@ -1,6 +1,13 @@
 import buildLocalDataName from './buildLocalDataName'
 import setLocalData from './setLocalData'
 
+/**
+ * 获取缓存
+ * @param {string} name
+ * @param {number} [time] 获取的时间间隔限制,按秒进行
+ * @param {boolean} [refresh] 重置缓存时间戳
+ * @returns {*}
+ */
 function getLocalData(name, time, refresh) {
   name = buildLocalDataName(name)
   let localData = localStorage.getItem(name)

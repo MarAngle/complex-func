@@ -1,5 +1,10 @@
 import buildLocalDataName from './buildLocalDataName'
 
+/**
+ * 设置缓存
+ * @param {string} name
+ * @param {*} value
+ */
 function setLocalData(name, value) {
   name = buildLocalDataName(name)
   let localData = {

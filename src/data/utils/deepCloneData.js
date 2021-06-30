@@ -1,5 +1,11 @@
 import getType from './getType'
 
+/**
+ * 基础版本的深拷贝
+ * @param {*} origindata 深拷贝对象
+ * @param {*} map 循环引用缓存
+ * @returns
+ */
 function deepCloneData(origindata, map = new Map()) {
   let type = getType(origindata)
   // 复杂对象进行递归

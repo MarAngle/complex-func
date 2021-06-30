@@ -1,5 +1,11 @@
 import encodeURI from './encodeURI'
 
+/**
+ * 设置query url
+ * @param {string} url
+ * @param {object} data 值对象
+ * @returns {string}
+ */
 function formatQueryUrl(url, data) {
   let type = 'init'
   if (url.indexOf('?') > -1) {

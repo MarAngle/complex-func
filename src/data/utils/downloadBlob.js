@@ -1,7 +1,13 @@
 import downloadFileByAnchor from './downloadFileByAnchor'
 import openWindow from './openWindow'
 
-
+/**
+ * 下载blob文件
+ * @param {*} blobValue
+ * @param {*} type
+ * @param {*} name
+ * @returns {boolean} 是否成功
+ */
 function downloadBlob(blobValue, type, name) {
   let blob
   if (typeof window.Blob == 'function') {

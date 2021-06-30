@@ -1,15 +1,14 @@
 import getPropByList from './getPropByList'
-/*
-  根据'mainprop.prop'格式字符串获取对象值
-  intervalRepeat作为分隔符的判断值
-    =>为真时连续分隔符将会全部删除
-    =>为否时则连续和开始结束分隔符保留
-      =>此时.可作为属性
-      =>.a将直接取.a属性,.a..b取[.a][.b]
-      =>理论上无法进行[a.]属性的获取
-*/
-function getProp(targetData, prop, intervalRepeat = false) {
-  if (!targetData || !prop) {
+
+/**
+ * 根据'mainprop.prop'格式字符串获取对象值
+ * @param {object} value 对应对象
+ * @param {string} prop 对应属性
+ * @param {boolean} [intervalRepeat] 分隔符.重复判断值, 默认为否;为真时连续.会全部删除,为否时连续和开始结束分隔符会保留,此时.视为属性,.a直接取[.a],a..b取[.a][.b],理论上无法对[a.]取值
+ * @returns
+ */
+function getProp(value, prop, intervalRepeat = false) {
+  if (!value || !prop) {
     return undefined
   } else {
     const interval = '.'
@@ -31,7 +30,7 @@ function getProp(targetData, prop, intervalRepeat = false) {
     if (lastEmpty) {
       propList.push(interval.repeat(lastEmpty))
     }
-    return getPropByList(targetData, propList)
+    return getPropByList(value, propList)
   }
 }
 

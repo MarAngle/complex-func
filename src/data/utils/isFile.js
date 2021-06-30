@@ -1,6 +1,12 @@
+import getTag from './getTag'
 
-function isFile(data) {
-  return Object.prototype.toString.call(data) === '[object File]'
+/**
+ * 是否是File
+ * @param {*} value 需要判断的数据
+ * @returns {boolean} value is File
+ */
+function isFile(value) {
+  return getTag(value) === '[object File]'
 }
 
 export default isFile

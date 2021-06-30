@@ -4,6 +4,14 @@
   1.判断自己的数据是否已经模拟，创建或者赋值
   2.判断父节点是否存在，挂载上去
 */
+/**
+ * 格式化树形数组next操作
+ * @param {object} dataCache 缓存
+ * @param {object} originItem 源数据
+ * @param {string} idProp id属性
+ * @param {string} parentIdProp parentId属性
+ * @param {string} childrenProp children属性
+ */
 function formatTreeNext(dataCache, originItem, idProp, parentIdProp, childrenProp) {
   let itemCache = dataCache[originItem[idProp]]
   // 存在值则说明此时存在虚拟构建的数据

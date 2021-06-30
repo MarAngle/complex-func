@@ -1,6 +1,10 @@
 import getType from './getType'
 
-// 清除开始结束空格，仅对字符串有效
+/**
+ * 清除开始结束空格，仅对字符串有效
+ * @param {*} data
+ * @returns {*}
+ */
 function trimData(data) {
   let type = getType(data)
   if (type == 'string') {

@@ -1,8 +1,14 @@
 
-function hasProp(data, prop) {
-  if (data[prop] === undefined) {
-    if (!Object.prototype.hasOwnProperty.call(data, prop)) {
-      for (let n in data) {
+/**
+ * 判断对象是否存在对应属性
+ * @param {object} value 对象
+ * @param {string} prop 属性
+ * @returns value has prop
+ */
+function hasProp(value, prop) {
+  if (value[prop] === undefined) {
+    if (!Object.prototype.hasOwnProperty.call(value, prop)) {
+      for (let n in value) {
         if (n == prop) {
           return true
         }

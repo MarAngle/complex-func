@@ -2,6 +2,18 @@ import printMsg from './printMsg'
 import isPromise from './isPromise'
 import triggerFunc from './triggerFunc'
 
+/**
+ * 触发Promise函数:接收func必须返回Promise或者promise为Promise对象
+ * @param {object} option 设置项
+ * @param {function} [option.func] 返回Promise的函数
+ * @param {any[]} [option.args] 函数参数
+ * @param {Promise} [option.promise] Promise对象,不存在时则会通过func(..args)返回
+ * @param {function} [option.error] 错误回调=>不触发完成
+ * @param {function} [option.start] 开始回调
+ * @param {function} [option.success] 成功回调
+ * @param {function} [option.fail] 失败回调
+ * @param {function} [option.finish] 完成回调
+ */
 function triggerPromise({
   func,
   args,

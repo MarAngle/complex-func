@@ -1,5 +1,12 @@
-import getType from './getType'
 
+/**
+ * 文件属性转换
+ * @param {'BASE64' | 'FILE' | 'BLOB'} from
+ * @param {'BASE64' | 'FILE' | 'BLOB'} to
+ * @param {string | File | Blob} data
+ * @param {string} [filename]
+ * @returns {Promise<string | File | Blob>}
+ */
 function transformFile(from, to, data, filename) {
   return new Promise((resolve) => {
     if (from == 'BASE64') {

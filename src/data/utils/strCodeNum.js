@@ -1,4 +1,9 @@
 
+/**
+ * 获取字符串每个字符的code值和
+ * @param {string} str
+ * @returns {number}
+ */
 function strCodeNum(str) {
   let num = 0
   for (let n = 0; n < str.length; n++) {

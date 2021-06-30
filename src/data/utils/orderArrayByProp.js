@@ -1,5 +1,12 @@
 import getProp from './getProp'
 
+/**
+ * 根据rule数组顺序对list[index][prop]的值进行排序
+ * @param {object[]} list 目标数组
+ * @param {object} option 设置项
+ * @param {string} option.prop 对比属性
+ * @param {*[]} option.rule 设置项
+ */
 function orderArrayByProp(list, { prop, rule }) {
   for (let i = 0; i < rule.length; i++) {
     let ruleProp = rule[i]

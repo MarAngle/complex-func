@@ -1,9 +1,15 @@
+import getTag from './getTag'
 
-function isArray(data) {
+/**
+ * 是否是Array
+ * @param {*} value 需要判断的数据
+ * @returns {boolean} value is Array
+ */
+function isArray(value) {
   if (Array.isArray) {
-    return Array.isArray(data)
+    return Array.isArray(value)
   } else {
-    return Object.prototype.toString.call(data) === '[object Array]'
+    return getTag(value) === '[object Array]'
   }
 }
 

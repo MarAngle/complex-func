@@ -1,7 +1,11 @@
-
-function isComplex(data) {
+/**
+ * 是否是复杂对象
+ * @param {*} value 需要判断的数据
+ * @returns {boolean} value is 复杂对象
+ */
+function isComplex(value) {
   let complex = ['object', 'array']
-  return complex.indexOf(data) > -1
+  return complex.indexOf(value) > -1
 }
 
 export default isComplex

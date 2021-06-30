@@ -1,17 +1,23 @@
 import getNum from './getNum'
 
-function formatDataByType(originData, type = 'string') {
+/**
+ * 根据类型格式化对象,暂时只对number和boolean进行格式化
+ * @param {*} value 需要格式化的值
+ * @param {*} type 格式化的类型
+ * @returns value
+ */
+function formatDataByType(value, type = 'string') {
   let data
   if (type == 'boolean') {
-    if (originData) {
+    if (value) {
       data = true
     } else {
       data = false
     }
   } else if (type == 'number') {
-    data = getNum(originData, 'origin')
+    data = getNum(value, 'origin')
   } else {
-    data = originData
+    data = value
   }
   return data
 }

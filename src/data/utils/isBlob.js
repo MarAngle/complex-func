@@ -1,6 +1,12 @@
+import getTag from './getTag'
 
-function isBlob(data) {
-  return Object.prototype.toString.call(data) === '[object Blob]'
+/**
+ * 是否是Blob
+ * @param {*} value 需要判断的数据
+ * @returns {boolean} value is Blob
+ */
+function isBlob(value) {
+  return getTag(value) === '[object Blob]'
 }
 
 export default isBlob

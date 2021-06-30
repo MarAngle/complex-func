@@ -1,5 +1,11 @@
 import getType from './getType'
 
+/**
+ * 合并数据函数，基于源数据originData格式化目标数据targetData函数
+ * @param {*} targetData 目标数据
+ * @param {object} originData 源数据
+ * @returns targetdata
+ */
 function mergeData(targetData, originData) {
   if (!originData) {
     originData = {}

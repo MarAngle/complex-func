@@ -1,6 +1,13 @@
+import getTag from './getTag'
 
-function isError(data) {
-  return Object.prototype.toString.call(data) === '[object Error]'
+/**
+ * 是否是Error
+ * @param {*} value 需要判断的数据
+ * @returns {boolean} value is Error
+ */
+function isError(value) {
+  let tag = getTag(value)
+  return tag === '[object Error]' || tag === '[object DOMException]'
 }
 
 export default isError

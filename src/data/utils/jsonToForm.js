@@ -1,5 +1,10 @@
 import getType from './getType'
 
+/**
+ * 将对象转换为FormData格式
+ * @param {object} jsonData 对象
+ * @returns {FormData}
+ */
 function jsonToForm(jsonData) {
   let formData = new FormData()
   for (let prop in jsonData) {
