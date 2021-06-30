@@ -1,4 +1,4 @@
-### 2.0.14ing
+### 2.0.14
 - hasProp逻辑优化，错误修复
 - printMsgAct优化，添加Error判断
 - isError
