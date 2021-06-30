@@ -1,4 +1,8 @@
-import utils from './../data/utils'
+import getType from './../data/utils/getType'
+import printMsgAct from './../data/utils/printMsgAct'
+import appendProp from './../data/utils/appendProp'
+import getLocalData from './../data/utils/getLocalData'
+import setLocalData from './../data/utils/setLocalData'
 
 const defaultOption = {
   location: 'body', // 默认赋值位置
@@ -39,7 +43,7 @@ class RequireRule {
   // 创建tokenRule
   buildTokenRule (origindata) {
     let targetitem = {}
-    let type = utils.getType(origindata)
+    let type = getType(origindata)
     if (type == 'string') {
       origindata = {
         data: origindata
@@ -92,7 +96,7 @@ class RequireRule {
       if (optionData.token === undefined) {
         optionData.token = defaultOption.defaultName
       }
-      let type = utils.getType(optionData.token)
+      let type = getType(optionData.token)
       if (type == 'string') {
         if (optionData.token == defaultOption.defaultName) {
           for (let n in this.token.data) {
@@ -160,7 +164,7 @@ class RequireRule {
     }
     if (check.next && append) {
       if (tokenRule.location == 'body') {
-        utils.appendProp(optionData.data, prop, tokenRuleData, optionData.localType)
+        appendProp(optionData.data, prop, tokenRuleData, optionData.localType)
       } else if (tokenRule.location == 'header') {
         optionData.headers[prop] = tokenRuleData
       } else if (tokenRule.location == 'params') {
@@ -192,7 +196,7 @@ class RequireRule {
       data = tokenRule.data
     }
     if (!data) {
-      data = utils.getLocalData(this._buildTokenName(prop))
+      data = getLocalData(this._buildTokenName(prop))
       if (data) {
         this.setToken(prop, data, true)
       }
@@ -231,14 +235,14 @@ class RequireRule {
       this.token.data[tokenName].data = data
     }
     if (!noSave) {
-      utils.setLocalData(this._buildTokenName(tokenName), data)
+      setLocalData(this._buildTokenName(tokenName), data)
     }
   }
   _buildTokenName (prop) {
     return `${this.prop}-${prop}`
   }
   printMsg(info, type = 'error', option) {
-    utils.printMsgAct(this._selfName() + ':' + info, type, option)
+    printMsgAct(this._selfName() + ':' + info, type, option)
   }
   _selfName() {
     return `(${this.constructor.name}:[${this.name}/${this.prop}])`

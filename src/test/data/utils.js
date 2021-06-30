@@ -1,5 +1,81 @@
-import test from './../main/index'
-import utils from './../../data/utils'
+// utils加载
+import LoadContents from './data/utils/LoadContents'
+import appendProp from './data/utils/appendProp'
+import arrayClearOther from './data/utils/arrayClearOther'
+import buildLocalDataName from './data/utils/buildLocalDataName'
+import checkComplex from './data/utils/checkComplex'
+import choiceProp from './data/utils/choiceProp'
+import clearArray from './data/utils/clearArray'
+import debounce from './data/utils/debounce'
+import deepClone from './data/utils/deepClone'
+import deepCloneData from './data/utils/deepCloneData'
+import deepCloneDataWithOption from './data/utils/deepCloneDataWithOption'
+import defineDeepReactive from './data/utils/defineDeepReactive'
+import defineDeepWatch from './data/utils/defineDeepWatch'
+import defineReactive from './data/utils/defineReactive'
+import defineWatch from './data/utils/defineWatch'
+import downloadBlob from './data/utils/downloadBlob'
+import downloadFile from './data/utils/downloadFile'
+import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
+import encodeURI from './data/utils/encodeURI'
+import fillString from './data/utils/fillString'
+import findTargetInStr from './data/utils/findTargetInStr'
+import findTargetInStrNext from './data/utils/findTargetInStrNext'
+import formatDataByType from './data/utils/formatDataByType'
+import formatList from './data/utils/formatList'
+import formatQueryUrl from './data/utils/formatQueryUrl'
+import formatTree from './data/utils/formatTree'
+import formatTreeNext from './data/utils/formatTreeNext'
+import formatUpdateDataOption from './data/utils/formatUpdateDataOption'
+import getLimitData from './data/utils/getLimitData'
+import getLocalData from './data/utils/getLocalData'
+import getNum from './data/utils/getNum'
+import getProp from './data/utils/getProp'
+import getPropByList from './data/utils/getPropByList'
+import getQueryData from './data/utils/getQueryData'
+import getQueryUrl from './data/utils/getQueryUrl'
+import getRandomData from './data/utils/getRandomData'
+import getRandomInList from './data/utils/getRandomInList'
+import getRandomLetter from './data/utils/getRandomLetter'
+import getRandomNum from './data/utils/getRandomNum'
+import getTag from './data/utils/getTag'
+import getType from './data/utils/getType'
+import hasProp from './data/utils/hasProp'
+import isArray from './data/utils/isArray'
+import isBlob from './data/utils/isBlob'
+import isComplex from './data/utils/isComplex'
+import isDate from './data/utils/isDate'
+import isEmptyObject from './data/utils/isEmptyObject'
+import isError from './data/utils/isError'
+import isFile from './data/utils/isFile'
+import isPromise from './data/utils/isPromise'
+import isRegExp from './data/utils/isRegExp'
+import jsonToForm from './data/utils/jsonToForm'
+import mergeData from './data/utils/mergeData'
+import openWindow from './data/utils/openWindow'
+import orderArrayByProp from './data/utils/orderArrayByProp'
+import printMsg from './data/utils/printMsg'
+import printMsgAct from './data/utils/printMsgAct'
+import removeLocalData from './data/utils/removeLocalData'
+import runFunction from './data/utils/runFunction'
+import setDefaultData from './data/utils/setDefaultData'
+import setLocalData from './data/utils/setLocalData'
+import setLocalDataPre from './data/utils/setLocalDataPre'
+import setProp from './data/utils/setProp'
+import setPropByList from './data/utils/setPropByList'
+import setPropByType from './data/utils/setPropByType'
+import showArrayProp from './data/utils/showArrayProp'
+import showJson from './data/utils/showJson'
+import strCodeNum from './data/utils/strCodeNum'
+import throttle from './data/utils/throttle'
+import transformFile from './data/utils/transformFile'
+import triggerFunc from './data/utils/triggerFunc'
+import triggerPromise from './data/utils/triggerPromise'
+import trimData from './data/utils/trimData'
+import updateData from './data/utils/updateData'
+import updateDataWidthOption from './data/utils/updateDataWidthOption'
+import updateList from './data/utils/updateList'
+// utils加载完成
 
 (function() {
   // 拷贝相关
@@ -33,7 +109,7 @@ import utils from './../../data/utils'
       ]
     }
   }
-  utils.updateData(targetdata, origindata)
+  updateData(targetdata, origindata)
   if (targetdata.name != 'origin' || targetdata.data.list[0].name != '11' || targetdata.data.list[1].id != 3) {
     console.error('UpdateData未成功')
   }
@@ -72,7 +148,7 @@ import utils from './../../data/utils'
       ]
     }
   }
-  utils.updateData(targetdata, origindata, {
+  updateData(targetdata, origindata, {
     limit: {
       list: ['data.name']
     },
@@ -100,8 +176,8 @@ import utils from './../../data/utils'
     }
     obj.b.push(obj.c)
     obj.c.j = obj.b
-    utils.deepClone(obj, true)
-    utils.deepClone(obj, {})
+    deepClone(obj, true)
+    deepClone(obj, {})
   } catch (e) {
     console.error('深拷贝的循环引用报错', e)
   }
@@ -129,7 +205,7 @@ import utils from './../../data/utils'
       name: 'c'
     }
   ]
-  utils.updateList(list, list2, {
+  updateList(list, list2, {
     check: 'id',
     update: function(targetItem, originItem) {
       targetItem.name = originItem.name
@@ -164,7 +240,7 @@ import utils from './../../data/utils'
     })
   }
 
-  utils.triggerPromise({
+  triggerPromise({
     func: function() {},
     args: [],
     error: (code) => {
@@ -173,7 +249,7 @@ import utils from './../../data/utils'
       }
     }
   })
-  utils.triggerPromise({
+  triggerPromise({
     func: promiseFunction,
     args: ['promise'],
     error: (code) => {
@@ -191,12 +267,12 @@ import utils from './../../data/utils'
     }
   })
 
-  utils.runFunction(baseFunction, ['base'], function(res) {
+  runFunction(baseFunction, ['base'], function(res) {
     if (res.data != 'base') {
       console.error('runFunction错误', res)
     }
   })
-  utils.runFunction(promiseFunction, ['promise'], function(res) {
+  runFunction(promiseFunction, ['promise'], function(res) {
     if (res.data.name != 'promise') {
       console.error('runFunction错误', res)
     }

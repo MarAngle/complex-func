@@ -1,4 +1,5 @@
-import utils from './../data/utils'
+import getType from './../data/utils/getType'
+import printMsgAct from './../data/utils/printMsgAct'
 
 const base = {
   num: '0-9',
@@ -81,20 +82,20 @@ class RuleData {
     if (propList === true) {
       for (let n in data) {
         let info = data[n]
-        if (utils.getType(info) == 'object') {
+        if (getType(info) == 'object') {
           regStr += this.buildRegData(true, info)
         } else {
           regStr += info
         }
       }
     } else {
-      let type = utils.getType(propList)
+      let type = getType(propList)
       if (type == 'array') {
         for (let i = 0; i < propList.length; i++) {
           let prop = propList[i]
           let info = data[prop]
-          if (utils.getType(info) == 'object') {
-            regStr += this.buildRegData(utils.getType(prop) == 'array' ? prop : true, info)
+          if (getType(info) == 'object') {
+            regStr += this.buildRegData(getType(prop) == 'array' ? prop : true, info)
           } else {
             regStr += info
           }
@@ -113,7 +114,7 @@ class RuleData {
       if (merge) {
         reg = this.buildReg(reg, merge)
       }
-      let type = utils.getType(reg)
+      let type = getType(reg)
       if (type != 'reg') {
         reg = new RegExp(reg)
       }
@@ -123,7 +124,7 @@ class RuleData {
     }
   }
   printMsg(info, type = 'error', option) {
-    utils.printMsgAct(this._selfName() + ':' + info, type, option)
+    printMsgAct(this._selfName() + ':' + info, type, option)
   }
   _selfName() {
     return `[${this.constructor.name}]`

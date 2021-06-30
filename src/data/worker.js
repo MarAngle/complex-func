@@ -1,5 +1,5 @@
 import _environment from './environment'
-import _utils from './utils'
+import getType from './utils/getType'
 
 let worker = {}
 
@@ -37,7 +37,7 @@ worker.getContent = function(func, isSync, log) {
 // 执行
 worker.doit = function({ func, args, isSync, log }) {
   return new Promise((resolve, reject) => {
-    let type = _utils.getType(func)
+    let type = getType(func)
     if (type == 'function') {
       if (_environment.getCanUse('Worker')) {
         let content = this.getContent(func, isSync, log)

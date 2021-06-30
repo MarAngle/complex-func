@@ -1,4 +1,82 @@
-import utils from './data/utils'
+// utils加载
+import LoadContents from './data/utils/LoadContents'
+import appendProp from './data/utils/appendProp'
+import arrayClearOther from './data/utils/arrayClearOther'
+import buildLocalDataName from './data/utils/buildLocalDataName'
+import checkComplex from './data/utils/checkComplex'
+import choiceProp from './data/utils/choiceProp'
+import clearArray from './data/utils/clearArray'
+import debounce from './data/utils/debounce'
+import deepClone from './data/utils/deepClone'
+import deepCloneData from './data/utils/deepCloneData'
+import deepCloneDataWithOption from './data/utils/deepCloneDataWithOption'
+import defineDeepReactive from './data/utils/defineDeepReactive'
+import defineDeepWatch from './data/utils/defineDeepWatch'
+import defineReactive from './data/utils/defineReactive'
+import defineWatch from './data/utils/defineWatch'
+import downloadBlob from './data/utils/downloadBlob'
+import downloadFile from './data/utils/downloadFile'
+import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
+import encodeURI from './data/utils/encodeURI'
+import fillString from './data/utils/fillString'
+import findTargetInStr from './data/utils/findTargetInStr'
+import findTargetInStrNext from './data/utils/findTargetInStrNext'
+import formatDataByType from './data/utils/formatDataByType'
+import formatList from './data/utils/formatList'
+import formatQueryUrl from './data/utils/formatQueryUrl'
+import formatTree from './data/utils/formatTree'
+import formatTreeNext from './data/utils/formatTreeNext'
+import formatUpdateDataOption from './data/utils/formatUpdateDataOption'
+import getLimitData from './data/utils/getLimitData'
+import getLocalData from './data/utils/getLocalData'
+import getNum from './data/utils/getNum'
+import getProp from './data/utils/getProp'
+import getPropByList from './data/utils/getPropByList'
+import getQueryData from './data/utils/getQueryData'
+import getQueryUrl from './data/utils/getQueryUrl'
+import getRandomData from './data/utils/getRandomData'
+import getRandomInList from './data/utils/getRandomInList'
+import getRandomLetter from './data/utils/getRandomLetter'
+import getRandomNum from './data/utils/getRandomNum'
+import getTag from './data/utils/getTag'
+import getType from './data/utils/getType'
+import hasProp from './data/utils/hasProp'
+import isArray from './data/utils/isArray'
+import isBlob from './data/utils/isBlob'
+import isComplex from './data/utils/isComplex'
+import isDate from './data/utils/isDate'
+import isEmptyObject from './data/utils/isEmptyObject'
+import isError from './data/utils/isError'
+import isFile from './data/utils/isFile'
+import isPromise from './data/utils/isPromise'
+import isRegExp from './data/utils/isRegExp'
+import jsonToForm from './data/utils/jsonToForm'
+import mergeData from './data/utils/mergeData'
+import openWindow from './data/utils/openWindow'
+import orderArrayByProp from './data/utils/orderArrayByProp'
+import printMsg from './data/utils/printMsg'
+import printMsgAct from './data/utils/printMsgAct'
+import removeLocalData from './data/utils/removeLocalData'
+import runFunction from './data/utils/runFunction'
+import setDefaultData from './data/utils/setDefaultData'
+import setLocalData from './data/utils/setLocalData'
+import setLocalDataPre from './data/utils/setLocalDataPre'
+import setProp from './data/utils/setProp'
+import setPropByList from './data/utils/setPropByList'
+import setPropByType from './data/utils/setPropByType'
+import showArrayProp from './data/utils/showArrayProp'
+import showJson from './data/utils/showJson'
+import strCodeNum from './data/utils/strCodeNum'
+import throttle from './data/utils/throttle'
+import transformFile from './data/utils/transformFile'
+import triggerFunc from './data/utils/triggerFunc'
+import triggerPromise from './data/utils/triggerPromise'
+import trimData from './data/utils/trimData'
+import updateData from './data/utils/updateData'
+import updateDataWidthOption from './data/utils/updateDataWidthOption'
+import updateList from './data/utils/updateList'
+// utils加载完成
+
 import rule from './data/rule'
 import current from './data/current'
 import environment from './data/environment'
@@ -6,11 +84,89 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 import worker from './data/worker'
 
+// import './buildText'
+
 let requiredata
 
 let mainfunc = {
   current: current,
-  data: {}
+  data: {},
+  LoadContents,
+  appendProp,
+  arrayClearOther,
+  buildLocalDataName,
+  checkComplex,
+  choiceProp,
+  clearArray,
+  debounce,
+  deepClone,
+  deepCloneData,
+  deepCloneDataWithOption,
+  defineDeepReactive,
+  defineDeepWatch,
+  defineReactive,
+  defineWatch,
+  downloadBlob,
+  downloadFile,
+  downloadFileByAnchor,
+  encodeURI,
+  fillString,
+  findTargetInStr,
+  findTargetInStrNext,
+  formatDataByType,
+  formatList,
+  formatQueryUrl,
+  formatTree,
+  formatTreeNext,
+  formatUpdateDataOption,
+  getLimitData,
+  getLocalData,
+  getNum,
+  getProp,
+  getPropByList,
+  getQueryData,
+  getQueryUrl,
+  getRandomData,
+  getRandomInList,
+  getRandomLetter,
+  getRandomNum,
+  getTag,
+  getType,
+  hasProp,
+  isArray,
+  isBlob,
+  isComplex,
+  isDate,
+  isEmptyObject,
+  isError,
+  isFile,
+  isPromise,
+  isRegExp,
+  jsonToForm,
+  mergeData,
+  openWindow,
+  orderArrayByProp,
+  printMsg,
+  printMsgAct,
+  removeLocalData,
+  runFunction,
+  setDefaultData,
+  setLocalData,
+  setLocalDataPre,
+  setProp,
+  setPropByList,
+  setPropByType,
+  showArrayProp,
+  showJson,
+  strCodeNum,
+  throttle,
+  transformFile,
+  triggerFunc,
+  triggerPromise,
+  trimData,
+  updateData,
+  updateDataWidthOption,
+  updateList
 }
 
 mainfunc._initMod = function (mod, methodList) {
@@ -125,8 +281,6 @@ mainfunc._initMod(rule, [
 ])
 
 mainfunc._initMod(environment)
-
-mainfunc._initMod(utils)
 
 mainfunc._initMod(worker, [
   {

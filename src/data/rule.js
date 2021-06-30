@@ -1,4 +1,3 @@
-import _utils from './utils'
 import RuleData from './../build/RuleData'
 
 let rule = {

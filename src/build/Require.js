@@ -1,8 +1,9 @@
 import axios from 'axios'
 import RequireRule from './RequireRule'
-import utils from './../data/utils'
 import environment from './../data/environment'
 import noticeData from './../option/noticeData'
+import jsonToForm from './../data/utils/jsonToForm'
+import printMsgAct from './../data/utils/printMsgAct'
 
 /*
 option:
@@ -193,7 +194,7 @@ class Require {
         if (optionData.requestDataType == 'formdata') {
           optionData.headers['Content-Type'] = 'multipart/form-data'
           if (optionData.requestCurrentDataType == 'json') {
-            optionData.data = utils.jsonToForm(optionData.data)
+            optionData.data = jsonToForm(optionData.data)
           }
         } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
@@ -365,7 +366,7 @@ class Require {
     return `(${this.constructor.name}:[${ruleName.join(',')}])`
   }
   printMsg(info, type = 'error', option) {
-    utils.printMsgAct(this._selfName() + ':' + info, type, option)
+    printMsgAct(this._selfName() + ':' + info, type, option)
   }
   toString() {
     return this._selfName()
