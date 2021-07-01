@@ -99,7 +99,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // import './test/index'
-// import './buildText'
+// import './buildContentImport'
 
 let requiredata
 
