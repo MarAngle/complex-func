@@ -1,6 +1,6 @@
 import axios from 'axios'
 import RequireRule from './RequireRule'
-import environment from './../data/environment'
+import { getEnv } from './../data/environment/index'
 import noticeData from './../option/noticeData'
 import jsonToForm from './../data/utils/jsonToForm'
 import printMsgAct from './../data/utils/printMsgAct'
@@ -65,7 +65,7 @@ class Require {
     if (!this.rule.default) {
       this.rule.default = this.rule[firstProp]
     }
-    if (environment.getEnv('real') == 'development') {
+    if (getEnv('real') == 'development') {
       this.printMsg(`默认的请求规则处理程序为[${this.rule.default._selfName()}]`, 'log')
     }
   }

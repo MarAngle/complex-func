@@ -1,4 +1,4 @@
-import getCanUse from './../environment/getCanUse'
+import { getCanUse } from './../environment/index'
 import getType from './../utils/getType'
 import getWorkerContent from './getWorkerContent'
 

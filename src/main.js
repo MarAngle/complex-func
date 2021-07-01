@@ -77,14 +77,15 @@ import updateDataWidthOption from './data/utils/updateDataWidthOption'
 import updateList from './data/utils/updateList'
 // utils加载完成
 // environment加载
-import checkUse from './data/environment/checkUse'
-import checkUseItem from './data/environment/checkUseItem'
-import getCanUse from './data/environment/getCanUse'
-import getEnv from './data/environment/getEnv'
-import getEnvMode from './data/environment/getEnvMode'
-import setCanUse from './data/environment/setCanUse'
-import setEnv from './data/environment/setEnv'
-import setEnvMode from './data/environment/setEnvMode'
+import {
+  checkUseItem,
+  getCanUse,
+  getEnv,
+  getEnvMode,
+  setCanUse,
+  setEnv,
+  setEnvMode
+} from './data/environment/index'
 // environment加载完成
 // worker加载
 import getWorkerContent from './data/worker/getWorkerContent'
@@ -97,7 +98,7 @@ import current from './data/current'
 import Require from './build/Require'
 import notice from './option/noticeData'
 
-import './test/index'
+// import './test/index'
 // import './buildText'
 
 let requiredata
@@ -183,7 +184,6 @@ let mainfunc = {
   updateDataWidthOption,
   updateList,
   // environment
-  checkUse,
   checkUseItem,
   getCanUse,
   getEnv,
