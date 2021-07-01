@@ -1,4 +1,4 @@
-### 2.0.15ing
+### 2.0.15
 - environment/worker文件拆分,注释添加
 - updateData BUG修复
 - LoadContents => loadContents
