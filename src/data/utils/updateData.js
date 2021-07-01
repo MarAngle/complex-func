@@ -1,3 +1,4 @@
+import formatUpdateDataOption from './formatUpdateDataOption'
 import updateDataWidthOption from './updateDataWidthOption'
 
 /**
@@ -15,9 +16,9 @@ import updateDataWidthOption from './updateDataWidthOption'
  * @returns targetdata
  */
 function updateData(targetdata, origindata, option = {}) {
-  if (!option.type) {
-    option.type = 'add'
-  }
+  option = formatUpdateDataOption(option, {
+    type: 'add'
+  })
   targetdata = updateDataWidthOption(origindata, targetdata, option)
   return targetdata
 }

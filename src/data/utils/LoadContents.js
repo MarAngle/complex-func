@@ -5,11 +5,11 @@ import triggerFunc from './triggerFunc'
  * @param {*} contents
  * @param {function} fn
  */
-function LoadContents(contents, fn) {
+function loadContents(contents, fn) {
   let contentList = contents.keys()
   contentList.forEach((path, index) => {
     triggerFunc(fn, contents(path), path, index)
   })
 }
 
-export default LoadContents
+export default loadContents

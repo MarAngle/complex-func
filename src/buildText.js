@@ -1,4 +1,4 @@
-function LoadContents(contents, fn) {
+function loadContents(contents, fn) {
   let contentList = contents.keys()
   contentList.forEach((path, index) => {
     fn(contents(path), path, index)
@@ -12,7 +12,7 @@ let exportlist = ''
 const _data = require.context('./data/utils', false, /\.js$/)
 let maindata = {}
 function LoadProp (data, contents) {
-  LoadContents(contents, function(item, path) {
+  loadContents(contents, function(item, path) {
     let name = path.replace(/^\.\/(.*)\.\w+$/, '$1')
     if (!data[name]) {
       data[name] = item.default

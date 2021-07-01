@@ -1,3 +1,8 @@
+### 2.0.14ing
+- environment/worker文件拆分,注释添加
+- updateData BUG修复
+- LoadContents => loadContents
+
 ### 2.0.14
 - hasProp逻辑优化，错误修复
 - printMsgAct优化，添加Error判断
@@ -5,7 +10,7 @@
 - utils代码格式优化
 - 暴露requiredata
 - 优化复制/更新数据相关方法
-- 添加LoadContents函数
+- 添加loadContents函数
 - utils文件拆分,注释添加
 
 ### 2.0.13

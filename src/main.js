@@ -1,5 +1,4 @@
 // utils加载
-import LoadContents from './data/utils/LoadContents'
 import appendProp from './data/utils/appendProp'
 import arrayClearOther from './data/utils/arrayClearOther'
 import buildLocalDataName from './data/utils/buildLocalDataName'
@@ -51,6 +50,7 @@ import isFile from './data/utils/isFile'
 import isPromise from './data/utils/isPromise'
 import isRegExp from './data/utils/isRegExp'
 import jsonToForm from './data/utils/jsonToForm'
+import loadContents from './data/utils/loadContents'
 import mergeData from './data/utils/mergeData'
 import openWindow from './data/utils/openWindow'
 import orderArrayByProp from './data/utils/orderArrayByProp'
@@ -76,15 +76,28 @@ import updateData from './data/utils/updateData'
 import updateDataWidthOption from './data/utils/updateDataWidthOption'
 import updateList from './data/utils/updateList'
 // utils加载完成
+// environment加载
+import checkUse from './data/environment/checkUse'
+import checkUseItem from './data/environment/checkUseItem'
+import getCanUse from './data/environment/getCanUse'
+import getEnv from './data/environment/getEnv'
+import getEnvMode from './data/environment/getEnvMode'
+import setCanUse from './data/environment/setCanUse'
+import setEnv from './data/environment/setEnv'
+import setEnvMode from './data/environment/setEnvMode'
+// environment加载完成
+// worker加载
+import getWorkerContent from './data/worker/getWorkerContent'
+import setWorker from './data/worker/setWorker'
+import workerDo from './data/worker/workerDo'
+// worker加载完成
 
 import rule from './data/rule'
 import current from './data/current'
-import environment from './data/environment'
 import Require from './build/Require'
 import notice from './option/noticeData'
-import worker from './data/worker'
 
-// import './test/index'
+import './test/index'
 // import './buildText'
 
 let requiredata
@@ -92,7 +105,7 @@ let requiredata
 let mainfunc = {
   current: current,
   data: {},
-  LoadContents,
+  // utils
   appendProp,
   arrayClearOther,
   buildLocalDataName,
@@ -144,6 +157,7 @@ let mainfunc = {
   isPromise,
   isRegExp,
   jsonToForm,
+  loadContents,
   mergeData,
   openWindow,
   orderArrayByProp,
@@ -167,7 +181,20 @@ let mainfunc = {
   trimData,
   updateData,
   updateDataWidthOption,
-  updateList
+  updateList,
+  // environment
+  checkUse,
+  checkUseItem,
+  getCanUse,
+  getEnv,
+  getEnvMode,
+  setCanUse,
+  setEnv,
+  setEnvMode,
+  // worker
+  getWorkerContent,
+  setWorker,
+  workerDo
 }
 
 mainfunc._initMod = function (mod, methodList) {
@@ -278,15 +305,6 @@ mainfunc._initMod(rule, [
   {
     originprop: 'build',
     prop: 'buildRule'
-  }
-])
-
-mainfunc._initMod(environment)
-
-mainfunc._initMod(worker, [
-  {
-    originprop: 'set',
-    prop: 'setWorker'
   }
 ])
 

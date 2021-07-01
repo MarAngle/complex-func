@@ -1,8 +1,8 @@
-import test from './../main/index'
-import worker from './../../data/worker'
+
+import setWorker from '../../data/worker/setWorker';
 
 (function() {
-  worker.set({
+  setWorker({
     func: function(list) {
       return new Promise((resolve) => {
         setTimeout(() => {
