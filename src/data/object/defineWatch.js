@@ -1,21 +1,19 @@
-import printMsg from './printMsg'
-import defineDeepReactive from './defineDeepReactive'
+import printMsg from './../utils/printMsg'
+import defineReactive from './defineReactive'
 
 /**
- * 创建深度响应式数据,存在get/set时writable属性的设置不生效// 深度响应属性返回错误，等待后期修复
- * @param {object} data 目标对象
- * @param {string} key 属性
+ * 监控对象属性
+ * @param {*} data 监控对象
+ * @param {*} key 监控属性
  * @param {object} [option] 设置项
- * @param {object} [option.deep] 深度监控判断值
- * @param {object} [option.num] 深度层级
  * @param {object} [option.descriptor] 属性描述设置项
  * @param {boolean} [option.descriptor.configurable] 默认为真,当且仅当指定对象的属性描述可以被改变或者属性可被删除时，为true。
  * @param {boolean} [option.descriptor.enumerable] 默认为真,当且仅当指定对象的属性可以被枚举出时，为 true。
  * @param {Function} [option.get] 属性获取拦截器
  * @param {Function} [option.set] 属性设置拦截器
- * @returns {boolean} 是否设置成功
+ * @returns {boolean} 设置是否成功
  */
-function defineDeepWatch(data, key, option = {}) {
+function defineWatch(data, key, option = {}) {
   let type = typeof data
   if (type !== 'object') {
     printMsg('defineWatch中data只能接收object')
@@ -29,7 +27,7 @@ function defineDeepWatch(data, key, option = {}) {
     printMsg('defineWatch中需要传递get/set')
     return false
   }
-  return defineDeepReactive(data, key, data[key], option)
+  return defineReactive(data, key, data[key], option)
 }
 
-export default defineDeepWatch
+export default defineWatch

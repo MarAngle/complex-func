@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 
 /**
  * 基于origindata更新targetdata数据,type默认为add

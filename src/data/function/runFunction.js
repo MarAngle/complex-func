@@ -1,5 +1,5 @@
-import isPromise from './isPromise'
-import printMsg from './printMsg'
+import isPromise from './../type/isPromise'
+import printMsg from './../utils/printMsg'
 
 /**
  * 触发函数，通过回调的形式触发函数，存在callback时则直接进行下一步操作，可接收同步函数和Promise函数

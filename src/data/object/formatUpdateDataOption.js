@@ -1,5 +1,5 @@
 import LimitData from '../../build/LimitData'
-import getLimitData from './getLimitData'
+import getLimitData from './../utils/getLimitData'
 
 /**
  * 格式化UpdateOption,updateDataWidthOption函数的设置项

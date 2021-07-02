@@ -1,5 +1,5 @@
 import { getCanUse } from './../environment/index'
-import getType from './../utils/getType'
+import getType from './../type/getType'
 import getWorkerContent from './getWorkerContent'
 
 /**

@@ -1,4 +1,4 @@
-import triggerFunc from './triggerFunc'
+import triggerFunc from './../function/triggerFunc'
 
 /**
  * 加载require contents

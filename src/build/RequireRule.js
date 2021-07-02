@@ -1,4 +1,4 @@
-import getType from './../data/utils/getType'
+import getType from './../data/type/getType'
 import printMsgAct from './../data/utils/printMsgAct'
 import appendProp from './../data/utils/appendProp'
 import getLocalData from './../data/local/getLocalData'

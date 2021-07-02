@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 
 /**
  * 合并数据函数，基于源数据originData格式化目标数据targetData函数

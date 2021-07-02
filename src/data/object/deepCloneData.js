@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 
 /**
  * 基础版本的深拷贝

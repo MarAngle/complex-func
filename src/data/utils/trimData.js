@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 
 /**
  * 清除开始结束空格，仅对字符串有效

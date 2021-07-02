@@ -1,5 +1,5 @@
-import printMsg from './printMsg'
-import isPromise from './isPromise'
+import printMsg from './../type/intMsg'
+import isPromise from './../type/isPromise'
 import triggerFunc from './triggerFunc'
 
 /**

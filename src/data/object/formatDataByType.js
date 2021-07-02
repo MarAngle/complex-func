@@ -1,4 +1,4 @@
-import getNum from './getNum'
+import getNum from './../number/getNum'
 
 /**
  * 根据类型格式化对象,暂时只对number和boolean进行格式化

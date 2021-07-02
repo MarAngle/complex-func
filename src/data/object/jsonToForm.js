@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 
 /**
  * 将对象转换为FormData格式

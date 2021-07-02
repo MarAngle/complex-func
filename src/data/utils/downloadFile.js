@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './../type/getType'
 import downloadFileByAnchor from './downloadFileByAnchor'
 import openWindow from './openWindow'
 

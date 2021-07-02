@@ -1,4 +1,4 @@
-import getRandomNum from './getRandomNum'
+import getRandomNum from './../number/getRandomNum'
 
 /**
  * 从列表中随机取值

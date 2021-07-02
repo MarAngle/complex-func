@@ -1,4 +1,4 @@
-import getType from './../data/utils/getType'
+import getType from './../data/type/getType'
 import printMsgAct from './../data/utils/printMsgAct'
 
 const base = {

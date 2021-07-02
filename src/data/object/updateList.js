@@ -1,5 +1,5 @@
-import printMsg from './printMsg'
-import getType from './getType'
+import printMsg from './../utils/printMsg'
+import getType from './../type/getType'
 import updateData from './updateData'
 
 /**

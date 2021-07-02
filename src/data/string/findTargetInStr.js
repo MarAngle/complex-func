@@ -1,4 +1,4 @@
-import printMsg from './printMsg'
+import printMsg from './../utils/printMsg'
 import findTargetInStrNext from './findTargetInStrNext'
 
 /**
