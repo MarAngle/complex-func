@@ -1,4 +1,4 @@
-// type
+// type加载
 import checkComplex from './data/type/checkComplex'
 import getTag from './data/type/getTag'
 import getType from './data/type/getType'
@@ -11,12 +11,12 @@ import isError from './data/type/isError'
 import isFile from './data/type/isFile'
 import isPromise from './data/type/isPromise'
 import isRegExp from './data/type/isRegExp'
-// type
-// number
+// type加载完成
+// number加载
 import getNum from './data/number/getNum'
 import getRandomNum from './data/number/getRandomNum'
-// number
-// string
+// number加载完成
+// string加载
 import fillString from './data/string/fillString'
 import findTargetInStr from './data/string/findTargetInStr'
 import findTargetInStrNext from './data/string/findTargetInStrNext'
@@ -24,8 +24,8 @@ import getRandomData from './data/string/getRandomData'
 import getRandomInList from './data/string/getRandomInList'
 import getRandomLetter from './data/string/getRandomLetter'
 import strCodeNum from './data/string/strCodeNum'
-// string
-// object
+// string加载完成
+// object加载
 import appendProp from './data/object/appendProp'
 import arrayClearOther from './data/object/arrayClearOther'
 import choiceProp from './data/object/choiceProp'
@@ -56,12 +56,12 @@ import showArrayProp from './data/object/showArrayProp'
 import updateData from './data/object/updateData'
 import updateDataWidthOption from './data/object/updateDataWidthOption'
 import updateList from './data/object/updateList'
-// object
-// function
+// object加载完成
+// function加载
 import runFunction from './data/function/runFunction'
 import triggerFunc from './data/function/triggerFunc'
 import triggerPromise from './data/function/triggerPromise'
-// function
+// function加载
 // utils加载
 import debounce from './data/utils/debounce'
 import downloadBlob from './data/utils/downloadBlob'
@@ -104,7 +104,7 @@ import getWorkerContent from './data/worker/getWorkerContent'
 import setWorker from './data/worker/setWorker'
 import workerDo from './data/worker/workerDo'
 // worker加载完成
-// rule
+// rule加载
 import buildRule from './data/rule/buildRule'
 import checkRule from './data/rule/checkRule'
 // rule加载完成
@@ -112,7 +112,9 @@ import current from './data/current'
 import Require from './build/Require'
 import notice from './option/noticeData'
 
-import './test/index'
+// 测试加载
+// import './test/index'
+// 自动引用加载
 // import './buildContentImport'
 
 let requiredata
@@ -133,11 +135,9 @@ let mainfunc = {
   isFile,
   isPromise,
   isRegExp,
-  // type
   // number
   getNum,
   getRandomNum,
-  // number
   // string
   fillString,
   findTargetInStr,
@@ -146,7 +146,6 @@ let mainfunc = {
   getRandomInList,
   getRandomLetter,
   strCodeNum,
-  // string
   // object
   appendProp,
   arrayClearOther,
@@ -178,13 +177,11 @@ let mainfunc = {
   updateData,
   updateDataWidthOption,
   updateList,
-  // object
   // function
   runFunction,
   triggerFunc,
   triggerPromise,
-  // function
-  // utils加载
+  // utils
   debounce,
   downloadBlob,
   downloadFile,
@@ -202,7 +199,6 @@ let mainfunc = {
   throttle,
   transformFile,
   trimData,
-  // utils加载完成
   // local
   checkUseItem,
   getCanUse,

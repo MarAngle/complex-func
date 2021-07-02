@@ -1,3 +1,5 @@
+import { getEnv } from './data/environment/index'
+
 function loadContents(contents, fn) {
   let contentList = contents.keys()
   contentList.forEach((path, index) => {
@@ -41,4 +43,6 @@ import ${n} from './${url}/${n}'`
   // -----
 }
 const utilsContent = require.context('./data/utils', false, /\.js$/)
-buildLoadContent(utilsContent, 'data/utils')
+if (getEnv('real') == 'development') {
+  buildLoadContent(utilsContent, 'data/utils')
+}
