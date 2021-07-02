@@ -1,7 +1,6 @@
 // utils加载
 import appendProp from './data/utils/appendProp'
 import arrayClearOther from './data/utils/arrayClearOther'
-import buildLocalDataName from './data/utils/buildLocalDataName'
 import checkComplex from './data/utils/checkComplex'
 import choiceProp from './data/utils/choiceProp'
 import clearArray from './data/utils/clearArray'
@@ -27,7 +26,6 @@ import formatTree from './data/utils/formatTree'
 import formatTreeNext from './data/utils/formatTreeNext'
 import formatUpdateDataOption from './data/utils/formatUpdateDataOption'
 import getLimitData from './data/utils/getLimitData'
-import getLocalData from './data/utils/getLocalData'
 import getNum from './data/utils/getNum'
 import getProp from './data/utils/getProp'
 import getPropByList from './data/utils/getPropByList'
@@ -56,11 +54,8 @@ import openWindow from './data/utils/openWindow'
 import orderArrayByProp from './data/utils/orderArrayByProp'
 import printMsg from './data/utils/printMsg'
 import printMsgAct from './data/utils/printMsgAct'
-import removeLocalData from './data/utils/removeLocalData'
 import runFunction from './data/utils/runFunction'
 import setDefaultData from './data/utils/setDefaultData'
-import setLocalData from './data/utils/setLocalData'
-import setLocalDataPre from './data/utils/setLocalDataPre'
 import setProp from './data/utils/setProp'
 import setPropByList from './data/utils/setPropByList'
 import setPropByType from './data/utils/setPropByType'
@@ -76,6 +71,13 @@ import updateData from './data/utils/updateData'
 import updateDataWidthOption from './data/utils/updateDataWidthOption'
 import updateList from './data/utils/updateList'
 // utils加载完成
+// local加载
+import buildLocalDataName from './data/local/buildLocalDataName'
+import getLocalData from './data/local/getLocalData'
+import removeLocalData from './data/local/removeLocalData'
+import setLocalData from './data/local/setLocalData'
+import setLocalDataPre from './data/local/setLocalDataPre'
+// local加载完成
 // environment加载
 import {
   checkUseItem,
@@ -111,7 +113,6 @@ let mainfunc = {
   // utils
   appendProp,
   arrayClearOther,
-  buildLocalDataName,
   checkComplex,
   choiceProp,
   clearArray,
@@ -137,7 +138,6 @@ let mainfunc = {
   formatTreeNext,
   formatUpdateDataOption,
   getLimitData,
-  getLocalData,
   getNum,
   getProp,
   getPropByList,
@@ -166,11 +166,8 @@ let mainfunc = {
   orderArrayByProp,
   printMsg,
   printMsgAct,
-  removeLocalData,
   runFunction,
   setDefaultData,
-  setLocalData,
-  setLocalDataPre,
   setProp,
   setPropByList,
   setPropByType,
@@ -185,7 +182,7 @@ let mainfunc = {
   updateData,
   updateDataWidthOption,
   updateList,
-  // environment
+  // local
   checkUseItem,
   getCanUse,
   getEnv,
@@ -193,6 +190,12 @@ let mainfunc = {
   setCanUse,
   setEnv,
   setEnvMode,
+  // environment
+  buildLocalDataName,
+  getLocalData,
+  removeLocalData,
+  setLocalData,
+  setLocalDataPre,
   // worker
   getWorkerContent,
   setWorker,

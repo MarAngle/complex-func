@@ -1,8 +1,8 @@
 import getType from './../data/utils/getType'
 import printMsgAct from './../data/utils/printMsgAct'
 import appendProp from './../data/utils/appendProp'
-import getLocalData from './../data/utils/getLocalData'
-import setLocalData from './../data/utils/setLocalData'
+import getLocalData from './../data/local/getLocalData'
+import setLocalData from './../data/local/setLocalData'
 
 const defaultOption = {
   location: 'body', // 默认赋值位置
