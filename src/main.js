@@ -112,7 +112,7 @@ import current from './data/current'
 import Require from './build/Require'
 import notice from './option/noticeData'
 
-// import './test/index'
+import './test/index'
 // import './buildContentImport'
 
 let requiredata

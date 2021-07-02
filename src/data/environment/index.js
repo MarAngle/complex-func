@@ -89,7 +89,6 @@ export function getCanUse(prop) {
  * 检查可用
  */
 function checkUse() {
-  console.log('checkUse')
   const showError = false
   checkUseItem('Worker', 'Worker', showError)
   checkUseItem('Proxy', 'Proxy', showError)
