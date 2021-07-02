@@ -2,7 +2,7 @@ import axios from 'axios'
 import RequireRule from './RequireRule'
 import { getEnv } from './../data/environment/index'
 import noticeData from './../option/noticeData'
-import jsonToForm from './../data/utils/jsonToForm'
+import jsonToForm from './../data/object/jsonToForm'
 import printMsgAct from './../data/utils/printMsgAct'
 
 /*

@@ -1,97 +1,85 @@
-// // type
-// import checkComplex from './data/utils/checkComplex'
-// import getTag from './data/utils/getTag'
-// import getType from './data/type/getType'
-// import isArray from './data/utils/isArray'
-// import isBlob from './data/utils/isBlob'
-// import isComplex from './data/utils/isComplex'
-// import isDate from './data/utils/isDate'
-// import isEmptyObject from './data/utils/isEmptyObject'
-// import isError from './data/utils/isError'
-// import isFile from './data/utils/isFile'
-// import isPromise from './data/utils/isPromise'
-// import isRegExp from './data/utils/isRegExp'
-// // type
-// // number
-// import getNum from './data/utils/getNum'
-// import getRandomNum from './data/utils/getRandomNum'
-// // number
-// // string
-// import fillString from './data/utils/fillString'
-// import findTargetInStr from './data/utils/findTargetInStr'
-// import findTargetInStrNext from './data/utils/findTargetInStrNext'
-// import strCodeNum from './data/utils/strCodeNum'
-// // string
-// // object
-// import appendProp from './data/utils/appendProp'
-// import arrayClearOther from './data/utils/arrayClearOther'
-// import choiceProp from './data/utils/choiceProp'
-// import clearArray from './data/utils/clearArray'
-// import deepClone from './data/utils/deepClone'
-// import deepCloneData from './data/utils/deepCloneData'
-// import deepCloneDataWithOption from './data/utils/deepCloneDataWithOption'
-// import formatList from './data/utils/formatList'
-// import formatTree from './data/utils/formatTree'
-// import formatTreeNext from './data/utils/formatTreeNext'
-// import formatUpdateDataOption from './data/utils/formatUpdateDataOption'
-// import getProp from './data/utils/getProp'
-// import getPropByList from './data/utils/getPropByList'
-// import hasProp from './data/utils/hasProp'
-// import jsonToForm from './data/utils/jsonToForm'
-// import mergeData from './data/utils/mergeData'
-// import orderArrayByProp from './data/utils/orderArrayByProp'
-// import setDefaultData from './data/utils/setDefaultData'
-// import setProp from './data/utils/setProp'
-// import setPropByList from './data/utils/setPropByList'
-// import setPropByType from './data/utils/setPropByType'
-// import showArrayProp from './data/utils/showArrayProp'
-// import updateData from './data/utils/updateData'
-// import updateDataWidthOption from './data/utils/updateDataWidthOption'
-// import updateList from './data/utils/updateList'
-
-// // object
-// // function
-// import runFunction from './data/utils/runFunction'
-// import triggerFunc from './data/utils/triggerFunc'
-// import triggerPromise from './data/utils/triggerPromise'
-
-// // function
-
-// // utils加载
-// import debounce from './data/utils/debounce'
-
-// import defineDeepReactive from './data/utils/defineDeepReactive'
-// import defineDeepWatch from './data/utils/defineDeepWatch'
-// import defineReactive from './data/utils/defineReactive'
-// import defineWatch from './data/utils/defineWatch'
-// import downloadBlob from './data/utils/downloadBlob'
-// import downloadFile from './data/utils/downloadFile'
-// import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
-// import encodeURI from './data/utils/encodeURI'
-// import formatDataByType from './data/utils/formatDataByType'
-
-// import formatQueryUrl from './data/utils/formatQueryUrl'
-
-// import getLimitData from './data/utils/getLimitData'
-
-// import getQueryData from './data/utils/getQueryData'
-// import getQueryUrl from './data/utils/getQueryUrl'
-// import getRandomData from './data/utils/getRandomData'
-// import getRandomInList from './data/utils/getRandomInList'
-// import getRandomLetter from './data/utils/getRandomLetter'
-
-// import loadContents from './data/utils/loadContents'
-
-// import openWindow from './data/utils/openWindow'
-
-// import printMsg from './data/utils/printMsg'
-// import printMsgAct from './data/utils/printMsgAct'
-
-// import showJson from './data/utils/showJson'
-// import throttle from './data/utils/throttle'
-// import transformFile from './data/utils/transformFile'
-// import trimData from './data/utils/trimData'
-
+// type
+import checkComplex from './data/type/checkComplex'
+import getTag from './data/type/getTag'
+import getType from './data/type/getType'
+import isArray from './data/type/isArray'
+import isBlob from './data/type/isBlob'
+import isComplex from './data/type/isComplex'
+import isDate from './data/type/isDate'
+import isEmptyObject from './data/type/isEmptyObject'
+import isError from './data/type/isError'
+import isFile from './data/type/isFile'
+import isPromise from './data/type/isPromise'
+import isRegExp from './data/type/isRegExp'
+// type
+// number
+import getNum from './data/number/getNum'
+import getRandomNum from './data/number/getRandomNum'
+// number
+// string
+import fillString from './data/string/fillString'
+import findTargetInStr from './data/string/findTargetInStr'
+import findTargetInStrNext from './data/string/findTargetInStrNext'
+import getRandomData from './data/string/getRandomData'
+import getRandomInList from './data/string/getRandomInList'
+import getRandomLetter from './data/string/getRandomLetter'
+import strCodeNum from './data/string/strCodeNum'
+// string
+// object
+import appendProp from './data/object/appendProp'
+import arrayClearOther from './data/object/arrayClearOther'
+import choiceProp from './data/object/choiceProp'
+import clearArray from './data/object/clearArray'
+import deepClone from './data/object/deepClone'
+import deepCloneData from './data/object/deepCloneData'
+import deepCloneDataWithOption from './data/object/deepCloneDataWithOption'
+import defineDeepReactive from './data/object/defineDeepReactive'
+import defineDeepWatch from './data/object/defineDeepWatch'
+import defineReactive from './data/object/defineReactive'
+import defineWatch from './data/object/defineWatch'
+import formatDataByType from './data/object/formatDataByType'
+import formatList from './data/object/formatList'
+import formatTree from './data/object/formatTree'
+import formatTreeNext from './data/object/formatTreeNext'
+import formatUpdateDataOption from './data/object/formatUpdateDataOption'
+import getProp from './data/object/getProp'
+import getPropByList from './data/object/getPropByList'
+import hasProp from './data/object/hasProp'
+import jsonToForm from './data/object/jsonToForm'
+import mergeData from './data/object/mergeData'
+import orderArrayByProp from './data/object/orderArrayByProp'
+import setDefaultData from './data/object/setDefaultData'
+import setProp from './data/object/setProp'
+import setPropByList from './data/object/setPropByList'
+import setPropByType from './data/object/setPropByType'
+import showArrayProp from './data/object/showArrayProp'
+import updateData from './data/object/updateData'
+import updateDataWidthOption from './data/object/updateDataWidthOption'
+import updateList from './data/object/updateList'
+// object
+// function
+import runFunction from './data/function/runFunction'
+import triggerFunc from './data/function/triggerFunc'
+import triggerPromise from './data/function/triggerPromise'
+// function
+// utils加载
+import debounce from './data/utils/debounce'
+import downloadBlob from './data/utils/downloadBlob'
+import downloadFile from './data/utils/downloadFile'
+import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
+import encodeURI from './data/utils/encodeURI'
+import formatQueryUrl from './data/utils/formatQueryUrl'
+import getLimitData from './data/utils/getLimitData'
+import getQueryData from './data/utils/getQueryData'
+import getQueryUrl from './data/utils/getQueryUrl'
+import loadContents from './data/utils/loadContents'
+import openWindow from './data/utils/openWindow'
+import printMsg from './data/utils/printMsg'
+import printMsgAct from './data/utils/printMsgAct'
+import showJson from './data/utils/showJson'
+import throttle from './data/utils/throttle'
+import transformFile from './data/utils/transformFile'
+import trimData from './data/utils/trimData'
 // utils加载完成
 // local加载
 import buildLocalDataName from './data/local/buildLocalDataName'
@@ -125,7 +113,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // import './test/index'
-import './buildContentImport'
+// import './buildContentImport'
 
 let requiredata
 
@@ -133,77 +121,77 @@ let mainfunc = {
   current: current,
   data: {},
   // utils
-  // appendProp,
-  // arrayClearOther,
-  // checkComplex,
-  // choiceProp,
-  // clearArray,
-  // debounce,
-  // deepClone,
-  // deepCloneData,
-  // deepCloneDataWithOption,
-  // defineDeepReactive,
-  // defineDeepWatch,
-  // defineReactive,
-  // defineWatch,
-  // downloadBlob,
-  // downloadFile,
-  // downloadFileByAnchor,
-  // encodeURI,
-  // fillString,
-  // findTargetInStr,
-  // findTargetInStrNext,
-  // formatDataByType,
-  // formatList,
-  // formatQueryUrl,
-  // formatTree,
-  // formatTreeNext,
-  // formatUpdateDataOption,
-  // getLimitData,
-  // getNum,
-  // getProp,
-  // getPropByList,
-  // getQueryData,
-  // getQueryUrl,
-  // getRandomData,
-  // getRandomInList,
-  // getRandomLetter,
-  // getRandomNum,
-  // getTag,
-  // getType,
-  // hasProp,
-  // isArray,
-  // isBlob,
-  // isComplex,
-  // isDate,
-  // isEmptyObject,
-  // isError,
-  // isFile,
-  // isPromise,
-  // isRegExp,
-  // jsonToForm,
-  // loadContents,
-  // mergeData,
-  // openWindow,
-  // orderArrayByProp,
-  // printMsg,
-  // printMsgAct,
-  // runFunction,
-  // setDefaultData,
-  // setProp,
-  // setPropByList,
-  // setPropByType,
-  // showArrayProp,
-  // showJson,
-  // strCodeNum,
-  // throttle,
-  // transformFile,
-  // triggerFunc,
-  // triggerPromise,
-  // trimData,
-  // updateData,
-  // updateDataWidthOption,
-  // updateList,
+  appendProp,
+  arrayClearOther,
+  checkComplex,
+  choiceProp,
+  clearArray,
+  debounce,
+  deepClone,
+  deepCloneData,
+  deepCloneDataWithOption,
+  defineDeepReactive,
+  defineDeepWatch,
+  defineReactive,
+  defineWatch,
+  downloadBlob,
+  downloadFile,
+  downloadFileByAnchor,
+  encodeURI,
+  fillString,
+  findTargetInStr,
+  findTargetInStrNext,
+  formatDataByType,
+  formatList,
+  formatQueryUrl,
+  formatTree,
+  formatTreeNext,
+  formatUpdateDataOption,
+  getLimitData,
+  getNum,
+  getProp,
+  getPropByList,
+  getQueryData,
+  getQueryUrl,
+  getRandomData,
+  getRandomInList,
+  getRandomLetter,
+  getRandomNum,
+  getTag,
+  getType,
+  hasProp,
+  isArray,
+  isBlob,
+  isComplex,
+  isDate,
+  isEmptyObject,
+  isError,
+  isFile,
+  isPromise,
+  isRegExp,
+  jsonToForm,
+  loadContents,
+  mergeData,
+  openWindow,
+  orderArrayByProp,
+  printMsg,
+  printMsgAct,
+  runFunction,
+  setDefaultData,
+  setProp,
+  setPropByList,
+  setPropByType,
+  showArrayProp,
+  showJson,
+  strCodeNum,
+  throttle,
+  transformFile,
+  triggerFunc,
+  triggerPromise,
+  trimData,
+  updateData,
+  updateDataWidthOption,
+  updateList,
   // local
   checkUseItem,
   getCanUse,

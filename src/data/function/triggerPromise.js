@@ -1,4 +1,4 @@
-import printMsg from './../type/intMsg'
+import printMsg from './../utils/printMsg'
 import isPromise from './../type/isPromise'
 import triggerFunc from './triggerFunc'
 

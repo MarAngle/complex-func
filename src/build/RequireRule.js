@@ -1,6 +1,6 @@
 import getType from './../data/type/getType'
 import printMsgAct from './../data/utils/printMsgAct'
-import appendProp from './../data/utils/appendProp'
+import appendProp from './../data/object/appendProp'
 import getLocalData from './../data/local/getLocalData'
 import setLocalData from './../data/local/setLocalData'
 
