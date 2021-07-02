@@ -92,8 +92,10 @@ import getWorkerContent from './data/worker/getWorkerContent'
 import setWorker from './data/worker/setWorker'
 import workerDo from './data/worker/workerDo'
 // worker加载完成
-
-import rule from './data/rule'
+// rule
+import buildRule from './data/rule/buildRule'
+import checkRule from './data/rule/checkRule'
+// rule加载完成
 import current from './data/current'
 import Require from './build/Require'
 import notice from './option/noticeData'
@@ -194,7 +196,10 @@ let mainfunc = {
   // worker
   getWorkerContent,
   setWorker,
-  workerDo
+  workerDo,
+  // rule
+  buildRule,
+  checkRule
 }
 
 mainfunc._initMod = function (mod, methodList) {
@@ -296,17 +301,6 @@ mainfunc.initNotice = function(noticeInitData = {}) {
   }
   mainfunc._initMod(notice)
 }
-
-mainfunc._initMod(rule, [
-  {
-    originprop: 'check',
-    prop: 'checkRule'
-  },
-  {
-    originprop: 'build',
-    prop: 'buildRule'
-  }
-])
 
 export { requiredata }
 
