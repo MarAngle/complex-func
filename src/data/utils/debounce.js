@@ -9,7 +9,7 @@ function debounce(func, wait, immediate) {
   let timeout
   return function() {
     const context = this
-    const args = [...arguments]
+    let args = Array.from(arguments)
     if (timeout) {
       clearTimeout(timeout)
     }

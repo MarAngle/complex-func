@@ -12,7 +12,7 @@ function throttle(func, wait, type = 1) {
   }
   return function() {
     let context = this
-    let args = arguments
+    let args = Array.from(arguments)
     if (type === 1) {
       let now = Date.now()
       if (now - previous > wait) {

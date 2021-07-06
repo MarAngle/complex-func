@@ -3,8 +3,8 @@
  * @param {*} value 需要判断的数据
  * @returns {boolean} value is Promise对象
  */
-function isPromise(fn) {
-  return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
+function isPromise(value) {
+  return value && typeof value.then === 'function' && typeof value.catch === 'function'
 }
 
 export default isPromise

@@ -13,8 +13,8 @@ function getQueryData(url) {
     for (let n in queryList) {
       let oitem = queryList[n]
       if (oitem) {
-        oitem = oitem.split('=')
-        queryData[oitem[0]] = oitem[1]
+        let oitemList = oitem.split('=')
+        queryData[oitemList[0]] = oitemList[1]
       }
     }
   }

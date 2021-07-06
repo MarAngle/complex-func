@@ -3,8 +3,8 @@ import option from './option/index'
 /**
  * 规则检查
  * @param {*} data 需要检查的值
- * @param {*} prop 检查规则名称
- * @param  {...any} args 参数
+ * @param {string} prop 检查规则名称
+ * @param  {any[]} args 参数
  * @returns
  */
 function checkRule(data, prop, ...args) {

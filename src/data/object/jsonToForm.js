@@ -10,7 +10,7 @@ function jsonToForm(jsonData) {
   for (let prop in jsonData) {
     let type = getType(jsonData[prop])
     if (type === 'object') {
-      formData.append(prop, jsonToForm(jsonData[prop]))
+      formData.append(prop, JSON.stringify(jsonData[prop]))
     } else {
       formData.append(prop, jsonData[prop])
     }

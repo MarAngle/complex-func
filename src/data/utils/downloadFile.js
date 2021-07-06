@@ -9,19 +9,18 @@ import openWindow from './openWindow'
  */
 function downloadFile(data) {
   if (data) {
+    let url, name
     let type = getType(data)
     if (type == 'string') {
-      data = {
-        url: data
-      }
+      url = data
+    } else {
+      url = data.url
+      name = data.name
     }
-    if (!data.name) {
-      data.name = ''
-    }
-    if (downloadFileByAnchor(data.url, data.name)) {
+    if (downloadFileByAnchor(url, name)) {
       return true
     } else {
-      openWindow(data.url)
+      openWindow(url)
       return true
     }
   } else {

@@ -10,9 +10,9 @@ import setLocalData from './setLocalData'
  */
 function getLocalData(name, time, refresh) {
   name = buildLocalDataName(name)
-  let localData = localStorage.getItem(name)
-  if (localData) {
-    localData = JSON.parse(localData)
+  let localDataStr = localStorage.getItem(name)
+  if (localDataStr) {
+    let localData = JSON.parse(localDataStr)
     if (time) {
       let currentTime = Date.now()
       time = time * 1000

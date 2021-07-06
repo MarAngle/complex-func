@@ -1,3 +1,4 @@
+import isError from '../type/isError'
 /**
  * 错误信息输出函数
  * @param {string | Error} msg 错误信息提示
@@ -8,7 +9,7 @@
  */
 function printMsgAct(msg, type = 'error', option = {}) {
   if (type == 'error') {
-    if (!this.isError(msg)) {
+    if (!isError(msg)) {
       console[type](new Error(msg))
     } else {
       console[type](msg)

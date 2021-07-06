@@ -1,14 +1,14 @@
 
 /**
  * 格式化数字
- * @param {*} originNum 数据
- * @param {*} type 格式化类型
- * @param {*} radix 小数点几位
- * @param {*} NANZERO NAN是否格式化为0
+ * @param {string | number} originNum 数据
+ * @param {'origin' | 'round' | 'floor' | 'ceil'} type 格式化类型
+ * @param {number} radix 小数点几位
+ * @param {boolean} NANZERO NAN是否格式化为0
  * @returns {number}
  */
 function getNum(originNum, type = 'round', radix = 2, NANZERO = true) {
-  let num = parseFloat(originNum)
+  let num = typeof originNum === 'number' ? originNum : parseFloat(originNum)
   if (isNaN(num)) {
     if (NANZERO) {
       num = 0
