@@ -62,12 +62,6 @@ class RuleData {
     }
     return mergeData
   }
-  buildRegStr(regData, mergeData) {
-    return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.end}`
-  }
-  buildReg(regData, mergeData) {
-    return new RegExp(this.buildRegStr(regData, mergeData))
-  }
   buildData(initdata) {
     if (this.type == 'reg') {
       if (initdata.merge === undefined) {
@@ -77,9 +71,9 @@ class RuleData {
       this.data = regData
     }
   }
-  buildRegData(propList, data) {
+  buildRegData(propObject, data) {
     let regStr = ''
-    if (propList === true) {
+    if (propObject === true) {
       for (let n in data) {
         let info = data[n]
         if (getType(info) == 'object') {
@@ -89,13 +83,13 @@ class RuleData {
         }
       }
     } else {
-      let type = getType(propList)
-      if (type == 'array') {
-        for (let i = 0; i < propList.length; i++) {
-          let prop = propList[i]
-          let info = data[prop]
-          if (getType(info) == 'object') {
-            regStr += this.buildRegData(getType(prop) == 'array' ? prop : true, info)
+      let type = getType(propObject)
+      if (type == 'object') {
+        for (let i in propObject) {
+          let prop = propObject[i]
+          let info = data[i]
+          if (getType(info) === 'object') {
+            regStr += this.buildRegData(getType(prop) === 'string' ? true : prop, info)
           } else {
             regStr += info
           }
@@ -103,6 +97,12 @@ class RuleData {
       }
     }
     return regStr
+  }
+  buildRegStr(regData, mergeData) {
+    return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.end}`
+  }
+  buildReg(regData, mergeData) {
+    return new RegExp(this.buildRegStr(regData, mergeData))
   }
   check(data, option = {}) {
     if (this.type == 'reg') {
@@ -115,7 +115,7 @@ class RuleData {
         reg = this.buildReg(reg, merge)
       }
       let type = getType(reg)
-      if (type != 'reg') {
+      if (type != 'regexp') {
         reg = new RegExp(reg)
       }
       return reg.test(data)
@@ -133,4 +133,5 @@ class RuleData {
     return this._selfName()
   }
 }
+
 export default RuleData
