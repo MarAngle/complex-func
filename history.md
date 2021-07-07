@@ -1,3 +1,5 @@
+考虑: tokenRule的类实现
+
 ### 2.0.18ing
 - current注释
 - jsonToForm无法递归,使用JSON字符串实现逻辑
