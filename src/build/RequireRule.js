@@ -4,9 +4,7 @@ import appendProp from './../data/object/appendProp'
 import TokenRule from './TokenRule'
 
 const defaultOption = {
-  location: 'body', // 默认赋值位置
-  defaultName: 'default', // 默认操作判断字符串
-  empty: false // 值不为真时的上传操作判断值： 真上传空值 否则不上传 require = false 时生效
+  defaultName: 'default' // 默认操作判断字符串
 }
 
 class RequireRule {

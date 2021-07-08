@@ -5,16 +5,11 @@ import getType from './../data/type/getType'
 
 const defaultOption = {
   location: 'body', // 默认赋值位置
-  defaultName: 'default', // 默认操作判断字符串
   empty: false // 值不为真时的上传操作判断值： 真上传空值 否则不上传 require = false 时生效
 }
 
 class TokenRule {
   constructor (prop, initdata) {
-    this.initMain(prop, initdata)
-  }
-  // 创建tokenRule
-  initMain (prop, initdata) {
     let type = getType(initdata)
     if (type !== 'object') {
       initdata = {
@@ -30,6 +25,9 @@ class TokenRule {
     this.checkCurrentData = initdata.checkData || function(data) {
       return data || data === 0
     }
+  }
+  // 创建tokenRule
+  initMain (prop, initdata) {
   }
   getData(parentProp) {
     let data
