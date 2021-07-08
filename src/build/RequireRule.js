@@ -1,9 +1,7 @@
 import getType from './../data/type/getType'
 import printMsgAct from './../data/utils/printMsgAct'
 import appendProp from './../data/object/appendProp'
-import getLocalData from './../data/local/getLocalData'
-import setLocalData from './../data/local/setLocalData'
-import removeLocalData from './../data/local/removeLocalData'
+import TokenRule from './TokenRule'
 
 const defaultOption = {
   location: 'body', // 默认赋值位置
@@ -35,27 +33,9 @@ class RequireRule {
     this.token.data = {}
     if (token.data) {
       for (let n in token.data) {
-        let optionItem = this.buildTokenRule(token.data[n])
-        this.token.data[n] = optionItem
+        this.token.data[n] = new TokenRule(n, token.data[n])
       }
     }
-  }
-  // 创建tokenRule
-  buildTokenRule (origindata) {
-    let targetitem = {}
-    let type = getType(origindata)
-    if (type == 'string') {
-      origindata = {
-        data: origindata
-      }
-    }
-    targetitem.require = origindata.require || false
-    targetitem.data = origindata.data || undefined
-    targetitem.location = origindata.location || defaultOption.location
-    targetitem.empty = origindata.empty === undefined ? defaultOption.empty : origindata.empty
-    targetitem.getData = origindata.getData || false
-    targetitem.checkData = origindata.checkData || false
-    return targetitem
   }
   // 加载方法
   initMethods (methods) {
@@ -138,35 +118,25 @@ class RequireRule {
       code: '',
       msg: ''
     }
-    let append = true
-    let tokenRule = this.getTokenRule(prop, tokenRuleOption)
+    let tokenRuleItem = this.getTokenRule(prop, tokenRuleOption)
     let tokenRuleData
-    if (tokenRule) {
-      tokenRuleData = this.getTokenDataByRule(prop, tokenRule)
-      if (!tokenRuleData) {
-        if (tokenRule.checkData && tokenRule.checkData(tokenRuleData)) {
-          //
-        } else { // 不存在检查函数或者检查函数返回否
-          if (tokenRule.require) {
-            check.next = false
-            check.code = 'undefined token'
-            check.msg = `TOKEN:${prop}的值不存在`
-          } else {
-            if (!tokenRule.empty) {
-              append = false
-            }
-          }
-        }
-      }
-      if (check.next && append) {
-        if (tokenRule.location == 'body') {
+    if (tokenRuleItem) {
+      tokenRuleData = tokenRuleItem.getData(this.prop)
+      let next = tokenRuleItem.checkData(tokenRuleData)
+      if (next == 'success') {
+        if (tokenRuleItem.location == 'body') {
           appendProp(optionData.data, prop, tokenRuleData, optionData.localType)
-        } else if (tokenRule.location == 'header') {
+        } else if (tokenRuleItem.location == 'header') {
           optionData.headers[prop] = tokenRuleData
-        } else if (tokenRule.location == 'params') {
+        } else if (tokenRuleItem.location == 'params') {
           optionData.params[prop] = tokenRuleData
         }
+      } else if (next == 'fail') {
+        check.next = false
+        check.code = 'undefined token'
+        check.msg = `TOKEN:${prop}的值不存在`
       }
+      // ''不进行任何操作
     } else {
       check.next = false
       check.code = 'undefined rule prop'
@@ -184,25 +154,8 @@ class RequireRule {
         return false
       }
     } else {
-      return this.buildTokenRule(tokenRuleOption)
+      return new TokenRule(prop, tokenRuleOption)
     }
-  }
-
-  // 获取token的值
-  getTokenDataByRule (prop, tokenRule) {
-    let data
-    if (tokenRule.getData) {
-      data = tokenRule.getData()
-    } else {
-      data = tokenRule.data
-    }
-    if (!data) {
-      data = getLocalData(this._buildTokenName(prop))
-      if (data) {
-        this.setToken(prop, data, true)
-      }
-    }
-    return data
   }
   // 删除token数据
   removeToken (tokenName) {
@@ -223,14 +176,14 @@ class RequireRule {
   // 删除token数据Next
   removeTokenByName (tokenName) {
     if (this.token.data[tokenName]) {
+      this.token.data[tokenName].removeData(this.prop)
       delete this.token.data[tokenName]
     }
-    removeLocalData(this._buildTokenName(tokenName))
   }
   // 获取token数据
   getToken (tokenName) {
     if (this.token.data[tokenName]) {
-      return this.getTokenDataByRule(tokenName, this.token.data[tokenName])
+      return this.token.data[tokenName].getData(this.prop)
     } else {
       return false
     }
@@ -238,16 +191,10 @@ class RequireRule {
   // 设置token
   setToken (tokenName, data, noSave) {
     if (!this.token.data[tokenName]) {
-      this.token.data[tokenName] = this.buildTokenRule(data)
+      this.token.data[tokenName] = new TokenRule(tokenName, data)
     } else {
-      this.token.data[tokenName].data = data
+      this.token.data[tokenName].setData(this.prop, data, noSave)
     }
-    if (!noSave) {
-      setLocalData(this._buildTokenName(tokenName), data)
-    }
-  }
-  _buildTokenName (prop) {
-    return `${this.prop}-${prop}`
   }
   printMsg(info, type = 'error', option) {
     printMsgAct(this._selfName() + ':' + info, type, option)
