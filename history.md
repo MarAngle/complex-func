@@ -1,9 +1,12 @@
-考虑: tokenRule的类实现
 
 ### 2.0.18ing
 - current注释
 - jsonToForm无法递归,使用JSON字符串实现逻辑
 - printMsgAct为引用isError的错误
+- tokenRule的类实现
+- SimpleData类实现
+- requiredata结构调整
+- Require相关注释添加
 
 ### 2.0.17
 - 不进行测试,测试和加载在开发环境下进行

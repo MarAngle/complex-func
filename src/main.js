@@ -220,107 +220,138 @@ let mainfunc = {
   // rule
   buildRule,
   checkRule,
-  get: requiredata.get.bind(requiredata)
-}
-
-mainfunc._initMod = function (mod, methodList) {
-  if (methodList) {
-    for (let i in methodList) {
-      let methodData = methodList[i]
-      if (typeof methodData != 'object') {
-        methodData = {
-          originprop: methodData,
-          prop: methodData
+  // require
+  ajax: requiredata.ajax.bind(requiredata),
+  require: requiredata.require.bind(requiredata),
+  get: requiredata.get.bind(requiredata),
+  post: requiredata.post.bind(requiredata),
+  postform: requiredata.postform.bind(requiredata),
+  postfile: requiredata.postfile.bind(requiredata),
+  setToken: requiredata.setToken.bind(requiredata),
+  getToken: requiredata.getToken.bind(requiredata),
+  removeToken: requiredata.removeToken.bind(requiredata),
+  /**
+   * 加载模块
+   * @param {object} mod 对应的模块
+   * @param {string[] | object[]} methodList 可能的函数数组
+   */
+  _initMod: function (mod, methodList) {
+    if (methodList) {
+      for (let i in methodList) {
+        let methodData = methodList[i]
+        if (typeof methodData != 'object') {
+          methodData = {
+            originprop: methodData,
+            prop: methodData
+          }
+        }
+        this._appendMethod(methodData.prop, mod[methodData.originprop], mod)
+      }
+    } else {
+      for (let n in mod) {
+        if (typeof mod[n] == 'function') {
+          this._appendMethod(n, mod[n], mod)
         }
       }
-      this._appendMethod(methodData.prop, mod[methodData.originprop], mod)
     }
-  } else {
-    for (let n in mod) {
-      if (typeof mod[n] == 'function') {
-        this._appendMethod(n, mod[n], mod)
+  },
+  /**
+   * 添加函数
+   * @param {string} methodName 函数名
+   * @param {Function} methodData 函数体
+   * @param {object} [target] this
+   */
+  _appendMethod: function (methodName, methodData, target) {
+    let append = false
+    if (methodData) {
+      let methodType = typeof methodData
+      if (methodType == 'function') {
+        methodData = {
+          data: methodData
+        }
+        append = true
+      } else if (methodType == 'object') {
+        append = true
       }
-    }
-  }
-}
-
-mainfunc._appendMethod = function (methodName, methodData, target) {
-  let append = false
-  if (methodData) {
-    let methodType = typeof methodData
-    if (methodType == 'function') {
-      methodData = {
-        data: methodData
-      }
-      append = true
-    } else if (methodType == 'object') {
-      append = true
-    }
-  }
-  if (append) {
-    if (!this[methodName]) {
-      append = true
-    } else if (methodData.replace) {
-      append = true
-      this.printMsg(`appendMethod: ${methodName} is replace`, 'warn')
-    } else {
-      this.printMsg(`appendMethod: ${methodName} is defined`)
     }
     if (append) {
-      if (target) {
-        this[methodName] = methodData.data.bind(target)
+      if (!this[methodName]) {
+        append = true
+      } else if (methodData.replace) {
+        append = true
+        this.printMsg(`appendMethod: ${methodName} is replace`, 'warn')
       } else {
-        this[methodName] = methodData.data
+        this.printMsg(`appendMethod: ${methodName} is defined`)
+      }
+      if (append) {
+        if (target) {
+          this[methodName] = methodData.data.bind(target)
+        } else {
+          this[methodName] = methodData.data
+        }
       }
     }
-  }
-}
-
-mainfunc.init = function({
-  data, // 数据
-  root, // 根对象
-  methods, // 方法
-  require, // 请求
-  notice // 提示
-}) {
-  if (data) {
-    for (let n in data) {
-      this.data[n] = data[n]
-    }
-  }
-  if (root) {
-    for (let n in root) {
-      if (this[n]) {
-        this.printMsg(`root属性${n}设置冲突，请检查!`)
-      } else {
-        this[n] = root[n]
+  },
+  /**
+   * 加载
+   * @param {object} option 参数
+   * @param {object} [option.data] data数据,.data数据
+   * @param {object} [option.root] root数据，直接挂载到主属性上
+   * @param {{Function}} [option.methods] 方法
+   * @param {object} [option.require] require/initMain参数，不传则无任何参数
+   * @param {object} [option.notice] notice相关函数重置
+   */
+  init: function({
+    data, // 数据
+    root, // 根对象
+    methods, // 方法
+    require, // 请求
+    notice // 提示
+  }) {
+    if (data) {
+      for (let n in data) {
+        this.data[n] = data[n]
       }
     }
-  }
-  if (methods) {
-    for (let n in methods) {
-      this._appendMethod(n, methods[n])
+    if (root) {
+      for (let n in root) {
+        if (this[n]) {
+          this.printMsg(`root属性${n}设置冲突，请检查!`)
+        } else {
+          this[n] = root[n]
+        }
+      }
     }
+    if (methods) {
+      for (let n in methods) {
+        this._appendMethod(n, methods[n])
+      }
+    }
+    if (require) {
+      this.initRequire(require)
+    }
+    if (notice) {
+      this.initNotice(notice)
+    }
+  },
+  /**
+   * 加载require
+   * @param {*} requireInitData
+   */
+  initRequire: function (requireInitData) {
+    requiredata.initMain(requireInitData)
+  },
+  /**
+   * 加载notice
+   * @param {*} noticeInitData
+   */
+  initNotice: function(noticeInitData = {}) {
+    notice.data = noticeInitData.data || {}
+    for (let n in noticeInitData.methods) {
+      notice[n] = noticeInitData.methods[n]
+    }
+    mainfunc._initMod(notice)
   }
-  if (require) {
-    this.initRequire(require)
-  }
-  if (notice) {
-    this.initNotice(notice)
-  }
-}
-
-mainfunc.initRequire = function (requireInitData) {
-  requiredata = new Require(requireInitData)
-  this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
-}
-
-mainfunc.initNotice = function(noticeInitData = {}) {
-  notice.data = noticeInitData.data || {}
-  for (let n in noticeInitData.methods) {
-    notice[n] = noticeInitData.methods[n]
-  }
-  mainfunc._initMod(notice)
 }
 
 export { requiredata }

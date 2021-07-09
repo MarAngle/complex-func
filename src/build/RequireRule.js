@@ -192,14 +192,8 @@ class RequireRule extends SimpleData {
       this.token.data[tokenName].setData(this.prop, data, noSave)
     }
   }
-  printMsg(info, type = 'error', option) {
-    printMsgAct(this._selfName() + ':' + info, type, option)
-  }
   _selfName() {
     return `(${this.constructor.name}:[${this.name}/${this.prop}])`
-  }
-  toString () {
-    return this._selfName()
   }
 }
 
