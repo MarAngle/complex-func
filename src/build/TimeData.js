@@ -58,8 +58,5 @@ class TimeData {
   format() {
 
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 export default TimeData

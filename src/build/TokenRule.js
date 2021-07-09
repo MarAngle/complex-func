@@ -3,11 +3,6 @@ import removeLocalData from '../data/local/removeLocalData'
 import setLocalData from '../data/local/setLocalData'
 import getType from './../data/type/getType'
 
-const defaultOption = {
-  location: 'body', // 默认赋值位置
-  empty: false // 值不为真时的上传操作判断值： 真上传空值 否则不上传 require = false 时生效
-}
-
 class TokenRule {
   constructor (prop, initdata) {
     let type = getType(initdata)
@@ -19,8 +14,8 @@ class TokenRule {
     this.prop = prop
     this.require = initdata.require || false
     this.data = initdata.data || undefined
-    this.location = initdata.location || defaultOption.location
-    this.empty = initdata.empty === undefined ? defaultOption.empty : initdata.empty
+    this.location = initdata.location || 'body'
+    this.empty = initdata.empty === undefined ? false : initdata.empty
     this.getCurrentData = initdata.getData || false
     this.checkCurrentData = initdata.checkData || function(data) {
       return data || data === 0

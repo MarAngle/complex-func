@@ -117,7 +117,7 @@ import notice from './option/noticeData'
 // 自动引用加载
 // import './buildContentImport'
 
-let requiredata
+let requiredata = new Require()
 
 let mainfunc = {
   current: current,
@@ -219,7 +219,8 @@ let mainfunc = {
   workerDo,
   // rule
   buildRule,
-  checkRule
+  checkRule,
+  get: requiredata.get.bind(requiredata)
 }
 
 mainfunc._initMod = function (mod, methodList) {

@@ -1,13 +1,14 @@
 import axios from 'axios'
+import SimpleData from './SimpleData'
 import RequireRule from './RequireRule'
 import { getEnv } from './../data/environment/index'
 import noticeData from './../option/noticeData'
 import jsonToForm from './../data/object/jsonToForm'
-import printMsgAct from './../data/utils/printMsgAct'
 import getType from '../data/type/getType'
 
-class Require {
-  constructor ({ api, option, rule, status }) {
+class Require extends SimpleData {
+  constructor (initdata) {
+    super()
     this.api = {
       baseURL: ''
     }
@@ -17,6 +18,11 @@ class Require {
       404: '很抱歉，资源未找到!',
       504: '网络超时!'
     }
+    if (initdata) {
+      this.initMain(initdata)
+    }
+  }
+  initMain({ api, option, rule, status }) {
     this.initApi(api)
     this.initService(option)
     this.initRule(rule)
@@ -490,12 +496,6 @@ class Require {
       ruleName.push(this.rule[n]._selfName())
     }
     return `(${this.constructor.name}:[${ruleName.join(',')}])`
-  }
-  printMsg(info, type = 'error', option) {
-    printMsgAct(this._selfName() + ':' + info, type, option)
-  }
-  toString() {
-    return this._selfName()
   }
 }
 

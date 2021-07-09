@@ -1,19 +1,17 @@
+import SimpleData from './SimpleData'
 import getType from './../data/type/getType'
 import printMsgAct from './../data/utils/printMsgAct'
 import appendProp from './../data/object/appendProp'
 import TokenRule from './TokenRule'
 
-const defaultOption = {
-  defaultName: 'default' // 默认操作判断字符串
-}
-
-class RequireRule {
+class RequireRule extends SimpleData {
   constructor ({
     name,
     prop,
     token,
     methods
   }) {
+    super()
     this.name = name
     this.prop = prop
     this.token = {
@@ -73,11 +71,11 @@ class RequireRule {
   appendToken (optionData) {
     if (this.token.check) {
       if (optionData.token === undefined) {
-        optionData.token = defaultOption.defaultName
+        optionData.token = 'default'
       }
       let type = getType(optionData.token)
       if (type == 'string') {
-        if (optionData.token == defaultOption.defaultName) {
+        if (optionData.token === 'default') {
           for (let n in this.token.data) {
             let check = this.appendTokenNext(optionData, n)
             if (!check.next) {
