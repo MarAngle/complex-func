@@ -1,5 +1,5 @@
 
-### 2.0.18ing
+### 2.0.18
 - current注释
 - jsonToForm无法递归,使用JSON字符串实现逻辑
 - printMsgAct为引用isError的错误
