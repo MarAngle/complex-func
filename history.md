@@ -1,6 +1,7 @@
 
 ### 2.0.19ing
 - 测试结构更新
+- formatTree逻辑优化，删除formatTreeNext
 
 ### 2.0.18
 - current注释

@@ -1,5 +1,5 @@
-import runFunction from './../../data/function/runFunction'
-import triggerPromise from './../../data/function/triggerPromise'
+import runFunction from './../../../data/function/runFunction'
+import triggerPromise from './../../../data/function/triggerPromise'
 
 (function() {
   let baseFunction = function(name) {

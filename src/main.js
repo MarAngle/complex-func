@@ -40,7 +40,6 @@ import defineWatch from './data/object/defineWatch'
 import formatDataByType from './data/object/formatDataByType'
 import formatList from './data/object/formatList'
 import formatTree from './data/object/formatTree'
-import formatTreeNext from './data/object/formatTreeNext'
 import formatUpdateDataOption from './data/object/formatUpdateDataOption'
 import getProp from './data/object/getProp'
 import getPropByList from './data/object/getPropByList'
@@ -113,7 +112,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // 测试加载
-// import './test/index'
+import './test/index'
 // 自动引用加载
 // import './buildContentImport'
 
@@ -161,7 +160,6 @@ let mainfunc = {
   formatDataByType,
   formatList,
   formatTree,
-  formatTreeNext,
   formatUpdateDataOption,
   getProp,
   getPropByList,
