@@ -7,7 +7,7 @@ function loadContents(contents, fn) {
   })
 }
 
-const contents = require.context('./data', false, /(\.vue)|(\.js)$/)
+const contents = require.context('./data', true, /\.js$/)
 if (getEnv('real') == 'development') {
   loadContents(contents, function(item) {
     let data = item.default || item

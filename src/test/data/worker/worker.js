@@ -1,5 +1,5 @@
 
-import setWorker from '../../data/worker/setWorker';
+import setWorker from '../../../data/worker/setWorker';
 
 (function() {
   setWorker({
