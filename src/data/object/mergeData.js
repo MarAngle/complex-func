@@ -18,6 +18,7 @@ function mergeData(targetData, originData) {
       }
       mergeData(targetData[n], originData[n])
     } else {
+      // 其他类型包括数组直接进行赋值操作
       targetData[n] = originData[n]
     }
   }

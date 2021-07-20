@@ -7,13 +7,13 @@ import updateData from './updateData'
  * @param {*} targetlist 目标列表:需要进行更新的列表
  * @param {*} originlist 源数据列表:最新数据，以此为基准对目标列表数据进行更新
  * @param {object} option 设置项
- * @param {string | function} option.check 相同项检查,必传,string时作为prop取值对比,function时通过(targetItem, originItem)返回值对比
- * @param {boolean} [option.equal] option.check为string时,为真时则全等于判断
+ * @param {string | object | function} option.check 相同项检查,必传,string时作为prop取值对比,function时通过(targetItem, originItem)返回值对比
+ * @param {boolean} [option.check.equal] option.check为string时,为真时则全等于判断
  * @param {'total' | 'clear'} [option.type] 更新类型,total合并更新,未命中数据不destroy,clear全复制,未命中数据destroy
  * @param {boolean} [option.push] 默认为真,新元素是否push的判断值,为否时新数据不会加入到targetlist
  * @param {object | function} [option.update] 更新数据的设置值,默认空对象,object模式下调用updateData进行更新,此为设置项,function模式下(targetItem, originItem)进行更新
- * @param {function} option.destroy 销毁函数,targetlist中需要删除的数据会调用此方法
- * @param {function} option.format 格式化函数,targetlist中需要push的数据会调用此方法
+ * @param {function} [option.destroy] 销毁函数,targetlist中需要删除的数据会调用此方法
+ * @param {function} [option.format] 格式化函数,targetlist中需要push的数据会调用此方法，不返回需要push的数据，因为此时需要的对象都是复杂格式，内存指针形式，因此format仅对对象数据做格式化，返回值为是否添加到数组中
  * @returns
  */
 function updateList(targetlist, originlist, option = {}) {
@@ -91,10 +91,13 @@ function updateList(targetlist, originlist, option = {}) {
   if (option.push && cacheOriginList.length > 0) {
     for (let k = 0; k < cacheOriginList.length; k++) {
       let originItem = cacheOriginList[k]
+      let push = true
       if (option.format) {
-        originItem = option.format(originItem)
+        push = option.format(originItem)
       }
-      targetlist.push(originItem)
+      if (push) {
+        targetlist.push(originItem)
+      }
     }
   }
 }
