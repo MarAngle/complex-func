@@ -3,6 +3,7 @@
 - 测试结构更新
 - formatTree逻辑优化，删除formatTreeNext,测试用例添加
 - updateList中option.format不返回需要push的数据，因为此时需要的对象都是复杂格式，内存指针形式，因此format仅对对象数据做格式化，返回值为是否添加到数组中
+- updateDataWidthOption实现total模式
 
 ### 2.0.18
 - current注释

@@ -1,25 +1,18 @@
-import getType from './../type/getType'
+import updateData from './updateData'
 
 /**
- * 合并数据函数，基于源数据originData格式化目标数据targetData函数
+ * 合并数据函数，可以理解为简化版本的add模式的updateData，基于源数据originData格式化目标数据targetData函数
  * @param {*} targetData 目标数据
  * @param {object} originData 源数据
  * @returns targetdata
  */
-function mergeData(targetData, originData) {
-  if (!originData) {
-    originData = {}
-  }
-  for (let n in originData) {
-    let type = getType(originData[n])
-    if (type == 'object') {
-      if (!targetData[n]) {
-        targetData[n] = {}
+function mergeData(targetData, ...originList) {
+  if (originList && originList.length > 0) {
+    for (let n = 0; n < originList.length; n++) {
+      let originData = originList[n]
+      if (originData) {
+        targetData = updateData(targetData, originData)
       }
-      mergeData(targetData[n], originData[n])
-    } else {
-      // 其他类型包括数组直接进行赋值操作
-      targetData[n] = originData[n]
     }
   }
   return targetData

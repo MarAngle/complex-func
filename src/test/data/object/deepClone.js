@@ -109,51 +109,21 @@ text(function() {
 text(function() {
   // 拷贝相关
   let data = {
-    name: 'id',
-    prop: 'id',
-    mod: {
-      list: {
-        width: 100,
-        option: {
-          min: 0,
-          list: [1, 2, 3],
-          objectList: [
-            {
-              name: 1
-            },
-            {
-              name: 2
-            }
-          ]
-        }
-      },
-      edit: {
-        option: {
-          name: 'name'
-        }
-      }
-    }
+    name: 'name',
+    num: 1
   }
-  let newdata = updateData(data, {
-    name: 'ID',
-    originprop: 'userId',
-    mod: {
-      list: {
-        local: true,
-        option: {
-          min: 1,
-          max: 100,
-          objectList: [1, {
-            name: '111'
-          }]
-        }
-      },
-      build: {
-        option: {
-          name: 'build'
-        }
-      }
+  let list = [
+    {
+      id: 'id',
+      num: 2
+    },
+    {
+      index: 'index',
+      num: 3
     }
-  })
-  console.log(newdata)
-});
+  ]
+  let newdata = mergeData(data, ...list)
+  if (newdata.name != 'name' || newdata.id != 'id' || newdata.index != 'index' || newdata.num != 3) {
+    console.error('mergeData合并数组错误')
+  }
+})

@@ -20,21 +20,19 @@ function updateDataWidthOption(origindata, targetdata, option, currentnum = 1, c
   if (type == 'object' || type == 'array') {
     let unDeep = true
     let reset = false
-    // 检查当前depth
+    // 检查当前depth，深度判断通过后进行下一步判断
     if (option.depth === true || currentnum <= option.depth) {
-      // 初始化目标值
+      /*
+        类型相同时进行深拷贝循环
+        类型不同时，reset设置为真（默认为真）时，无法将以前的数据作为基准，将会对源数据的对应值根据类型重置后再进行深拷贝循环
+        为否时则直接进行赋值操作，不进行深拷贝循环
+        ！此时可能会出现赋值数据中的限制字段无效的情况发生
+      */
       let targetType = getType(targetdata)
       if (targetType === type) {
-        /*
-          类型相同时进行深拷贝循环
-          类型不同时，全复制模式和附加模式，都无法将以前的数据作为基准，因此直接进行赋值操作，不进行深拷贝循环
-          ！此时可能会出现赋值数据中的限制字段无效的情况发生
-        */
         unDeep = false
       } else if (option.reset) {
-        // 类型不同时，reset为真则进行循环模式
         unDeep = false
-        // 设置重置操作
         reset = true
       }
     }
@@ -48,8 +46,16 @@ function updateDataWidthOption(origindata, targetdata, option, currentnum = 1, c
       } else {
         // 此时进行深拷贝循环
         currentnum++
+        let cachePropList
+        /*
+          cachePropList:已经设置的prop属性值列表缓存
+          reset模式下无需对此值进行缓存，因为源数据没用需要删除的数据
+          非reset模式下type=total时需要进行缓存，此时需要将已经进行赋值操作的属性进行缓存
+        */
         if (reset) {
           targetdata = type === 'object' ? {} : []
+        } else if (option.type == 'total') {
+          cachePropList = []
         }
         map.set(origindata, targetdata)
         for (let key in origindata) {
@@ -57,6 +63,18 @@ function updateDataWidthOption(origindata, targetdata, option, currentnum = 1, c
           // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
           if (!option.limitData.getLimit(nextprop)) {
             targetdata[key] = updateDataWidthOption(origindata[key], targetdata[key], option, currentnum, nextprop, map)
+            if (cachePropList) {
+              // 将进行赋值操作的属性进行缓存
+              cachePropList.push(key)
+            }
+          }
+        }
+        if (cachePropList && cachePropList.length > 0) {
+          // 存在缓存属性时说明此时模式为total模式，删除源数据未命中的属性
+          for (let n in targetdata) {
+            if (cachePropList.indexOf(n) < 0) {
+              delete targetdata[n]
+            }
           }
         }
       }
