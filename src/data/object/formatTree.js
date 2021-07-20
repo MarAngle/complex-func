@@ -1,3 +1,4 @@
+import isArray from './../type/isArray'
 
 /**
  * 格式化list为tree数组
@@ -12,10 +13,12 @@ function formatTree(originList, option = {}) {
   const idProp = option.id || 'id'
   const parentIdProp = option.parentId || 'parentId'
   const childrenProp = option.children || 'children'
+  const type = option.type || 'list' // list/map获取属性值,map情况下将dataMap直接返回
+  const childrenFormat = option.childrenFormat // 父类children属性存在时的格式化操作
 
   let dataMap = {}
   let treeList = []
-  for (let n in originList) {
+  for (let n = 0; n < originList.length; n++) {
     let originItem = originList[n]
     const id = originItem[idProp]
     const parentId = originItem[parentIdProp]
@@ -29,7 +32,13 @@ function formatTree(originList, option = {}) {
       }
     } else {
       // 遍历到此时暂时未有该对象的子对象出现，因此直接实际构建数据
-      originItem[childrenProp] = []
+      if (childrenFormat) {
+        // 存在childrenFormat则进行格式化操作
+        originItem[childrenProp] = childrenFormat(originItem[childrenProp], originItem)
+      } else if (!isArray(originItem[childrenProp])) {
+        // 不存在时格式不为array时进行重写，array不做任何操作
+        originItem[childrenProp] = []
+      }
       mapItem = {
         isFormat: true,
         data: originItem
@@ -38,27 +47,30 @@ function formatTree(originList, option = {}) {
     }
     let parentMapItem = dataMap[parentId]
     // 存在父节点则插入数据到父节点的列表中，此时不需要判断父节点的构建是否是虚拟构建
-    if (parentMapItem) {
-      parentMapItem.data[childrenProp].push(mapItem.data)
-    } else {
-      // 不存在父节点则虚拟构建父节点并直接赋值到列表中
+    if (!parentMapItem) {
+      // 不存在父节点则虚拟构建父节点
       parentMapItem = {
         isFormat: false, // 数据实际构建判断
         data: {
-          [childrenProp]: [mapItem.data]
+          [childrenProp]: []
         }
       }
       dataMap[parentId] = parentMapItem
     }
+    parentMapItem.data[childrenProp].push(mapItem.data)
   }
-  for (let n in dataMap) {
-    // 将虚拟构建的列表合并，此逻辑按照不存在父元素的值为根元素
-    if (!dataMap[n].isFormat) {
-      treeList = treeList.concat(dataMap[n].data[childrenProp])
+  if (type == 'list') {
+    for (let n in dataMap) {
+      // 将虚拟构建的列表合并，此逻辑按照不存在父元素的值为根元素
+      if (!dataMap[n].isFormat) {
+        treeList = treeList.concat(dataMap[n].data[childrenProp])
+      }
     }
+    dataMap = null
+    return treeList
+  } else {
+    return dataMap
   }
-  dataMap = null
-  return treeList
 }
 
 export default formatTree
