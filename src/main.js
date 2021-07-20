@@ -11,8 +11,10 @@ import isError from './data/type/isError'
 import isFile from './data/type/isFile'
 import isPromise from './data/type/isPromise'
 import isRegExp from './data/type/isRegExp'
+import isSymbol from './data/type/isSymbol'
 // type加载完成
 // number加载
+import formatNum from './data/number/formatNum'
 import getNum from './data/number/getNum'
 import getRandomNum from './data/number/getRandomNum'
 // number加载完成
@@ -134,7 +136,9 @@ let mainfunc = {
   isFile,
   isPromise,
   isRegExp,
+  isSymbol,
   // number
+  formatNum,
   getNum,
   getRandomNum,
   // string

@@ -1,3 +1,4 @@
+import formatNum from './formatNum'
 
 /**
  * 格式化数字
@@ -8,17 +9,17 @@
  * @returns {number}
  */
 function getNum(originNum, type = 'round', radix = 2, NANZERO = true) {
-  let num = typeof originNum === 'number' ? originNum : parseFloat(originNum)
-  if (isNaN(num)) {
+  let value = formatNum(originNum)
+  if (isNaN(value)) {
     if (NANZERO) {
-      num = 0
+      value = 0
       console.log('NAN is find')
     }
-  } else if (type != 'origin' && Math.round(num) !== num) { // 如果是小数
+  } else if (type != 'origin' && Math.round(value) !== value) { // 如果是小数
     let rate = Math.pow(10, radix)
-    num = Math[type](num * rate) / rate
+    value = Math[type](value * rate) / rate
   }
-  return num
+  return value
 }
 
 export default getNum

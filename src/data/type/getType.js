@@ -3,6 +3,7 @@ import isFile from './isFile'
 import isBlob from './isBlob'
 import isRegExp from './isRegExp'
 import isDate from './isDate'
+import isSymbol from './isSymbol'
 
 /**
  * value类型获取
@@ -26,6 +27,8 @@ function getType(value, simple) {
         type = 'regexp'
       } else if (isDate(value)) {
         type = 'date'
+      } else if (isSymbol(value)) {
+        type = 'symbol'
       }
     }
   }
