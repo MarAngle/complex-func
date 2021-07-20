@@ -1,7 +1,7 @@
 import isSymbol from '../type/isSymbol'
 
 /**
- * 格式化数字
+ * 数字转换
  * @param {string | number} originNum 数据
  * @returns {number}
  */
