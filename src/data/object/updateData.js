@@ -19,7 +19,7 @@ function updateData(targetdata, origindata, option = {}) {
   option = formatUpdateDataOption(option, {
     type: 'add'
   })
-  targetdata = updateDataWidthOption(origindata, targetdata, option)
+  targetdata = updateDataWidthOption(targetdata, origindata, option)
   return targetdata
 }
 

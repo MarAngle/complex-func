@@ -16,7 +16,7 @@ import updateDataWidthOption from './updateDataWidthOption'
  */
 function deepCloneDataWithOption(origindata, option) {
   option = formatUpdateDataOption(option, {})
-  return updateDataWidthOption(origindata, undefined, option)
+  return updateDataWidthOption(undefined, origindata, option)
 }
 
 export default deepCloneDataWithOption

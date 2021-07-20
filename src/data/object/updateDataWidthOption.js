@@ -14,7 +14,7 @@ import getType from './../type/getType'
  * @param {Map} [map] 循环引用缓存
  * @returns targetdata
  */
-function updateDataWidthOption(origindata, targetdata, option, currentnum = 1, currentprop = '', map = new Map()) {
+function updateDataWidthOption(targetdata, origindata, option, currentnum = 1, currentprop = '', map = new Map()) {
   let type = getType(origindata)
   // 复杂对象进行递归
   if (type == 'object' || type == 'array') {
@@ -62,7 +62,7 @@ function updateDataWidthOption(origindata, targetdata, option, currentnum = 1, c
           let nextprop = currentprop ? currentprop + '.' + key : key
           // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
           if (!option.limitData.getLimit(nextprop)) {
-            targetdata[key] = updateDataWidthOption(origindata[key], targetdata[key], option, currentnum, nextprop, map)
+            targetdata[key] = updateDataWidthOption(targetdata[key], origindata[key], option, currentnum, nextprop, map)
             if (cachePropList) {
               // 将进行赋值操作的属性进行缓存
               cachePropList.push(key)
