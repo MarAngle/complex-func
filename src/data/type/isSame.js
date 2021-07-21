@@ -44,16 +44,4 @@ function isSame(value, other) {
   }
 }
 
-console.log(isSame({
-  a: 1,
-  b: {
-    a: 2
-  }
-}, {
-  a: 1,
-  b: {
-    a: 2
-  }
-}))
-
 export default isSame

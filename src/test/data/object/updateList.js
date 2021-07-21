@@ -28,22 +28,22 @@ runText(function() {
     update: function(targetItem, originItem) {
       targetItem.name = originItem.name
       if (targetItem.id != '1') {
-        console.error('UpdateList中update判断未成功')
+        throw new Error('updateList中update判断未成功')
       }
     },
     format: function(targetItem) {
       if (targetItem.id != '3') {
-        console.error('UpdateList中format判断未成功')
+        throw new Error('updateList中format判断未成功')
       }
       return targetItem
     },
     destroy: function(targetItem) {
       if (targetItem.id != '2') {
-        console.error('UpdateList中destroy判断未成功')
+        throw new Error('updateList中destroy判断未成功')
       }
     }
   })
   if (list.length != 2 || list[0].name != 'a1' || list[1].id != '3') {
-    console.error('UpdateList未成功')
+    throw new Error('updateList未成功')
   }
-});
+}, 'updateList错误');

@@ -17,7 +17,7 @@ runText(function() {
     args: [],
     error: (code) => {
       if (code != 'notPromise') {
-        console.error('triggerPromise错误')
+        throw new Error('triggerPromise错误')
       }
     }
   })
@@ -25,28 +25,28 @@ runText(function() {
     func: promiseFunction,
     args: ['promise'],
     error: (code) => {
-      console.error('triggerPromise错误')
+      throw new Error('triggerPromise错误')
     },
     start: () => {
     },
     success: (res) => {
       if (res.name != 'promise') {
-        console.error('triggerPromise错误')
+        throw new Error('triggerPromise错误')
       }
     },
     fail: (res) => {
-      console.error('triggerPromise错误', res)
+      throw new Error('triggerPromise错误', res)
     }
   })
 
   runFunction(baseFunction, ['base'], function(res) {
     if (res.data != 'base') {
-      console.error('runFunction错误', res)
+      throw new Error('runFunction错误', res)
     }
   })
   runFunction(promiseFunction, ['promise'], function(res) {
     if (res.data.name != 'promise') {
-      console.error('runFunction错误', res)
+      throw new Error('runFunction错误', res)
     }
   })
-});
+}, 'function相关模块错误');

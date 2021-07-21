@@ -38,7 +38,7 @@ runText(function() {
   }
   updateData(targetdata, origindata)
   if (targetdata.name != 'origin' || targetdata.data.list[0].name != '11' || targetdata.data.list[1].id != 3) {
-    console.error('UpdateData未成功')
+    throw new Error('UpdateData未成功')
   }
 });
 runText(function() {
@@ -83,10 +83,10 @@ runText(function() {
   })
   if (targetdata.data.name != 't') {
     console.log(targetdata, origindata)
-    console.error('UpdateData属性限制未成功')
+    throw new Error('UpdateData属性限制未成功')
   }
   if (targetdata.data.list !== origindata.data.list) {
-    console.error('UpdateData深度限制未成功')
+    throw new Error('UpdateData深度限制未成功')
   }
 });
 
@@ -124,6 +124,6 @@ runText(function() {
   ]
   let newdata = mergeData(data, ...list)
   if (newdata.name != 'name' || newdata.id != 'id' || newdata.index != 'index' || newdata.num != 3) {
-    console.error('mergeData合并数组错误')
+    throw new Error('mergeData合并数组错误')
   }
 })

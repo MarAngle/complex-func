@@ -1,7 +1,7 @@
-
+import runText from '../../main';
 import setWorker from '../../../data/worker/setWorker';
 
-(function() {
+runText(function() {
   setWorker({
     func: function(list) {
       return new Promise((resolve) => {
@@ -21,4 +21,4 @@ import setWorker from '../../../data/worker/setWorker';
      },
     err => { console.log(err) }
   )
-})();
+});

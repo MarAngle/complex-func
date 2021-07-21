@@ -1,7 +1,8 @@
+import isSame from '../data/type/isSame'
 
 function runText(fn, log) {
   try {
-    fn()
+    fn(isSame)
   } catch (e) {
     console.error(e)
     if (log) {

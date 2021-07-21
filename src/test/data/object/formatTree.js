@@ -46,11 +46,11 @@ runText(function() {
     parentId: 'pid'
   })
   if (treeList.length != 2 || treeList[0].name != '2' || treeList[1].name != '1') {
-    console.error('formatTree未成功,长度或者顺序错误')
+    throw new Error('formatTree未成功,长度或者顺序错误')
   } else {
     let insideData = treeList[0].children[1].children[0]
     if (!insideData || insideData.name != '3-6') {
-      console.error('formatTree未成功，内部值错误')
+      throw new Error('formatTree未成功，内部值错误')
     }
   }
 
@@ -65,6 +65,6 @@ runText(function() {
   })
   let insideData = treeList2[0].children[0].children[0]
   if (!insideData || insideData.name != '3-6') {
-    console.error('formatTree未成功，childrenFormat错误')
+    throw new Error('formatTree未成功，childrenFormat错误')
   }
-});
+}, 'formatTree错误');
