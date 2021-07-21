@@ -1,6 +1,7 @@
+import runText from '../../main';
 import formatTree from './../../../data/object/formatTree'
 
-(function() {
+runText(function() {
   // formatTree相关
   const list = [
     {
@@ -66,4 +67,4 @@ import formatTree from './../../../data/object/formatTree'
   if (!insideData || insideData.name != '3-6') {
     console.error('formatTree未成功，childrenFormat错误')
   }
-})();
+});

@@ -1,5 +1,5 @@
 
-function text(fn, log) {
+function runText(fn, log) {
   try {
     fn()
   } catch (e) {
@@ -10,4 +10,4 @@ function text(fn, log) {
   }
 }
 
-export default text
+export default runText

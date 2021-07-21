@@ -1,6 +1,7 @@
+import runText from '../../main';
 import updateList from './../../../data/object/updateList'
 
-(function() {
+runText(function() {
   // updateList相关
   let list = [
     {
@@ -45,4 +46,4 @@ import updateList from './../../../data/object/updateList'
   if (list.length != 2 || list[0].name != 'a1' || list[1].id != '3') {
     console.error('UpdateList未成功')
   }
-})();
+});

@@ -1,10 +1,10 @@
 
-import text from '../../main';
+import runText from '../../main';
 import updateData from './../../../data/object/updateData'
 import deepClone from './../../../data/object/deepClone'
 import mergeData from '../../../data/object/mergeData';
 
-text(function() {
+runText(function() {
   // 拷贝相关
   let targetdata = {
     name: 'target',
@@ -41,7 +41,7 @@ text(function() {
     console.error('UpdateData未成功')
   }
 });
-text(function() {
+runText(function() {
   // 拷贝相关
   let targetdata = {
     name: 'target',
@@ -90,7 +90,7 @@ text(function() {
   }
 });
 
-text(function() {
+runText(function() {
   // 拷贝相关
   let obj = {
     a: 1,
@@ -106,7 +106,7 @@ text(function() {
   deepClone(obj, {})
 }, '深拷贝的循环引用报错');
 
-text(function() {
+runText(function() {
   // 拷贝相关
   let data = {
     name: 'name',

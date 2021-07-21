@@ -12,6 +12,7 @@ import isFile from './data/type/isFile'
 import isPromise from './data/type/isPromise'
 import isRegExp from './data/type/isRegExp'
 import isSymbol from './data/type/isSymbol'
+import isSame from './data/type/isSame'
 // type加载完成
 // number加载
 import formatNum from './data/number/formatNum'
@@ -137,6 +138,7 @@ let mainfunc = {
   isPromise,
   isRegExp,
   isSymbol,
+  isSame,
   // number
   formatNum,
   getNum,

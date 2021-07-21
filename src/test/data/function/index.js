@@ -1,7 +1,8 @@
+import runText from '../../main';
 import runFunction from './../../../data/function/runFunction'
 import triggerPromise from './../../../data/function/triggerPromise'
 
-(function() {
+runText(function() {
   let baseFunction = function(name) {
     return name
   }
@@ -48,4 +49,4 @@ import triggerPromise from './../../../data/function/triggerPromise'
       console.error('runFunction错误', res)
     }
   })
-})();
+});
