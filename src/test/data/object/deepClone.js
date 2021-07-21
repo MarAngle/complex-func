@@ -1,10 +1,9 @@
-
-import runText from '../../main';
+import runText from '../../main'
 import updateData from './../../../data/object/updateData'
 import deepClone from './../../../data/object/deepClone'
-import mergeData from '../../../data/object/mergeData';
+import mergeData from '../../../data/object/mergeData'
 
-runText(function() {
+runText(function({ checkSame }) {
   // 拷贝相关
   let targetdata = {
     name: 'target',
@@ -37,13 +36,23 @@ runText(function() {
     }
   }
   updateData(targetdata, origindata)
-  if (targetdata.name != 'origin' || targetdata.data.list[0].name != '11' || targetdata.data.list[1].id != 3) {
-    throw new Error('UpdateData未成功')
-  }
-});
-runText(function() {
+  checkSame(targetdata, {
+    name: 'origin',
+    data: {
+      list: [
+        {
+          id: 1,
+          name: '11'
+        },
+        {
+          id: 3,
+          name: '3'
+        }
+      ]
+    }
+    }, 'UpdateData未成功')
   // 拷贝相关
-  let targetdata = {
+  let targetdata2 = {
     name: 'target',
     data: {
       name: 't',
@@ -59,7 +68,7 @@ runText(function() {
       ]
     }
   }
-  let origindata = {
+  let origindata2 = {
     name: 'origin',
     data: {
       name: 's',
@@ -75,20 +84,29 @@ runText(function() {
       ]
     }
   }
-  updateData(targetdata, origindata, {
+  updateData(targetdata2, origindata2, {
     limit: {
       list: ['data.name']
     },
     depth: 2
   })
-  if (targetdata.data.name != 't') {
-    console.log(targetdata, origindata)
-    throw new Error('UpdateData属性限制未成功')
-  }
-  if (targetdata.data.list !== origindata.data.list) {
-    throw new Error('UpdateData深度限制未成功')
-  }
-});
+  checkSame(targetdata2, {
+    name: 'origin',
+    data: {
+      name: 't',
+      list: [
+        {
+          id: 1,
+          name: '11'
+        },
+        {
+          id: 3,
+          name: '3'
+        }
+      ]
+    }
+  }, 'UpdateData未成功')
+}, 'updateData')
 
 runText(function() {
   // 拷贝相关
@@ -104,9 +122,9 @@ runText(function() {
   obj.c.j = obj.b
   deepClone(obj, true)
   deepClone(obj, {})
-}, '深拷贝的循环引用报错');
+}, 'deepClone深拷贝的循环引用报错')
 
-runText(function() {
+runText(function({ checkSame }) {
   // 拷贝相关
   let data = {
     name: 'name',
@@ -123,7 +141,10 @@ runText(function() {
     }
   ]
   let newdata = mergeData(data, ...list)
-  if (newdata.name != 'name' || newdata.id != 'id' || newdata.index != 'index' || newdata.num != 3) {
-    throw new Error('mergeData合并数组错误')
-  }
-})
+  checkSame(newdata, {
+    name: 'name',
+    num: 3,
+    id: 'id',
+    index: 'index'
+  }, 'mergeData合并数组错误')
+}, 'mergeData')

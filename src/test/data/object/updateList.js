@@ -1,7 +1,7 @@
 import runText from '../../main';
 import updateList from './../../../data/object/updateList'
 
-runText(function() {
+runText(function({ showError }) {
   // updateList相关
   let list = [
     {
@@ -28,22 +28,22 @@ runText(function() {
     update: function(targetItem, originItem) {
       targetItem.name = originItem.name
       if (targetItem.id != '1') {
-        throw new Error('updateList中update判断未成功')
+        showError('updateList中update判断未成功')
       }
     },
     format: function(targetItem) {
       if (targetItem.id != '3') {
-        throw new Error('updateList中format判断未成功')
+        showError('updateList中format判断未成功')
       }
       return targetItem
     },
     destroy: function(targetItem) {
       if (targetItem.id != '2') {
-        throw new Error('updateList中destroy判断未成功')
+        showError('updateList中destroy判断未成功')
       }
     }
   })
   if (list.length != 2 || list[0].name != 'a1' || list[1].id != '3') {
-    throw new Error('updateList未成功')
+    showError('updateList未成功')
   }
 }, 'updateList错误');

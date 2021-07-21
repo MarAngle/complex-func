@@ -1,7 +1,7 @@
 import runText from '../../main';
 import setWorker from '../../../data/worker/setWorker';
 
-runText(function() {
+runText(function({ showError }) {
   setWorker({
     func: function(list) {
       return new Promise((resolve) => {
@@ -16,7 +16,7 @@ runText(function() {
   }).then(
     res => {
       if (res.a != 1) {
-        console.error('worker数据错误')
+        showError('worker数据错误')
       }
      },
     err => { console.log(err) }

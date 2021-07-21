@@ -1,7 +1,7 @@
 import runText from '../../main';
 import formatTree from './../../../data/object/formatTree'
 
-runText(function() {
+runText(function({ checkSame }) {
   // formatTree相关
   const list = [
     {
@@ -45,15 +45,52 @@ runText(function() {
   let treeList = formatTree(list, {
     parentId: 'pid'
   })
-  if (treeList.length != 2 || treeList[0].name != '2' || treeList[1].name != '1') {
-    throw new Error('formatTree未成功,长度或者顺序错误')
-  } else {
-    let insideData = treeList[0].children[1].children[0]
-    if (!insideData || insideData.name != '3-6') {
-      throw new Error('formatTree未成功，内部值错误')
+  checkSame(treeList, [
+    {
+      pid: 0,
+      id: 2,
+      name: '2',
+      children: [
+        {
+          pid: 2,
+          id: 100,
+          name: '2-100'
+        },
+        {
+          children: [
+            {
+              pid: 3,
+              id: 6,
+              name: '3-6',
+              children: []
+            }
+          ],
+          pid: 2,
+          id: 3,
+          name: '2-3'
+        },
+        {
+          pid: 2,
+          id: 5,
+          name: '2-5',
+          children: []
+        }
+      ]
+    },
+    {
+      pid: 0,
+      id: 1,
+      name: '1',
+      children: [
+        {
+          pid: 1,
+          id: 4,
+          name: '1-4',
+          children: []
+        }
+      ]
     }
-  }
-
+  ], 'formatTree未成功')
   let treeList2 = formatTree(list, {
     parentId: 'pid',
     childrenFormat: function(childrenList, originItem) {
@@ -63,8 +100,45 @@ runText(function() {
       return childrenList
     }
   })
-  let insideData = treeList2[0].children[0].children[0]
-  if (!insideData || insideData.name != '3-6') {
-    throw new Error('formatTree未成功，childrenFormat错误')
-  }
-}, 'formatTree错误');
+  checkSame(treeList2, [
+    {
+      pid: 0,
+      id: 2,
+      name: '2',
+      children: [
+        {
+          children: [
+            {
+              pid: 3,
+              id: 6,
+              name: '3-6',
+              children: []
+            }
+          ],
+          pid: 2,
+          id: 3,
+          name: '2-3'
+        },
+        {
+          pid: 2,
+          id: 5,
+          name: '2-5',
+          children: []
+        }
+      ]
+    },
+    {
+      pid: 0,
+      id: 1,
+      name: '1',
+      children: [
+        {
+          pid: 1,
+          id: 4,
+          name: '1-4',
+          children: []
+        }
+      ]
+    }
+  ], 'formatTree未成功')
+}, 'formatTree');
