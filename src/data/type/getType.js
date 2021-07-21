@@ -8,18 +8,18 @@ import isSymbol from './isSymbol'
 /**
  * value类型获取
  * @param {*} value 需要获取类型的值
- * @param {boolean} [simple] 在typeof基础上仅额外判断null
+ * @param {boolean} [complex] 在typeof基础上仅额外判断null/array
  * @returns {"string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function" | "null" | "array" | "file" | "blob" | "regexp" | "date"}
  */
-function getType(value, simple) {
+function getType(value, complex) {
   let type = typeof (value)
   if (type === 'object') {
-    if (value === null) {
+    if (isArray(value)) {
+      type = 'array'
+    } else if (value === null) {
       type = 'null'
-    } else if (!simple) {
-      if (isArray(value)) {
-        type = 'array'
-      } else if (isFile(value)) {
+    } else if (complex) {
+      if (isFile(value)) {
         type = 'file'
       } else if (isBlob(value)) {
         type = 'blob'
