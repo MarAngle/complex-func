@@ -36,8 +36,6 @@ import clearArray from './data/object/clearArray'
 import deepClone from './data/object/deepClone'
 import deepCloneData from './data/object/deepCloneData'
 import deepCloneDataWithOption from './data/object/deepCloneDataWithOption'
-import defineDeepReactive from './data/object/defineDeepReactive'
-import defineDeepWatch from './data/object/defineDeepWatch'
 import defineProperty from './data/object/defineProperty'
 import defineReactive from './data/object/defineReactive'
 import defineWatch from './data/object/defineWatch'
@@ -160,8 +158,6 @@ let mainfunc = {
   deepClone,
   deepCloneData,
   deepCloneDataWithOption,
-  defineDeepReactive,
-  defineDeepWatch,
   defineProperty,
   defineReactive,
   defineWatch,

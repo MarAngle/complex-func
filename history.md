@@ -5,6 +5,7 @@
 - 测试相关函数添加，逻辑优化
 - 添加defineProperty
 - defineReactive逻辑优化
+- 删除defineDeepReactive和defineDeepWatch
 
 ### 2.1.0
 - 版本逻辑更新，非兼容更新将会在第二位表现
