@@ -1,7 +1,8 @@
 
 import runText from '../../main'
 import defineReactive from '../../../data/object/defineReactive'
-import defineDeepWatch from '../../../data/object/defineDeepWatch'
+import defineWatch from '../../../data/object/defineWatch'
+// import defineDeepWatch from '../../../data/object/defineDeepWatch'
 
 runText(function({ checkSame, showError }) {
   const name = 'name'
@@ -26,7 +27,38 @@ runText(function({ checkSame, showError }) {
   })
   data.user.name = newName
   let currentName = data.user.name
-}, 'defineWatch')
+}, 'defineReactive')
+
+runText(function({ checkSame, showError }) {
+  const name = 'name'
+  const newName = 'newName'
+  let data = {
+    user: {
+      id: 1,
+      name: name,
+      parent: {
+        id: 'p0',
+        name: 0,
+        user: {
+          name: 'pn1'
+        }
+      }
+    }
+  }
+  defineWatch(data, 'user', {
+    handler: function(val, oldVal, prop, deepNum) {
+      console.log(...arguments)
+    }
+  })
+  // data.user.name = newName
+  // data.user.id = 2
+  data.user.parent.user.name = 'p2'
+  data.user = {
+    id: 1
+  }
+  console.log(data.user)
+  // let currentName = data.user.name
+}, 'defineReactive')
 
 // runText(function({ checkSame, showError }) {
 //   const name = 'name'
@@ -44,14 +76,18 @@ runText(function({ checkSame, showError }) {
 //       }
 //     }
 //   }
-//   defineDeepWatch(data, 'user', {
+//   defineReactive(data, 'user', {
 //     deep: true,
 //     set: function(val, oldVal, prop, deepNum) {
-//       console.log(val, oldVal, prop, deepNum)
+//       console.log(...arguments)
 //     }
 //   })
 //   // data.user.name = newName
 //   // data.user.id = 2
 //   data.user.parent.user.name = 'p2'
+//   data.user = {
+//     id: 1
+//   }
+//   console.log(data.user)
 //   // let currentName = data.user.name
-// }, 'defineDeepWatch')
+// }, 'defineReactive')
