@@ -39,7 +39,7 @@ function defineDeepReactive(data, key, val, option = {}) {
         for (let n in obj) {
           num++
           let nextProp = currentProp ? currentProp + '.' + n : n
-          console.log(obj, n, nextProp, num)
+          console.log(nextProp, currentProp, num)
           defineDeepReactive(obj, n, obj[n], {
             deep: true,
             currentProp: nextProp,
@@ -73,9 +73,6 @@ function defineDeepReactive(data, key, val, option = {}) {
       if (newVal !== value) {
         setter.call(data, newVal)
         if (option.set) {
-          if (deep) {
-            buildChildSet(newVal)
-          }
           option.set(newVal, value)
         }
       }
@@ -84,10 +81,9 @@ function defineDeepReactive(data, key, val, option = {}) {
     const value = getter.call(data)
     if (val !== value) {
       descriptor.set(val)
-    } else {
-      if (deep) {
-        buildChildSet(val)
-      }
+    }
+    if (deep) {
+      buildChildSet(val)
     }
   } else {
     descriptor.get = function() {
@@ -101,9 +97,6 @@ function defineDeepReactive(data, key, val, option = {}) {
         let oldVal = val
         val = newVal
         if (option.set) {
-          if (deep) {
-            buildChildSet(newVal)
-          }
           option.set(val, oldVal)
         }
       }
