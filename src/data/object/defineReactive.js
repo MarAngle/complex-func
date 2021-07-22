@@ -1,59 +1,46 @@
 import printMsg from './../utils/printMsg'
+import defineProperty from './defineProperty'
 
-/**
- * 创建响应式数据,存在get/set时writable属性的设置不生效
- * @param {object} data 目标对象
- * @param {string} key 属性
- * @param {*} val 属性值
- * @param {object} [option] 设置项
- * @param {object} [option.descriptor] 属性描述设置项
- * @param {boolean} [option.descriptor.configurable] 默认为真,当且仅当指定对象的属性描述可以被改变或者属性可被删除时，为true。
- * @param {boolean} [option.descriptor.enumerable] 默认为真,当且仅当指定对象的属性可以被枚举出时，为 true。
- * @param {Function} [option.get] 属性获取拦截器
- * @param {Function} [option.set] 属性设置拦截器
- * @returns {boolean} 是否设置成功
- */
-function defineReactive(data, key, val, option = {}) {
-  const property = Object.getOwnPropertyDescriptor(data, key)
-  if (property && property.configurable === false) {
-    printMsg('defineReactive时data配置中configurable不能为false')
+function defineReactive(obj, prop, option, val) {
+  if (typeof obj != 'object') {
+    printMsg('defineReactive中obj需要对象格式')
     return false
   }
-  const getter = property && property.get
-  const setter = property && property.set
-  if ((getter && !setter) || (!getter && setter)) {
-    printMsg('defineReactive时data配置中getter和setter需要同时配置')
+  if (typeof option != 'object') {
+    printMsg('defineReactive中option需要传递对象')
     return false
   }
+  const currentDescriptor = Object.getOwnPropertyDescriptor(obj, prop)
+  const getter = currentDescriptor && currentDescriptor.get
+  const setter = currentDescriptor && currentDescriptor.set
   let descriptor = option.descriptor || {}
-  if (descriptor.configurable === undefined) {
-    descriptor.configurable = true
-  }
-  if (descriptor.enumerable === undefined) {
-    descriptor.enumerable = true
-  }
-  // 这里判断提前，减少内部操作的判断
-  if (getter) {
+  if (getter && setter) {
+    // 判断val是否传递，传递则进行赋值操作，此时不进行触发set回调
+    if (arguments.length === 4) {
+      setter.call(obj, val)
+    }
     // getter/setter存在时
     descriptor.get = function() {
-      const value = getter.call(data)
+      const value = getter.call(obj)
       if (option.get) {
         option.get(value)
       }
       return value
     }
     descriptor.set = function(newVal) {
-      const value = getter.call(data)
+      const value = getter.call(obj)
       if (newVal !== value) {
-        setter.call(data, newVal)
+        setter.call(obj, newVal)
         if (option.set) {
           option.set(newVal, value)
         }
       }
     }
-    // 存在getter和setter时需要通过setter将值修正为当前val的值
-    descriptor.set(val)
-  } else {
+  } else if (!getter && !setter) {
+    // 判断val是否传递，为传递则取当前值作为缓存
+    if (arguments.length === 3) {
+      val = obj[prop]
+    }
     descriptor.get = function() {
       if (option.get) {
         option.get(val)
@@ -69,9 +56,11 @@ function defineReactive(data, key, val, option = {}) {
         }
       }
     }
+  } else {
+    printMsg('defineReactive中obj的descriptor配置中getter和setter需要同时配置')
+    return false
   }
-  Object.defineProperty(data, key, descriptor)
-  return true
+  return defineProperty(obj, prop, descriptor)
 }
 
 export default defineReactive
