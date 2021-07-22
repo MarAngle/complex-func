@@ -46,17 +46,18 @@ runText(function({ checkSame, showError }) {
     }
   }
   defineWatch(data, 'user', {
-    handler: function(val, oldVal, prop, deepNum) {
+    deep: true,
+    handler: function() {
       console.log(...arguments)
     }
   })
   // data.user.name = newName
   // data.user.id = 2
   data.user.parent.user.name = 'p2'
-  data.user = {
-    id: 1
-  }
-  console.log(data.user)
+  // data.user = {
+  //   id: 1
+  // }
+  // console.log(data.user)
   // let currentName = data.user.name
 }, 'defineReactive')
 

@@ -16,7 +16,41 @@ function defineWatch(obj, prop, option) {
       option.handler(val, oldVal)
     }
   }
-  return defineReactive(obj, prop, reactiveOption)
+  let fg = defineReactive(obj, prop, reactiveOption)
+  if (fg) {
+    if (option.deep) {
+      let value = obj[prop]
+      let currentProp = option.currentProp
+      if (typeof value === 'object') {
+        for (let key in value) {
+          let nextProp = currentProp ? currentProp + '.' + key : key
+          let nextOption = {
+            deep: true,
+            deepInside: true,
+            currentProp: nextProp
+          }
+          if (!option.deepInside) {
+            nextOption.handler = function(val, oldVal, currentProp) {
+              option.handler(obj[prop], obj[prop], {
+                prop: currentProp,
+                val: val,
+                oldVal: oldVal
+              })
+            }
+          } else {
+            nextOption.handler = function(val, oldVal) {
+              option.handler(val, oldVal, nextProp)
+            }
+          }
+          defineWatch(value, key, nextOption)
+        }
+      }
+    }
+    if (option.immediate) {
+      option.handler(obj[prop], obj[prop])
+    }
+  }
+  return fg
 }
 
 export default defineWatch
