@@ -54,11 +54,10 @@ runText(function({ checkSame, showError }) {
   // data.user.name = newName
   // data.user.id = 2
   data.user.parent.user.name = 'p2'
-  // data.user = {
-  //   id: 1
-  // }
-  // console.log(data.user)
-  // let currentName = data.user.name
+  data.user = {
+    id: 1
+  }
+  data.user.id = 'p2'
 }, 'defineReactive')
 
 // runText(function({ checkSame, showError }) {

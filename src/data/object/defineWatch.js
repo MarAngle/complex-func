@@ -1,6 +1,10 @@
 import printMsg from './../utils/printMsg'
 import defineReactive from './defineReactive'
 
+let deepIdCounter = 1
+
+const deepIdProp = '$deepId_auto_prop$'
+
 function defineWatch(obj, prop, option) {
   let optionType = typeof option
   if (optionType == 'function') {
@@ -19,13 +23,20 @@ function defineWatch(obj, prop, option) {
   let fg = defineReactive(obj, prop, reactiveOption)
   if (fg) {
     if (option.deep) {
+      let deepId = option.deepId
+      if (!deepId) {
+        deepId = deepIdCounter
+        deepIdCounter++
+      }
       let value = obj[prop]
       let currentProp = option.currentProp
       if (typeof value === 'object') {
+        value[deepIdProp] = deepId
         for (let key in value) {
           let nextProp = currentProp ? currentProp + '.' + key : key
           let nextOption = {
             deep: true,
+            deepId: deepId,
             deepInside: true,
             currentProp: nextProp
           }
