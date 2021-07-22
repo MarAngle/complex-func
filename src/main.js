@@ -38,6 +38,7 @@ import deepCloneData from './data/object/deepCloneData'
 import deepCloneDataWithOption from './data/object/deepCloneDataWithOption'
 import defineDeepReactive from './data/object/defineDeepReactive'
 import defineDeepWatch from './data/object/defineDeepWatch'
+import defineProperty from './data/object/defineProperty'
 import defineReactive from './data/object/defineReactive'
 import defineWatch from './data/object/defineWatch'
 import formatDataByType from './data/object/formatDataByType'
@@ -161,6 +162,7 @@ let mainfunc = {
   deepCloneDataWithOption,
   defineDeepReactive,
   defineDeepWatch,
+  defineProperty,
   defineReactive,
   defineWatch,
   formatDataByType,
