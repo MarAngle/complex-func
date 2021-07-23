@@ -3,7 +3,7 @@ import Observer from './Observer'
 
 function observe(value) {
   if (typeof value !== 'object') {
-    return undefined
+    return
   }
   let ob
   if (typeof value[OBNAME] !== 'undefined') {

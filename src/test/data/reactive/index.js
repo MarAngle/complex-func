@@ -3,6 +3,7 @@ import runText from '../../main'
 import defineReactive from '../../../data/reactive/defineReactive'
 import defineWatch from '../../../data/reactive/defineWatch'
 import observe from '../../../data/reactive/observe'
+import Watcher from '../../../data/reactive/Watcher'
 
 runText(function({ checkSame, showError }) {
   const name = 'name'
@@ -42,6 +43,10 @@ runText(function({ checkSame, showError }) {
     }
   }
   console.log(observe(data))
+  let w = new Watcher(data, 'id', (val, oldVal) => {
+    console.log(val, oldVal)
+  })
+  data.id = 'uis'
 }, 'observe')
 
 // runText(function({ checkSame, showError }) {

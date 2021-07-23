@@ -58,7 +58,10 @@ function defineObserveReactive(obj, prop, option, val) {
       const value = getter.call(obj)
       if (newVal !== value) {
         setter.call(obj, newVal)
+        // 设置新值
         childOb = observe(newVal)
+        // 发布订阅模式，通知dep
+        dep.notify()
         if (option.set) {
           option.set(newVal, value)
         }

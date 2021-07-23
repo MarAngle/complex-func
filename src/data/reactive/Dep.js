@@ -3,7 +3,6 @@ var uid = 0
 
 class Dep {
   constructor() {
-    console.log('Dep')
     this.id = uid++
     // 用数组存储订阅者,也就是Watcher的实例
     this.subs = []
@@ -20,7 +19,6 @@ class Dep {
   }
   // 通知更新
   notify() {
-    console.log('notify')
     // 浅拷贝
     const subs = this.subs.slice()
     for (let i = 0; i < subs.length; i++) {
