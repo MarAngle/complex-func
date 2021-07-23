@@ -1,5 +1,5 @@
-import printMsg from './../utils/printMsg'
-import defineProperty from './defineProperty'
+import printMsg from '../utils/printMsg'
+import defineProperty from '../object/defineProperty'
 
 /**
  * 创建响应式数据

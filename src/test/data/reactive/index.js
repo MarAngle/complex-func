@@ -1,8 +1,8 @@
 
 import runText from '../../main'
-import defineReactive from '../../../data/object/defineReactive'
-import defineWatch from '../../../data/object/defineWatch'
-// import defineDeepWatch from '../../../data/object/defineDeepWatch'
+import defineReactive from '../../../data/reactive/defineReactive'
+import defineWatch from '../../../data/reactive/defineWatch'
+// import defineDeepWatch from '../../../data/reactive/defineDeepWatch'
 
 runText(function({ checkSame, showError }) {
   const name = 'name'

@@ -1,4 +1,7 @@
 
+### 2.1.2-bata
+- 创建reactive模块
+
 ### 2.1.1
 - axios依赖调整
 - 添加isSame

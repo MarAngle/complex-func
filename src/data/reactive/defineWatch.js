@@ -1,5 +1,5 @@
 import printMsg from './../utils/printMsg'
-import defineProperty from './defineProperty'
+import defineProperty from './../object/defineProperty'
 import defineReactive from './defineReactive'
 
 let deepIdCounter = 1

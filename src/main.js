@@ -37,8 +37,6 @@ import deepClone from './data/object/deepClone'
 import deepCloneData from './data/object/deepCloneData'
 import deepCloneDataWithOption from './data/object/deepCloneDataWithOption'
 import defineProperty from './data/object/defineProperty'
-import defineReactive from './data/object/defineReactive'
-import defineWatch from './data/object/defineWatch'
 import formatDataByType from './data/object/formatDataByType'
 import formatList from './data/object/formatList'
 import formatTree from './data/object/formatTree'
@@ -58,6 +56,10 @@ import updateData from './data/object/updateData'
 import updateDataWidthOption from './data/object/updateDataWidthOption'
 import updateList from './data/object/updateList'
 // object加载完成
+// reactive加载
+import defineReactive from './data/reactive/defineReactive'
+import defineWatch from './data/reactive/defineWatch'
+// reactive加载
 // function加载
 import runFunction from './data/function/runFunction'
 import triggerFunc from './data/function/triggerFunc'
@@ -159,8 +161,6 @@ let mainfunc = {
   deepCloneData,
   deepCloneDataWithOption,
   defineProperty,
-  defineReactive,
-  defineWatch,
   formatDataByType,
   formatList,
   formatTree,
@@ -179,6 +179,10 @@ let mainfunc = {
   updateData,
   updateDataWidthOption,
   updateList,
+  // reactive
+  defineReactive,
+  defineWatch,
+  // reactive
   // function
   runFunction,
   triggerFunc,
