@@ -1,10 +1,17 @@
 import printMsg from './../utils/printMsg'
+import defineProperty from './defineProperty'
 import defineReactive from './defineReactive'
 
 let deepIdCounter = 1
 
 const deepIdProp = '$deepId_auto_prop$'
-
+/**
+ * 定义侦听器
+ * @param {object} obj 对象
+ * @param {string} prop 属性
+ * @param {function | object} option 参数
+ * @returns 操作是否成功
+ */
 function defineWatch(obj, prop, option) {
   let optionType = typeof option
   if (optionType == 'function') {
@@ -22,6 +29,7 @@ function defineWatch(obj, prop, option) {
   }
   let fg = defineReactive(obj, prop, reactiveOption)
   if (fg) {
+    console.error('Deep模式下，输出的对象格式数据被其他复用时回调依然会在此对象处生效，避免getter/setter的多个覆盖的情况理论上无法直接删除，考虑恢复状态函数后继续')
     if (option.deep) {
       let deepId = option.deepId
       if (!deepId) {
@@ -31,29 +39,37 @@ function defineWatch(obj, prop, option) {
       let value = obj[prop]
       let currentProp = option.currentProp
       if (typeof value === 'object') {
-        value[deepIdProp] = deepId
-        for (let key in value) {
-          let nextProp = currentProp ? currentProp + '.' + key : key
-          let nextOption = {
-            deep: true,
-            deepId: deepId,
-            deepInside: true,
-            currentProp: nextProp
-          }
-          if (!option.deepInside) {
-            nextOption.handler = function(val, oldVal, currentProp) {
-              option.handler(obj[prop], obj[prop], {
-                prop: currentProp,
-                val: val,
-                oldVal: oldVal
-              })
+        if (!value[deepIdProp]) {
+          defineProperty(value, deepIdProp, {
+            value: [],
+            enumerable: false
+          })
+        }
+        if (value[deepIdProp].indexOf(deepId) < 0) {
+          value[deepIdProp].push(deepId)
+          for (let key in value) {
+            let nextProp = currentProp ? currentProp + '.' + key : key
+            let nextOption = {
+              deep: true,
+              deepId: deepId,
+              deepInside: true,
+              currentProp: nextProp
             }
-          } else {
-            nextOption.handler = function(val, oldVal) {
-              option.handler(val, oldVal, nextProp)
+            if (!option.deepInside) {
+              nextOption.handler = function(val, oldVal, currentProp) {
+                option.handler(obj[prop], obj[prop], {
+                  prop: currentProp,
+                  val: val,
+                  oldVal: oldVal
+                })
+              }
+            } else {
+              nextOption.handler = function(val, oldVal) {
+                option.handler(val, oldVal, nextProp)
+              }
             }
+            defineWatch(value, key, nextOption)
           }
-          defineWatch(value, key, nextOption)
         }
       }
     }

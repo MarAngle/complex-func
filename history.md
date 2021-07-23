@@ -6,6 +6,7 @@
 - 添加defineProperty
 - defineReactive逻辑优化
 - 删除defineDeepReactive和defineDeepWatch
+- defineWatch实现
 
 ### 2.1.0
 - 版本逻辑更新，非兼容更新将会在第二位表现
