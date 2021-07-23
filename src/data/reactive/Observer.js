@@ -12,7 +12,6 @@ class Observer {
       enumerable: false
     })
     this.walk(value)
-    return value
   }
   // 遍历
   walk(value) {

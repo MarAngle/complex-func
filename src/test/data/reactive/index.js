@@ -43,10 +43,10 @@ runText(function({ checkSame, showError }) {
     }
   }
   console.log(observe(data))
-  let w = new Watcher(data, 'id', (val, oldVal) => {
+  let w = new Watcher(data, 'user.id', (val, oldVal) => {
     console.log(val, oldVal)
   })
-  data.id = 'uis'
+  data.user.id = 'uis'
 }, 'observe')
 
 // runText(function({ checkSame, showError }) {

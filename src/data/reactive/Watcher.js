@@ -8,7 +8,7 @@ class Watcher {
     this.target = target
     this.getter = parsePath(expression)
     this.callback = callback
-    this.value = this.getter()
+    this.value = this.get()
   }
   update() {
     this.run()
