@@ -1,5 +1,18 @@
 import printMsg from './../utils/printMsg'
 
+/**
+ * 设置属性描述
+ * @param {object} obj 对象
+ * @param {string} prop 属性
+ * @param {object} descriptor 属性描述
+ * @param {boolean} [descriptor.configurable] 可配置描述
+ * @param {boolean} [descriptor.enumerable] 可遍历描述
+ * @param {function} [descriptor.get] 可遍历描述
+ * @param {function} [descriptor.set] 可遍历描述
+ * @param {*} [descriptor.value] 值
+ * @param {boolean} [descriptor.writable] 可读写描述
+ * @returns 操作成功
+ */
 function defineProperty(obj, prop, descriptor) {
   if (typeof obj != 'object') {
     printMsg('defineProperty中obj需要对象格式')

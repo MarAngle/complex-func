@@ -1,3 +1,4 @@
+import { OBNAME } from './data/config'
 import Observer from './Observer'
 
 function observe(value) {
@@ -5,10 +6,12 @@ function observe(value) {
     return undefined
   }
   let ob
-  if (typeof value.__ob__ !== 'undefined') {
-    ob = value.__ob__
+  if (typeof value[OBNAME] !== 'undefined') {
+    ob = value[OBNAME]
   } else {
     ob = new Observer(value)
   }
   return ob
 }
+
+export default observe

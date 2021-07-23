@@ -2,7 +2,7 @@
 import runText from '../../main'
 import defineReactive from '../../../data/reactive/defineReactive'
 import defineWatch from '../../../data/reactive/defineWatch'
-// import defineDeepWatch from '../../../data/reactive/defineDeepWatch'
+import observe from '../../../data/reactive/observe'
 
 runText(function({ checkSame, showError }) {
   const name = 'name'
@@ -28,6 +28,21 @@ runText(function({ checkSame, showError }) {
   data.user.name = newName
   let currentName = data.user.name
 }, 'defineReactive')
+
+runText(function({ checkSame, showError }) {
+  let data = {
+    id: 'id',
+    user: {
+      id: 'uid',
+      name: 'uname',
+      parent: {
+        id: 'pid',
+        name: 'pname'
+      }
+    }
+  }
+  console.log(observe(data))
+}, 'observe')
 
 // runText(function({ checkSame, showError }) {
 //   const name = 'name'
