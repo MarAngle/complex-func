@@ -1,2 +1,2 @@
 
-export const OBNAME = '__ob__'
+export const OBNAME = '____ob____'
