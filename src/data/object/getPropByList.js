@@ -7,11 +7,13 @@
  */
 function getPropByList(value, propList) {
   let data = value
-  propList = propList.filter(item => item && item.trim())
   for (let n = 0; n < propList.length; n++) {
-    data = data[propList[n]]
-    if (!data) {
-      break
+    let prop = propList[n]
+    if (prop || prop === 0) {
+      data = data[prop]
+      if (!data) {
+        break
+      }
     }
   }
   return data

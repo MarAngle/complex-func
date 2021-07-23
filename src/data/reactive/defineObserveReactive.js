@@ -1,6 +1,7 @@
 import printMsg from '../utils/printMsg'
 import defineProperty from '../object/defineProperty'
 import observe from './observe'
+import Dep from './Dep'
 
 /**
  * 创建响应式数据
@@ -24,6 +25,7 @@ function defineObserveReactive(obj, prop, option, val) {
     printMsg('defineObserveReactive函数错误，option需要对象格式')
     return false
   }
+  const dep = new Dep()
   const currentDescriptor = Object.getOwnPropertyDescriptor(obj, prop)
   const getter = currentDescriptor && currentDescriptor.get
   const setter = currentDescriptor && currentDescriptor.set
@@ -40,6 +42,13 @@ function defineObserveReactive(obj, prop, option, val) {
     // getter/setter存在时
     descriptor.get = function() {
       const value = getter.call(obj)
+      // 如果当前处在依赖手机阶段，则进行依赖收集，包括子元素
+      if (Dep.target) {
+        dep.depend()
+        if (childOb) {
+          childOb.dep.depend()
+        }
+      }
       if (option.get) {
         option.get(value)
       }
@@ -62,6 +71,13 @@ function defineObserveReactive(obj, prop, option, val) {
     }
     childOb = observe(val)
     descriptor.get = function() {
+      // 如果当前处在依赖手机阶段，则进行依赖收集，包括子元素
+      if (Dep.target) {
+        dep.depend()
+        if (childOb) {
+          childOb.dep.depend()
+        }
+      }
       if (option.get) {
         option.get(val)
       }
@@ -73,6 +89,8 @@ function defineObserveReactive(obj, prop, option, val) {
         val = newVal
         // 设置新值
         childOb = observe(newVal)
+        // 发布订阅模式，通知dep
+        dep.notify()
         if (option.set) {
           option.set(val, oldVal)
         }
