@@ -46,9 +46,12 @@ runText(function({ checkSame, showError }) {
   let w = new Watcher(data, 'user.id', (val, oldVal) => {
     console.log(val, oldVal)
   })
-  let n = new Watcher(data, 'user.parent', (val, oldVal) => {
-    console.log('p', val, oldVal)
+  let n = new Watcher(data, 'user.parent', {
+    deep: true,
+    handler: (val, oldVal) => {
+      console.log('p', { ...val }, { ...oldVal })
+    }
   })
   data.user.id = 'uis'
-  data.user.parent.id = 'uis'
+  data.user.parent.id = 'puis'
 }, 'observe')
