@@ -7,6 +7,8 @@ var uid = 0
 class Watcher {
   constructor(target, expression, option) {
     this.id = uid++
+    this.deps = []
+    this.active = true
     this.target = target
     this.getter = parsePath(expression)
     let optionType = getType(option)
@@ -39,11 +41,18 @@ class Watcher {
     return value
   }
   run() {
-    const value = this.get()
-    if (value !== this.value || typeof value == 'object') {
-      const oldValue = this.value
-      this.value = value
-      this.callback.call(this.target, value, oldValue)
+    if (this.active) {
+      const value = this.get()
+      if (value !== this.value || typeof value == 'object') {
+        const oldValue = this.value
+        this.value = value
+        this.callback.call(this.target, value, oldValue)
+      }
+    }
+  }
+  stop() {
+    if (this.active) {
+      console.log(this)
     }
   }
 }

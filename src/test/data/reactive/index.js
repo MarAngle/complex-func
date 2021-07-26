@@ -54,4 +54,5 @@ runText(function({ checkSame, showError }) {
   })
   data.user.id = 'uis'
   data.user.parent.id = 'puis'
+  n.stop()
 }, 'observe')
