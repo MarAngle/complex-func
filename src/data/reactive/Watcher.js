@@ -7,7 +7,16 @@ var uid = 0
 class Watcher {
   constructor(target, expression, option) {
     this.id = uid++
-    this.deps = []
+    this.deps = {
+      current: {
+        ids: new Set(),
+        list: []
+      },
+      newTmp: {
+        ids: new Set(),
+        list: []
+      }
+    }
     this.active = true
     this.target = target
     this.getter = parsePath(expression)
@@ -24,6 +33,36 @@ class Watcher {
   update() {
     this.run()
   }
+  addDep(dep) {
+    const id = dep.id
+    if (!this.deps.newTmp.ids.has(id)) {
+      this.deps.newTmp.ids.add(id)
+      this.deps.newTmp.list.push(dep)
+      if (!this.deps.current.ids.has(id)) {
+        dep.addSub(this)
+      }
+    }
+  }
+  cleanupDeps() {
+    let i = this.deps.current.list.length
+    // 将不存在于新数据的依赖清空
+    while (i--) {
+      const dep = this.deps.current.list[i]
+      if (!this.deps.newTmp.ids.has(dep.id)) {
+        dep.removeSub(this)
+      }
+    }
+    // 切换新旧依赖
+    let tmp = this.deps.current.ids
+    this.deps.current.ids = this.deps.newTmp.ids
+    this.deps.newTmp.ids = tmp
+    this.deps.newTmp.ids.clear()
+
+    tmp = this.deps.current.list
+    this.deps.current.list = this.deps.newTmp.list
+    this.deps.newTmp.list = tmp
+    this.deps.newTmp.list.length = 0
+  }
   get() {
     // 进入依赖收集阶段,让全局的Dep.target设置为watcher本身
     Dep.target = this
@@ -37,6 +76,7 @@ class Watcher {
       }
       // 退出依赖收集阶段
       Dep.target = null
+      this.cleanupDeps()
     }
     return value
   }
@@ -52,7 +92,11 @@ class Watcher {
   }
   stop() {
     if (this.active) {
-      console.log(this)
+      let i = this.deps.current.list.length
+      while (i--) {
+        this.deps.current.list[i].removeSub(this)
+      }
+      this.active = false
     }
   }
 }

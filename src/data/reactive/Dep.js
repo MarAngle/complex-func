@@ -11,10 +11,18 @@ class Dep {
   addSub(sub) {
     this.subs.push(sub)
   }
+  // 删除订阅
+  removeSub (sub) {
+    let index = this.subs.indexOf(sub)
+    if (index > -1) {
+      this.subs.splice(index, 1)
+    }
+  }
   // 添加依赖
   depend() {
     if (Dep.target) {
-      this.addSub(Dep.target)
+      // addSub将在Watcher中完成
+      Dep.target.addDep(this)
     }
   }
   // 通知更新
