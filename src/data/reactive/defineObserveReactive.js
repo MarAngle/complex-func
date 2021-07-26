@@ -27,6 +27,10 @@ function defineObserveReactive(obj, prop, option, val) {
   }
   const dep = new Dep()
   const currentDescriptor = Object.getOwnPropertyDescriptor(obj, prop)
+  if (currentDescriptor && currentDescriptor.configurable === false) {
+    printMsg('defineObserveReactive函数错误，obj不可配置')
+    return false
+  }
   const getter = currentDescriptor && currentDescriptor.get
   const setter = currentDescriptor && currentDescriptor.set
   let descriptor = option.descriptor || {}
@@ -49,9 +53,6 @@ function defineObserveReactive(obj, prop, option, val) {
           childOb.dep.depend()
         }
       }
-      if (option.get) {
-        option.get(value)
-      }
       return value
     }
     descriptor.set = function(newVal) {
@@ -62,9 +63,6 @@ function defineObserveReactive(obj, prop, option, val) {
         childOb = observe(newVal)
         // 发布订阅模式，通知dep
         dep.notify()
-        if (option.set) {
-          option.set(newVal, value)
-        }
       }
     }
   } else if (!getter && !setter) {
@@ -81,9 +79,6 @@ function defineObserveReactive(obj, prop, option, val) {
           childOb.dep.depend()
         }
       }
-      if (option.get) {
-        option.get(val)
-      }
       return val
     }
     descriptor.set = function(newVal) {
@@ -94,9 +89,6 @@ function defineObserveReactive(obj, prop, option, val) {
         childOb = observe(newVal)
         // 发布订阅模式，通知dep
         dep.notify()
-        if (option.set) {
-          option.set(val, oldVal)
-        }
       }
     }
   } else {

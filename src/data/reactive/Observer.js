@@ -9,7 +9,8 @@ class Observer {
     this.dep = new Dep()
     defineProperty(value, OBNAME, {
       value: this,
-      enumerable: false
+      enumerable: false,
+      writable: true
     })
     this.walk(value)
   }

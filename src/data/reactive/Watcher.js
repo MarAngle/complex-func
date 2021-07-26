@@ -27,14 +27,11 @@ class Watcher {
     return value
   }
   run() {
-    this.getAndInvoke(this.callback)
-  }
-  getAndInvoke(cb) {
     const value = this.get()
     if (value !== this.value || typeof value == 'object') {
       const oldValue = this.value
       this.value = value
-      cb.call(this.target, value, oldValue)
+      this.callback.call(this.target, value, oldValue)
     }
   }
 }

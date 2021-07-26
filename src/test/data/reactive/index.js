@@ -46,70 +46,9 @@ runText(function({ checkSame, showError }) {
   let w = new Watcher(data, 'user.id', (val, oldVal) => {
     console.log(val, oldVal)
   })
+  let n = new Watcher(data, 'user.parent', (val, oldVal) => {
+    console.log('p', val, oldVal)
+  })
   data.user.id = 'uis'
+  data.user.parent.id = 'uis'
 }, 'observe')
-
-// runText(function({ checkSame, showError }) {
-//   const name = 'name'
-//   const newName = 'newName'
-//   let data = {
-//     user: {
-//       id: 1,
-//       name: name,
-//       parent: {
-//         id: 'p0',
-//         name: 0,
-//         user: {
-//           name: 'pn1'
-//         }
-//       }
-//     }
-//   }
-//   defineWatch(data, 'user', {
-//     deep: true,
-//     handler: function() {
-//       console.log(...arguments)
-//     }
-//   })
-//   // data.user.name = newName
-//   // data.user.id = 2
-//   let userp = data.user.parent
-//   data.user.parent.user.name = 'p2'
-//   data.user.parent = {
-//     pid: 'p1'
-//   }
-//   data.user.parent.pid = 'p2'
-//   userp.id = 'p2'
-// }, 'defineReactive')
-
-// runText(function({ checkSame, showError }) {
-//   const name = 'name'
-//   const newName = 'newName'
-//   let data = {
-//     user: {
-//       id: 1,
-//       name: name,
-//       parent: {
-//         id: 'p0',
-//         name: 0,
-//         user: {
-//           name: 'pn1'
-//         }
-//       }
-//     }
-//   }
-//   defineReactive(data, 'user', {
-//     deep: true,
-//     set: function(val, oldVal, prop, deepNum) {
-//       console.log(...arguments)
-//     }
-//   })
-//   // data.user.name = newName
-//   // data.user.id = 2
-//   data.user.parent.user.name = 'p2'
-//   data.user = {
-//     id: 1
-//   }
-//   console.log(data.user)
-//   // let currentName = data.user.name
-// }, 'defineReactive')

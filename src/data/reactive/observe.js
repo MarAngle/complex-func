@@ -6,7 +6,7 @@ function observe(value) {
     return
   }
   let ob
-  if (typeof value[OBNAME] !== 'undefined') {
+  if (Object.prototype.hasOwnProperty.call(value, OBNAME) && value[OBNAME] instanceof Observer) {
     ob = value[OBNAME]
   } else {
     ob = new Observer(value)
