@@ -1,6 +1,6 @@
 import { OBNAME } from './config'
 import defineProperty from '../../object/defineProperty'
-import defineObserveReactive from './defineObserveReactive'
+import buildReactive from './buildReactive'
 import Dep from './Dep'
 
 class Observer {
@@ -17,7 +17,7 @@ class Observer {
   // 遍历
   walk(value) {
     for (let k in value) {
-      defineObserveReactive(value, k, {})
+      buildReactive(value, k, {})
     }
   }
 }
