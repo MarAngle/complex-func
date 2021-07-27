@@ -7,11 +7,11 @@ class Dep {
     // 用数组存储订阅者,也就是Watcher的实例
     this.subs = []
   }
-  // 添加订阅
+  // 添加订阅Watcher
   addSub(sub) {
     this.subs.push(sub)
   }
-  // 删除订阅
+  // 删除订阅Watcher
   removeSub (sub) {
     let index = this.subs.indexOf(sub)
     if (index > -1) {
