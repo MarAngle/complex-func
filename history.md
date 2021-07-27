@@ -1,5 +1,5 @@
 
-### 2.1.2-bata
+### 2.1.2
 - 创建reactive模块
 - 创建observe模块
 - getPropByList不使用trim
