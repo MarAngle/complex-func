@@ -1,5 +1,5 @@
 import { OBNAME } from './data/config'
-import Observer from './Observer'
+import Observer from './data/Observer'
 
 function observe(value) {
   if (typeof value !== 'object') {

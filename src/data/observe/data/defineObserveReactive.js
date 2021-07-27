@@ -1,6 +1,6 @@
-import printMsg from '../utils/printMsg'
-import defineProperty from '../object/defineProperty'
-import observe from './observe'
+import printMsg from '../../utils/printMsg'
+import defineProperty from '../../object/defineProperty'
+import observe from './../observe'
 import Dep from './Dep'
 
 /**

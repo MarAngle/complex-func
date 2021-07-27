@@ -1,4 +1,4 @@
-import { OBNAME } from './data/config'
+import { OBNAME } from './config'
 
 const seenObjects = new Set()
 
@@ -8,7 +8,6 @@ function traverse(val) {
 }
 
 function _traverse(val, seen) {
-  let i, keys
   if (typeof val !== 'object') {
     return
   }

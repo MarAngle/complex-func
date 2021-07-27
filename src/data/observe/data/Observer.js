@@ -1,5 +1,5 @@
-import { OBNAME } from './data/config'
-import defineProperty from '../object/defineProperty'
+import { OBNAME } from './config'
+import defineProperty from '../../object/defineProperty'
 import defineObserveReactive from './defineObserveReactive'
 import Dep from './Dep'
 

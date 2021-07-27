@@ -1,4 +1,4 @@
-import getProp from '../object/getProp'
+import getProp from '../../object/getProp'
 
 function parsePath(prop) {
   return (obj) => {

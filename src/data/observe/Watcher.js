@@ -1,7 +1,7 @@
 import getType from '../type/getType'
-import Dep from './Dep'
-import parsePath from './parsePath'
-import traverse from './traverse'
+import Dep from './data/Dep'
+import parsePath from './data/parsePath'
+import traverse from './data/traverse'
 
 var uid = 0
 class Watcher {
