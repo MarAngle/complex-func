@@ -4,9 +4,6 @@ class LimitData {
   constructor (initdata = {}, autoType) {
     this.type = 'forbid'
     this.list = []
-    this._initMain(initdata, autoType)
-  }
-  _initMain (initdata = {}, autoType) {
     this.setType(initdata.type, autoType)
     this.setList(initdata.list)
   }
@@ -37,6 +34,8 @@ class LimitData {
     } else if (this.type == 'allow') {
       // 存在则为允许
       return this.list.indexOf(data) < 0
+    } else {
+      return false
     }
   }
 }
