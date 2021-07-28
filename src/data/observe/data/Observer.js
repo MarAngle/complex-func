@@ -14,7 +14,10 @@ class Observer {
     })
     this.walk(value)
   }
-  // 遍历
+  /**
+   * 遍历
+   * @param {*} value 需要遍历的值
+   */
   walk(value) {
     for (let k in value) {
       buildReactive(value, k, {})

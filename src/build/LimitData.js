@@ -10,15 +10,26 @@ class LimitData {
     this.setType(initdata.type, autoType)
     this.setList(initdata.list)
   }
-  // 设置类型
+  /**
+   * 设置类型
+   * @param {'forbid' | 'allow'} [type] 类型
+   * @param {'forbid' | 'allow'} [autoType = forbid] 自动类型
+   */
   setType (type, autoType = 'forbid') {
     this.type = type || autoType
   }
-  // 设置限制列表
+  /**
+   * 设置限制列表
+   * @param {*[]} [list] 限制的列表数据
+   */
   setList (list = []) {
     this.list = list
   }
-  // 获取限制false不限制
+  /**
+   * 获取限制false不限制
+   * @param {*} data 需要判断限制的值
+   * @returns {boolean}
+   */
   getLimit (data) {
     if (this.type == 'forbid') {
       // 存在则为限制

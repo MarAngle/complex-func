@@ -1,6 +1,5 @@
 import SimpleData from './SimpleData'
 import getType from './../data/type/getType'
-import printMsgAct from './../data/utils/printMsgAct'
 import appendProp from './../data/object/appendProp'
 import TokenRule from './TokenRule'
 
@@ -22,7 +21,10 @@ class RequireRule extends SimpleData {
     this.initToken(token)
     this.initMethods(methods)
   }
-  // 加载token判断相关参数
+  /**
+   * 加载token判断相关参数
+   * @param {object} [token] token总数据
+   */
   initToken (token = {}) {
     this.token.check = token.check === undefined ? true : token.check
     this.token.fail = token.fail || false
@@ -33,7 +35,10 @@ class RequireRule extends SimpleData {
       }
     }
   }
-  // 加载方法
+  /**
+   * 加载方法
+   * @param {object} [methods] 挂载方法
+   */
   initMethods (methods) {
     if (methods) {
       for (let n in methods) {
@@ -46,13 +51,20 @@ class RequireRule extends SimpleData {
       }
     }
   }
-  // token失败的回调
+  /**
+   * token失败的回调
+   * @param {string} tokenName 失败的tokenName
+   */
   tokenFail (tokenName) {
     if (this.token.fail) {
       this.token.fail(tokenName, this)
     }
   }
-  // 请求失败的回调
+  /**
+   * 请求失败的回调,返回需要警告的信息，返回空则在显示时自动判断
+   * @param {*} errRes 失败信息
+   * @returns {string}
+   */
   requireFail (errRes) {
     if (this.failMsg) {
       return this.failMsg(errRes)
@@ -61,13 +73,21 @@ class RequireRule extends SimpleData {
     }
   }
 
-  // 主要函数=>实现url的格式化，token的判断和添加
+  /**
+   * 主要函数=>实现url的格式化，token的判断和添加
+   * @param {object} optionData 请求数据
+   * @returns {object}
+   */
   format (optionData) {
     optionData.url = this.formatUrl(optionData.url)
     return this.appendToken(optionData)
   }
 
-  // 添加判断token
+  /**
+   * 判断并添加token,不返回时说明成功
+   * @param {object} optionData 请求数据
+   * @returns {undefined | { prop, next, code, msg }}
+   */
   appendToken (optionData) {
     if (this.token.check) {
       if (optionData.token === undefined) {
@@ -106,7 +126,13 @@ class RequireRule extends SimpleData {
     }
   }
 
-  // 添加token next
+  /**
+   * 添加token next
+   * @param {object} optionData 请求数据
+   * @param {string} prop tokenName
+   * @param {object} [tokenRuleOption] TokenRule的初始化数据
+   * @returns {{ prop, next, code, msg }}
+   */
   appendTokenNext (optionData, prop, tokenRuleOption) {
     let check = {
       prop: prop,
@@ -141,7 +167,12 @@ class RequireRule extends SimpleData {
     return check
   }
 
-  // 根据prop获取token对应的规则
+  /**
+   * 根据prop获取token对应的规则,存在tokenRuleOption时按照tokenRuleOption生成新的TokenRule
+   * @param {string} prop tokenName
+   * @param {object} [tokenRuleOption] TokenRule的初始化数据
+   * @returns {false | TokenRule}
+   */
   getTokenRule (prop, tokenRuleOption) {
     if (!tokenRuleOption) {
       if (this.token.data[prop]) {
@@ -153,7 +184,11 @@ class RequireRule extends SimpleData {
       return new TokenRule(prop, tokenRuleOption)
     }
   }
-  // 删除token数据
+  /**
+   * 删除token数据
+   * @param {string} tokenName 需要删除的tokenName
+   * @returns {boolean}
+   */
   removeToken (tokenName) {
     if (tokenName) {
       if (tokenName === true) {
@@ -169,14 +204,21 @@ class RequireRule extends SimpleData {
       return false
     }
   }
-  // 删除token数据Next
+  /**
+   * 删除token数据Next
+   * @param {string} tokenName 需要删除的tokenName
+   */
   removeTokenByName (tokenName) {
     if (this.token.data[tokenName]) {
       this.token.data[tokenName].removeData(this.prop)
       delete this.token.data[tokenName]
     }
   }
-  // 获取token数据
+  /**
+   * 获取token数据
+   * @param {string} tokenName 需要获取的tokenName
+   * @returns {boolean}
+   */
   getToken (tokenName) {
     if (this.token.data[tokenName]) {
       return this.token.data[tokenName].getData(this.prop)
@@ -184,7 +226,12 @@ class RequireRule extends SimpleData {
       return false
     }
   }
-  // 设置token
+  /**
+   * 设置token的值
+   * @param {string} tokenName 需要设置的tokenName
+   * @param {*} data 值
+   * @param {boolean} [noSave] 不保存判断值
+   */
   setToken (tokenName, data, noSave) {
     if (!this.token.data[tokenName]) {
       this.token.data[tokenName] = new TokenRule(tokenName, data)

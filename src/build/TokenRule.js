@@ -21,9 +21,11 @@ class TokenRule {
       return data || data === 0
     }
   }
-  // 创建tokenRule
-  initMain (prop, initdata) {
-  }
+  /**
+   * 获取token值
+   * @param {string} parentProp 父RequireRule的prop属性
+   * @returns {*}
+   */
   getData(parentProp) {
     let data
     if (this.getCurrentData) {
@@ -39,18 +41,38 @@ class TokenRule {
     }
     return data
   }
+  /**
+   * 设置token值
+   * @param {string} parentProp 父RequireRule的prop属性
+   * @param {*} data token值
+   * @param {boolean} [noSave] 不保存到local的判断值
+   */
   setData(parentProp, data, noSave) {
     this.data = data
     if (!noSave) {
       setLocalData(this.buildLocalTokenName(parentProp), data)
     }
   }
+  /**
+   * remove token
+   * @param {string} parentProp 父RequireRule的prop属性
+   */
   removeData(parentProp) {
     removeLocalData(this.buildLocalTokenName(parentProp))
   }
+  /**
+   * 生成local的name
+   * @param {string} parentProp 父RequireRule的prop属性
+   * @returns {string}
+   */
   buildLocalTokenName(parentProp) {
     return `${parentProp || ''}-${this.prop}`
   }
+  /**
+   * 检查值是否存在
+   * @param {*} data 需要检查的值
+   * @returns {'success' | 'fail' | ''}
+   */
   checkData(data) {
     let next = 'success'
     if (!this.checkCurrentData(data)) {

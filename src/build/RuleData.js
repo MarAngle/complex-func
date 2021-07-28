@@ -21,6 +21,10 @@ class RuleData {
       this.initMain(initdata)
     }
   }
+  /**
+   * 加载
+   * @param {*} initdata 参数
+   */
   initMain(initdata) {
     if (!initdata) {
       this.printMsg('init无参数!')
@@ -36,6 +40,11 @@ class RuleData {
     // 是否组合模式
     this.merge = this.formatMerge(initdata.merge)
   }
+  /**
+   * 格式化组合数据
+   * @param {true | object} [mergeData] 组合式初始化数据
+   * @returns {undefined | object}
+   */
   formatMerge(mergeData) {
     if (mergeData) {
       if (mergeData === true) {
@@ -62,6 +71,10 @@ class RuleData {
     }
     return mergeData
   }
+  /**
+   * 初始化数据
+   * @param {object} initdata 数据
+   */
   buildData(initdata) {
     if (this.type == 'reg') {
       if (initdata.merge === undefined) {
@@ -71,6 +84,12 @@ class RuleData {
       this.data = regData
     }
   }
+  /**
+   * 创建RegStr数据
+   * @param {undefined | true | object} propObject 指定的属性prop
+   * @param {object} data 属性prop的归属数据
+   * @returns {string}
+   */
   buildRegData(propObject, data) {
     let regStr = ''
     if (propObject === true) {
@@ -98,12 +117,30 @@ class RuleData {
     }
     return regStr
   }
+  /**
+   * 根据mergeData生成regstr
+   * @param {string} regData regstr
+   * @param {object} mergeData 组合数据
+   * @returns {string}
+   */
   buildRegStr(regData, mergeData) {
     return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.end}`
   }
+  /**
+   * 根据regstr生成Reg
+   * @param {string} regData regstr
+   * @param {object} mergeData 组合数据
+   * @returns {RegExp}
+   */
   buildReg(regData, mergeData) {
     return new RegExp(this.buildRegStr(regData, mergeData))
   }
+  /**
+   * 检查数据
+   * @param {*} data 需要检查的数据
+   * @param {*} option 选项
+   * @returns {boolean}
+   */
   check(data, option = {}) {
     if (this.type == 'reg') {
       let reg = this.data

@@ -1,4 +1,9 @@
 
+### 2.1.3
+- 暴露observe模块
+- require相关注释添加
+- 关闭自动test
+
 ### 2.1.2
 - 创建reactive模块
 - 创建observe模块

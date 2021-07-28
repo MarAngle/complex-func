@@ -30,9 +30,16 @@ class Watcher {
     this.deep = !!option.deep
     this.value = this.get()
   }
+  /**
+   * 触发更新
+   */
   update() {
     this.run()
   }
+  /**
+   * 添加依赖
+   * @param {Dep} dep 依赖
+   */
   addDep(dep) {
     const id = dep.id
     if (!this.deps.newTmp.ids.has(id)) {
@@ -63,6 +70,10 @@ class Watcher {
     this.deps.newTmp.list = tmp
     this.deps.newTmp.list.length = 0
   }
+  /**
+   * 获取数据
+   * @returns {*}
+   */
   get() {
     // 进入依赖收集阶段,让全局的Dep.target设置为watcher本身
     Dep.target = this
@@ -80,6 +91,9 @@ class Watcher {
     }
     return value
   }
+  /**
+   * 运行
+   */
   run() {
     if (this.active) {
       const value = this.get()
@@ -90,6 +104,9 @@ class Watcher {
       }
     }
   }
+  /**
+   * 关闭watcher
+   */
   stop() {
     if (this.active) {
       let i = this.deps.current.list.length

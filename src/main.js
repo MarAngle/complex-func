@@ -60,6 +60,10 @@ import updateList from './data/object/updateList'
 import defineReactive from './data/reactive/defineReactive'
 import defineWatch from './data/reactive/defineWatch'
 // reactive加载
+// observe加载
+import observe from './data/observe/observe'
+import Watcher from './data/observe/Watcher'
+// observe加载
 // function加载
 import runFunction from './data/function/runFunction'
 import triggerFunc from './data/function/triggerFunc'
@@ -116,7 +120,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // 测试加载
-import './test/index'
+// import './test/index'
 // 自动引用加载
 // import './buildContentImport'
 
@@ -182,6 +186,10 @@ let mainfunc = {
   // reactive
   defineReactive,
   defineWatch,
+  // reactive
+  // reactive
+  observe,
+  Watcher,
   // reactive
   // function
   runFunction,
