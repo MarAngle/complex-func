@@ -1,7 +1,7 @@
 
 ### 2.1.4-beta
 - isPromise和isSame优化
-
+- openWindow优化
 
 ### 2.1.3
 - 暴露observe模块
