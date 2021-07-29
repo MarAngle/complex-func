@@ -35,7 +35,7 @@ function isSame(value, other) {
         return false
       }
     } else {
-      if (type === 'number' && Number.isNaN(value) && Number.isNaN(other)) {
+      if (type === 'number' && isNaN(value) && isNaN(other)) {
         // NAN === NAN
         return true
       }
