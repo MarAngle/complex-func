@@ -1,4 +1,3 @@
-import LimitData from '../../build/LimitData'
 import getLimitData from './../utils/getLimitData'
 
 /**

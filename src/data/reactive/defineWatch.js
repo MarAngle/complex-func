@@ -53,18 +53,14 @@ function defineWatch(obj, prop, option) {
               deep: true,
               deepId: deepId,
               deepInside: true,
-              currentProp: nextProp
-            }
-            if (!option.deepInside) {
-              nextOption.handler = function(val, oldVal, currentProp) {
+              currentProp: nextProp,
+              handler: !option.deepInside ? function(val, oldVal, currentProp) {
                 option.handler(obj[prop], obj[prop], {
                   prop: currentProp,
                   val: val,
                   oldVal: oldVal
                 })
-              }
-            } else {
-              nextOption.handler = function(val, oldVal) {
+              } : function(val, oldVal) {
                 option.handler(val, oldVal, nextProp)
               }
             }
