@@ -4,16 +4,16 @@ import openWindow from './openWindow'
 /**
  * 下载blob文件
  * @param {*} blobValue
- * @param {*} type
- * @param {*} name
+ * @param {string} type
+ * @param {string} [name]
  * @returns {boolean} 是否成功
  */
-function downloadBlob(blobValue, type, name) {
+function downloadBlob(blobValue, type, name = '') {
   let blob
   if (typeof window.Blob == 'function') {
     blob = new Blob([blobValue], { type: type })
   } else {
-    let BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder
+    let BlobBuilder = window.MSBlobBuilder
     let blobData = new BlobBuilder()
     blobData.append(blobValue)
     blob = blobData.getBlob(type)

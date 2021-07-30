@@ -22,7 +22,7 @@ function throttle(func, wait, type = 1) {
     } else if (type === 2) {
       if (!timeout) {
         timeout = setTimeout(() => {
-          timeout = null
+          timeout = undefined
           func.apply(context, args)
         }, wait)
       }

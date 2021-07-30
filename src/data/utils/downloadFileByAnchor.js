@@ -1,11 +1,11 @@
 
 /**
  * 基于a标签下载文件
- * @param {*} url
- * @param {*} name
+ * @param {string} url
+ * @param {string} name
  * @returns {boolean} 是否成功
  */
-function downloadFileByAnchor(url, name) {
+function downloadFileByAnchor(url, name = '') {
   let anchor = document.createElement('a')
   if ('download' in anchor) {
     anchor.setAttribute('download', name)

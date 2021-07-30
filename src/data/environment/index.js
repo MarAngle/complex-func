@@ -69,9 +69,9 @@ export function getCanUse(prop) {
 
 /**
  * 检查全局函数是否可用
- * @param {*} Name 全局函数名
- * @param {*} prop 需要挂载的属性
- * @param {*} showError 是否显示错误信息
+ * @param {string} Name 全局函数名
+ * @param {string} prop 需要挂载的属性
+ * @param {boolean} [showError] 是否显示错误信息
  */
  export function checkUseItem(Name, prop, showError) {
   try {
