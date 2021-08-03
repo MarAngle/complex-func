@@ -8,6 +8,7 @@ import isComplex from './data/type/isComplex'
 import isDate from './data/type/isDate'
 import isEmptyObject from './data/type/isEmptyObject'
 import isError from './data/type/isError'
+import isExist from './data/type/isExist'
 import isFile from './data/type/isFile'
 import isPromise from './data/type/isPromise'
 import isRegExp from './data/type/isRegExp'
@@ -41,6 +42,7 @@ import formatDataByType from './data/object/formatDataByType'
 import formatList from './data/object/formatList'
 import formatTree from './data/object/formatTree'
 import formatUpdateDataOption from './data/object/formatUpdateDataOption'
+import getDefaultData from './data/object/getDefaultData'
 import getProp from './data/object/getProp'
 import getPropByList from './data/object/getPropByList'
 import hasProp from './data/object/hasProp'
@@ -139,6 +141,7 @@ let mainfunc = {
   isDate,
   isEmptyObject,
   isError,
+  isExist,
   isFile,
   isPromise,
   isRegExp,
@@ -169,6 +172,7 @@ let mainfunc = {
   formatList,
   formatTree,
   formatUpdateDataOption,
+  getDefaultData,
   getProp,
   getPropByList,
   hasProp,
