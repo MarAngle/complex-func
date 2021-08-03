@@ -1,4 +1,7 @@
 
+### 2.1.5
+- 添加isExist/getDefaultData
+
 ### 2.1.4
 - isPromise和isSame优化
 - openWindow优化
