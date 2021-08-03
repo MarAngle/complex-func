@@ -257,7 +257,7 @@ class Require extends SimpleData {
           reject(err)
         })
       } else {
-        this.showFailMsg(optionData.failMsg, check.msg, 'error')
+        this.showFailMsg(true, optionData.failMsg, check.msg, 'error')
         reject({ status: 'fail', ...check })
       }
     })
@@ -273,10 +273,10 @@ class Require extends SimpleData {
           if (nextdata.status == 'success') {
             resolve(nextdata)
           } else if (nextdata.status == 'login') {
-            this.showFailMsg(optionData.failMsg, nextdata.msg, 'error')
+            this.showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
             reject(nextdata)
           } else if (nextdata.status == 'fail') {
-            this.showFailMsg(optionData.failMsg, nextdata.msg, 'error')
+            this.showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
             reject(nextdata)
           }
         } else if (!optionData.responseFormat) {
@@ -295,7 +295,7 @@ class Require extends SimpleData {
       }, error => {
         console.error(error)
         let errRes = this.requireFail(error, optionData, check.ruleItem)
-        this.showFailMsg(optionData.failMsg, errRes.msg, 'error', '警告')
+        this.showFailMsg(true, optionData.failMsg, errRes.msg, 'error', '警告')
         reject(errRes)
       })
     })
@@ -345,33 +345,33 @@ class Require extends SimpleData {
   }
   /**
    * 自动显示失败msg
-   * @param {*} msgOption
+   * @param {boolean} checkFail 检查失败时的回调
+   * @param {*} failMsgOption
    * @param {*} content
    * @param {*} type
    * @param {*} title
    */
-  showFailMsg (msgOption, content, type, title) {
-    if (msgOption === undefined || msgOption === true) {
-      msgOption = {
-        show: true,
-        content: false,
-        type: false,
-        title: false
+  showFailMsg (checkFail, failMsgOption, content, type, title) {
+    if (failMsgOption === undefined || failMsgOption === true) {
+      failMsgOption = {
+        show: true
       }
-    } else if (!msgOption) {
-      msgOption = {
+    } else if (!failMsgOption) {
+      failMsgOption = {
         show: false
       }
     }
-    if (msgOption.show) {
-      if (msgOption.content) {
-        content = msgOption.content
+    if (failMsgOption.show) {
+      if (checkFail && !failMsgOption.check) {
+        // 检查失败且check为否：未单独设置，则此时按照content值为基准，此时的错误是非后端接口造成的
+      } else if (failMsgOption.content) {
+        content = failMsgOption.content
       }
-      if (msgOption.type) {
-        type = msgOption.type
+      if (failMsgOption.type) {
+        type = failMsgOption.type
       }
-      if (msgOption.title) {
-        title = msgOption.title
+      if (failMsgOption.title) {
+        title = failMsgOption.title
       }
       if (content) {
         noticeData.showmsg(content, type, title)
