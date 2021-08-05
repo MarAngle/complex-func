@@ -1,3 +1,6 @@
+### 2.1.11
+- required中的params中的数组使用join(,)默认格式化,BUG修复
+
 ### 2.1.10
 - required中的params中的数组使用join(,)默认格式化
 

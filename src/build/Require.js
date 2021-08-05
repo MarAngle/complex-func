@@ -255,8 +255,9 @@ class Require extends SimpleData {
         }
         if (optionData.params) {
           for (let n in optionData.params) {
-            isArray(optionData.params[n])
-            optionData.params[n] = optionData.params[n].join(',')
+            if (isArray(optionData.params[n])) {
+              optionData.params[n] = optionData.params[n].join(',')
+            }
           }
         }
         this.requireNext(optionData, check).then(res => {
