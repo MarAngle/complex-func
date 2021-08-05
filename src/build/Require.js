@@ -6,6 +6,7 @@ import noticeData from './../option/noticeData'
 import jsonToForm from './../data/object/jsonToForm'
 import getType from '../data/type/getType'
 import config from '../config'
+import isArray from '../data/type/isArray'
 
 class Require extends SimpleData {
   constructor (initdata) {
@@ -251,6 +252,12 @@ class Require extends SimpleData {
           }
         } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
+        }
+        if (optionData.params) {
+          for (let n in optionData.params) {
+            isArray(optionData.params[n])
+            optionData.params[n] = optionData.params[n].join(',')
+          }
         }
         this.requireNext(optionData, check).then(res => {
           resolve(res)

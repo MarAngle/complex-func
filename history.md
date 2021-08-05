@@ -1,3 +1,6 @@
+### 2.1.10
+- required中的params中的数组使用join(,)默认格式化
+
 ### 2.1.9
 - 实现promiseAllFinished
 - axios会对query字段做处理，但是数组格式会处理错误，暂时不做处理等待是否全局进行单独处理
