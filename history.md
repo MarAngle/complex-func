@@ -1,3 +1,6 @@
+### 2.1.12
+- jsonToForm函数中的getType需要complex
+
 ### 2.1.11
 - required中的params中的数组使用join(,)默认格式化,BUG修复
 

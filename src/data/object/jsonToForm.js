@@ -8,7 +8,7 @@ import getType from './../type/getType'
 function jsonToForm(jsonData) {
   let formData = new FormData()
   for (let prop in jsonData) {
-    let type = getType(jsonData[prop])
+    let type = getType(jsonData[prop], true)
     if (type === 'object') {
       formData.append(prop, JSON.stringify(jsonData[prop]))
     } else {
