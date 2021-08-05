@@ -252,12 +252,6 @@ class Require extends SimpleData {
         } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
         }
-        if (optionData.params) {
-          // 对params做encodeURI格式化
-          for (let n in optionData.params) {
-            optionData.params[n] = encodeURI(optionData.params[n])
-          }
-        }
         this.requireNext(optionData, check).then(res => {
           resolve(res)
         }, err => {

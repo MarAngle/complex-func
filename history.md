@@ -1,8 +1,9 @@
-### 2.1.9-b
+### 2.1.9
 - 实现promiseAllFinished
+- axios会对query字段做处理，但是数组格式会处理错误，暂时不做处理等待是否全局进行单独处理
 
 ### 2.1.8
-- 修复require未对params做encodeURI格式化的BUG
+- 修复require未对params做localEncodeURIComponent格式化的BUG
 - 扩展config设置项，考虑加载时进行设置
 
 ### 2.1.7

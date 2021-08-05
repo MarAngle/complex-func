@@ -76,7 +76,7 @@ import debounce from './data/utils/debounce'
 import downloadBlob from './data/utils/downloadBlob'
 import downloadFile from './data/utils/downloadFile'
 import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
-import encodeURI from './data/utils/encodeURI'
+import localEncodeURIComponent from './data/utils/localEncodeURIComponent'
 import formatQueryUrl from './data/utils/formatQueryUrl'
 import getLimitData from './data/utils/getLimitData'
 import getQueryData from './data/utils/getQueryData'
@@ -205,7 +205,7 @@ let mainfunc = {
   downloadBlob,
   downloadFile,
   downloadFileByAnchor,
-  encodeURI,
+  localEncodeURIComponent,
   formatQueryUrl,
   getLimitData,
   getQueryData,
