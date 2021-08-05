@@ -5,6 +5,7 @@ import { getEnv } from './../data/environment/index'
 import noticeData from './../option/noticeData'
 import jsonToForm from './../data/object/jsonToForm'
 import getType from '../data/type/getType'
+import config from '../config'
 
 class Require extends SimpleData {
   constructor (initdata) {
@@ -84,7 +85,7 @@ class Require extends SimpleData {
     if (!this.rule.default) {
       this.rule.default = this.rule[firstProp]
     }
-    if (getEnv('real') == 'development') {
+    if (getEnv('real') == 'development' && config.Require.devShowRule) {
       this.printMsg(`默认的请求规则处理程序为[${this.rule.default._selfName()}]`, 'log')
     }
   }
@@ -251,6 +252,12 @@ class Require extends SimpleData {
         } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
         }
+        if (optionData.params) {
+          // 对params做encodeURI格式化
+          for (let n in optionData.params) {
+            optionData.params[n] = encodeURI(optionData.params[n])
+          }
+        }
         this.requireNext(optionData, check).then(res => {
           resolve(res)
         }, err => {
@@ -319,7 +326,7 @@ class Require extends SimpleData {
       if (!msg) {
         msg = this.parseStatus(error.response.status)
         if (!msg) {
-          msg = '服务器请求失败，请刷新重试或联系管理员！'
+          msg = config.Require.failMsg
         }
       }
       if (errRes.msg === undefined) {
@@ -327,7 +334,7 @@ class Require extends SimpleData {
       }
     } else {
       errRes.code = 'require error'
-      errRes.msg = '服务器请求失败，请刷新重试或联系管理员！'
+      errRes.msg = config.Require.failMsg
     }
     return errRes
   }

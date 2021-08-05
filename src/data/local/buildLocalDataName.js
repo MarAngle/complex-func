@@ -1,4 +1,4 @@
-import localData from './option/localData'
+import config from '../../config'
 
 /**
  * 获取本地缓存name全称
@@ -6,7 +6,7 @@ import localData from './option/localData'
  * @returns {string}
  */
 function buildLocalDataName(name) {
-  return localData.pre + name
+  return config.local.pre + name
 }
 
 export default buildLocalDataName

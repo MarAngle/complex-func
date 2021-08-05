@@ -2,6 +2,7 @@ import SimpleData from './SimpleData'
 import getType from './../data/type/getType'
 import appendProp from './../data/object/appendProp'
 import TokenRule from './TokenRule'
+import config from '../config'
 
 class RequireRule extends SimpleData {
   constructor ({
@@ -91,11 +92,11 @@ class RequireRule extends SimpleData {
   appendToken (optionData) {
     if (this.token.check) {
       if (optionData.token === undefined) {
-        optionData.token = 'default'
+        optionData.token = config.RequireRule.defaultTokenName
       }
       let type = getType(optionData.token)
       if (type == 'string') {
-        if (optionData.token === 'default') {
+        if (optionData.token === config.RequireRule.defaultTokenName) {
           for (let n in this.token.data) {
             let check = this.appendTokenNext(optionData, n)
             if (!check.next) {

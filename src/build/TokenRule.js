@@ -1,3 +1,4 @@
+import config from '../config'
 import getLocalData from '../data/local/getLocalData'
 import removeLocalData from '../data/local/removeLocalData'
 import setLocalData from '../data/local/setLocalData'
@@ -14,7 +15,7 @@ class TokenRule {
     this.prop = prop
     this.require = initdata.require || false
     this.data = initdata.data || undefined
-    this.location = initdata.location || 'body'
+    this.location = initdata.location || config.TokenRule.location
     this.empty = initdata.empty === undefined ? false : initdata.empty
     this.getCurrentData = initdata.getData || false
     this.checkCurrentData = initdata.checkData || function(data) {

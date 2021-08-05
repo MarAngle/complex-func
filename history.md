@@ -1,3 +1,6 @@
+### 2.1.8
+- 修复require未对params做encodeURI格式化的BUG
+- 扩展config设置项，考虑加载时进行设置
 
 ### 2.1.7
 - 暴露新函数
