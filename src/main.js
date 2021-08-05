@@ -85,6 +85,7 @@ import loadContents from './data/utils/loadContents'
 import openWindow from './data/utils/openWindow'
 import printMsg from './data/utils/printMsg'
 import printMsgAct from './data/utils/printMsgAct'
+import promiseAllFinished from './data/utils/promiseAllFinished'
 import showJson from './data/utils/showJson'
 import throttle from './data/utils/throttle'
 import transformFile from './data/utils/transformFile'
@@ -213,6 +214,7 @@ let mainfunc = {
   openWindow,
   printMsg,
   printMsgAct,
+  promiseAllFinished,
   showJson,
   throttle,
   transformFile,
