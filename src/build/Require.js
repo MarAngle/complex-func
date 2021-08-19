@@ -5,7 +5,7 @@ import { getEnv } from './../data/environment/index'
 import noticeData from './../option/noticeData'
 import jsonToForm from './../data/object/jsonToForm'
 import getType from '../data/type/getType'
-import config from '../config'
+import config from '../../config'
 import isArray from '../data/type/isArray'
 
 class Require extends SimpleData {

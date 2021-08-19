@@ -1,4 +1,4 @@
-import config from '../../config'
+import config from '../../../config'
 
 /**
  * 设置本地缓存的名称前缀

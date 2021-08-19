@@ -2,7 +2,7 @@ import SimpleData from './SimpleData'
 import getType from './../data/type/getType'
 import appendProp from './../data/object/appendProp'
 import TokenRule from './TokenRule'
-import config from '../config'
+import config from '../../config'
 
 class RequireRule extends SimpleData {
   constructor ({

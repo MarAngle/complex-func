@@ -1,4 +1,4 @@
-import config from '../../config'
+import config from '../../../config'
 
 /**
  * 获取本地缓存name全称

@@ -1,4 +1,4 @@
-import config from '../config'
+import config from '../../config'
 import getLocalData from '../data/local/getLocalData'
 import removeLocalData from '../data/local/removeLocalData'
 import setLocalData from '../data/local/setLocalData'
