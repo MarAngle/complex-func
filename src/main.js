@@ -100,6 +100,11 @@ import removeLocalData from './data/local/removeLocalData'
 import setLocalData from './data/local/setLocalData'
 import setLocalDataPre from './data/local/setLocalDataPre'
 // local加载完成
+// time加载
+import formatTime from './data/time/formatTime'
+import parseTime from './data/time/parseTime'
+import showTime from './data/time/showTime'
+// time加载完成
 // environment加载
 import {
   checkUseItem,
@@ -224,6 +229,16 @@ let mainfunc = {
   transformFile,
   trimData,
   // local
+  buildLocalDataName,
+  getLocalData,
+  removeLocalData,
+  setLocalData,
+  setLocalDataPre,
+  // time
+  formatTime,
+  parseTime,
+  showTime,
+  // environment
   checkUseItem,
   getCanUse,
   getEnv,
@@ -231,12 +246,6 @@ let mainfunc = {
   setCanUse,
   setEnv,
   setEnvMode,
-  // environment
-  buildLocalDataName,
-  getLocalData,
-  removeLocalData,
-  setLocalData,
-  setLocalDataPre,
   // worker
   getWorkerContent,
   setWorker,
