@@ -13,6 +13,9 @@ const config = {
   local: {
     pre: 'default'
   },
+  type: {
+    emptyCheckList: ['object', 'array']
+  },
   time: {
     dict: {
       year: {

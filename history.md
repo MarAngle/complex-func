@@ -1,5 +1,6 @@
 ### 2.1.13-beta
 - 调整config位置
+- 优化整体isEmpty逻辑
 
 ### 2.1.12
 - jsonToForm函数中的getType需要complex

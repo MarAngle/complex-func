@@ -6,6 +6,8 @@ import isArray from './data/type/isArray'
 import isBlob from './data/type/isBlob'
 import isComplex from './data/type/isComplex'
 import isDate from './data/type/isDate'
+import isEmpty from './data/type/isEmpty'
+import isEmptyArray from './data/type/isEmptyArray'
 import isEmptyObject from './data/type/isEmptyObject'
 import isError from './data/type/isError'
 import isExist from './data/type/isExist'
@@ -140,6 +142,8 @@ let mainfunc = {
   isBlob,
   isComplex,
   isDate,
+  isEmpty,
+  isEmptyArray,
   isEmptyObject,
   isError,
   isExist,
