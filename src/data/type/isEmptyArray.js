@@ -1,9 +1,10 @@
 import getType from './getType'
 
 /**
- * 判断值是否是空对象
+ * 判断值是否是空数组
  * @param {*} value 需要判断的值
- * @returns {boolean} value is EmptyObject
+ * @param {string} type 类型
+ * @returns {boolean} value is EmptyArray
  */
 function isEmptyArray(value, type) {
   if (!type) {
