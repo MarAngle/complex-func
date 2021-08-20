@@ -1,8 +1,5 @@
-### 2.1.13
-- 调整config位置
-- 优化整体isEmpty逻辑
-- time时间功能函数基本实现
-- number添加解析函数
+### 2.1.14
+- 实现getOffsetTimeStr
 
 ### 2.1.12
 - jsonToForm函数中的getType需要complex

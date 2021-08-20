@@ -1,5 +1,4 @@
 import config from '../../../config'
-import getNum from '../number/getNum'
 import parseNum from '../number/parseNum'
 
 function parseDownOffset(offset, dictList, data) {
@@ -83,6 +82,7 @@ function parseOffset(offset, start, end, act) {
 function getOffsetTime(offset, unit = 'sec', option = {}) {
   let startUnit = option.start || unit
   let endUnit = option.end || 'date'
+  let complex = option.complex
   let data = {}
   offset = Number(offset)
   // 最小单位，值应该>=endIndex
@@ -111,7 +111,15 @@ function getOffsetTime(offset, unit = 'sec', option = {}) {
   }
   // 最大单位小于等于当前单位时，需要进行格式化操作
   parseUpOffset(offset, config.time.dict.list.slice(endIndex, currentIndex + 1), data)
-  return data
+  if (!complex) {
+    return data
+  } else {
+    return {
+      data: data,
+      start: startIndex,
+      end: endIndex
+    }
+  }
 }
 
 export default getOffsetTime

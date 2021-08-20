@@ -106,6 +106,7 @@ import setLocalDataPre from './data/local/setLocalDataPre'
 // time加载
 import formatTime from './data/time/formatTime'
 import getOffsetTime from './data/time/getOffsetTime'
+import getOffsetTimeStr from './data/time/getOffsetTimeStr'
 import parseTime from './data/time/parseTime'
 import showTime from './data/time/showTime'
 // time加载完成
@@ -244,6 +245,7 @@ let mainfunc = {
   // time
   formatTime,
   getOffsetTime,
+  getOffsetTimeStr,
   parseTime,
   showTime,
   // environment
