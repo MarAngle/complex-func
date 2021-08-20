@@ -66,16 +66,21 @@ function getOffsetTime(offset, unit = 'sec', option = {}) {
   let endUnit = option.end || 'date'
   let data = {}
   offset = Number(offset)
+  // 最小单位，值应该>=endIndex
   let startIndex = config.time.dict.list.indexOf(startUnit)
+  // 最大单位
   let endIndex = config.time.dict.list.indexOf(endUnit)
+  // 当前单位
   let currentIndex = config.time.dict.list.indexOf(unit)
+  console.log(startIndex, endIndex, currentIndex)
+  // 需要设置的最小单位小于当前设置的单位时，需要进行小数位的格式化操作
   if (startIndex > currentIndex) {
     let [integer, decimal] = parseNum(offset)
     // down
     if (decimal) {
       offset = integer
-      parseDownOffset(decimal, config.time.dict.list.slice(currentIndex + 1, startIndex + 1), data)
     }
+    parseDownOffset(decimal, config.time.dict.list.slice(currentIndex + 1, startIndex + 1), data)
   }
   // up
   parseUpOffset(offset, config.time.dict.list.slice(endIndex, currentIndex + 1), data)
