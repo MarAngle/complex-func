@@ -1,7 +1,9 @@
 import runText from '../../main';
 import formatNum from './../../../data/number/formatNum'
+import getDecimal from './../../../data/number/getDecimal'
 import getNum from './../../../data/number/getNum'
 import getRandomNum from './../../../data/number/getRandomNum'
+import parseNum from './../../../data/number/parseNum'
 
 runText(function({ checkSame, showError }) {
   checkSame(formatNum('111'), 111, 'formatNum:字符串转换数字错误')
@@ -20,6 +22,20 @@ runText(function({ checkSame, showError }) {
   checkSame(getNum({}, 'round', 2, false), Number.NaN, 'getNum:NAN不自动格式化')
   checkSame(getNum(111.555, 'floor', 1), 111.5, 'getNum:向下取整1位')
   checkSame(getNum(111.444, 'ceil', 1), 111.5, 'getNum:向上取整1位')
+
+  checkSame(parseNum(111.333), [111, 0.333], 'parseNum:错误')
+  checkSame(parseNum('111.333'), [111, 0.333], 'parseNum:错误')
+  // eslint-disable-next-line no-floating-decimal
+  checkSame(parseNum(.333), [0, 0.333], 'parseNum:错误')
+  checkSame(parseNum('.333'), [0, 0.333], 'parseNum:错误')
+  checkSame(parseNum(111.00000333), [111, 0.00000333], 'parseNum:错误')
+  checkSame(parseNum('111.00000333'), [111, 0.00000333], 'parseNum:错误')
+  checkSame(parseNum(0.333), [0, 0.333], 'parseNum:错误')
+  checkSame(parseNum('0.333'), [0, 0.333], 'parseNum:错误')
+  checkSame(parseNum(0), [0, 0], 'parseNum:错误')
+  checkSame(parseNum('0'), [0, 0], 'parseNum:错误')
+  checkSame(parseNum(12), [12, 0], 'parseNum:错误')
+  checkSame(parseNum('12'), [12, 0], 'parseNum:错误')
 
   const maxNumber = 9007199254740992
 

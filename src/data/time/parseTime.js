@@ -30,8 +30,8 @@ function parseTime(data, option) {
     let args = []
     for (let i = 0; i < config.time.dict.list.length; i++) {
       const prop = config.time.dict.list[i]
-      let dict = config.time.dict.data[prop]
-      let index = format.indexOf(dict.code)
+      const dict = config.time.dict.data[prop]
+      const index = format.indexOf(dict.code)
       if (index > -1) {
         let item = Number(data.substr(index, dict.code.length))
         if (dict.offset) {

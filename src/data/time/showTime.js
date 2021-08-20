@@ -14,8 +14,8 @@ function showTime(date, format) {
   let dateStr = format
   for (let i = 0; i < config.time.dict.list.length; i++) {
     const prop = config.time.dict.list[i]
-    let dict = config.time.dict.data[prop]
-    let index = dateStr.indexOf(dict.code)
+    const dict = config.time.dict.data[prop]
+    const index = dateStr.indexOf(dict.code)
     if (index > -1) {
       let data = date[dict.func]() + dict.offset
       dateStr = dateStr.replace(dict.code, fillString(data, dict.code.length))

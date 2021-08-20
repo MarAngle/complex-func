@@ -19,8 +19,11 @@ import isSame from './data/type/isSame'
 // type加载完成
 // number加载
 import formatNum from './data/number/formatNum'
+import getDecimal from './data/number/getDecimal'
+import getInteger from './data/number/getInteger'
 import getNum from './data/number/getNum'
 import getRandomNum from './data/number/getRandomNum'
+import parseNum from './data/number/parseNum'
 // number加载完成
 // string加载
 import fillString from './data/string/fillString'
@@ -102,6 +105,7 @@ import setLocalDataPre from './data/local/setLocalDataPre'
 // local加载完成
 // time加载
 import formatTime from './data/time/formatTime'
+import getOffsetTime from './data/time/getOffsetTime'
 import parseTime from './data/time/parseTime'
 import showTime from './data/time/showTime'
 // time加载完成
@@ -130,7 +134,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // 测试加载
-// import './test/index'
+import './test/index'
 // 自动引用加载
 // import './buildContentImport'
 
@@ -159,8 +163,11 @@ let mainfunc = {
   isSame,
   // number
   formatNum,
+  getDecimal,
+  getInteger,
   getNum,
   getRandomNum,
+  parseNum,
   // string
   fillString,
   findTargetInStr,
@@ -236,6 +243,7 @@ let mainfunc = {
   setLocalDataPre,
   // time
   formatTime,
+  getOffsetTime,
   parseTime,
   showTime,
   // environment

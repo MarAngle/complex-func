@@ -28,37 +28,53 @@ const config = {
           func: 'getFullYear',
           code: 'YYYY',
           default: undefined,
-          offset: 0
+          offset: 0,
+          rate: {}
         },
         month: {
           func: 'getMonth',
           code: 'MM',
           default: 0,
-          offset: 1
+          offset: 1,
+          rate: {}
         },
         date: {
           func: 'getDate',
           code: 'DD',
           default: 1,
-          offset: 0
+          offset: 0,
+          rate: {
+            down: 24
+          }
         },
         hour: {
           func: 'getHours',
           code: 'HH',
           default: 0,
-          offset: 0
+          offset: 0,
+          rate: {
+            up: 24,
+            down: 60
+          }
         },
         min: {
           func: 'getMinutes',
           code: 'mm',
           default: 0,
-          offset: 0
+          offset: 0,
+          rate: {
+            up: 60,
+            down: 60
+          }
         },
         sec: {
           func: 'getSeconds',
           code: 'ss',
           default: 0,
-          offset: 0
+          offset: 0,
+          rate: {
+            up: 60
+          }
         }
       }
     }
