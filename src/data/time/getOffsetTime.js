@@ -3,7 +3,6 @@ import getNum from '../number/getNum'
 import parseNum from '../number/parseNum'
 
 function parseDownOffset(offset, dictList, data) {
-  console.log('down', offset, ...dictList)
   for (let i = 0; i < dictList.length; i++) {
     const prop = dictList[i]
     let currentData
@@ -27,19 +26,18 @@ function parseDownOffset(offset, dictList, data) {
     } else {
       currentData = 0
     }
-    data[prop] = currentData
+    addProp(data, prop, currentData)
   }
 }
 
 function parseUpOffset(offset, dictList, data) {
-  console.log('up', offset, ...dictList)
   for (let i = dictList.length - 1; i >= 0; i--) {
     const prop = dictList[i]
     let currentData
     if (offset > 0) {
       const dict = config.time.dict.data[prop]
       const rate = dict.rate.up
-      if (!rate) {
+      if (!rate || i === 0) {
         currentData = offset
         offset = 0
       } else {
@@ -51,14 +49,35 @@ function parseUpOffset(offset, dictList, data) {
           let [currentNumInteger, currentNumDecimal] = parseNum(currentNum)
           offset = currentNumInteger
           // 此处理论值肯定为整数，避免精度丢失进行整数计算
-          currentData = getNum(currentNumDecimal * rate, 'round', 0)
+          // currentData = getNum(currentNumDecimal * rate, 'round', 2)
+          currentData = currentNumDecimal * rate
         }
       }
     } else {
       currentData = 0
     }
-    data[prop] = currentData
+    addProp(data, prop, currentData)
   }
+}
+function addProp(data, prop, num) {
+  if (!data[prop]) {
+    data[prop] = num
+  } else {
+    data[prop] = data[prop] + num
+  }
+}
+function parseOffset(offset, start, end, act) {
+  for (let i = start; i < end; i++) {
+    const prop = config.time.dict.list[i]
+    const dict = config.time.dict.data[prop]
+    const rate = dict.rate.down
+    if (act == 'down') {
+      offset = offset / rate
+    } else {
+      offset = offset * rate
+    }
+  }
+  return offset
 }
 
 function getOffsetTime(offset, unit = 'sec', option = {}) {
@@ -72,8 +91,16 @@ function getOffsetTime(offset, unit = 'sec', option = {}) {
   let endIndex = config.time.dict.list.indexOf(endUnit)
   // 当前单位
   let currentIndex = config.time.dict.list.indexOf(unit)
-  console.log(startIndex, endIndex, currentIndex)
-  // 需要设置的最小单位小于当前设置的单位时，需要进行小数位的格式化操作
+  if (startIndex < currentIndex) {
+    // 最小单位大于当前单位时，需要将当前值换算到最小值
+    offset = parseOffset(offset, startIndex, currentIndex, 'down')
+    currentIndex = startIndex
+  } else if (endIndex > currentIndex) {
+    // 最大单位大于当前单位时，需要对当前值换算到最大值
+    offset = parseOffset(offset, currentIndex, endIndex, 'up')
+    currentIndex = endIndex
+  }
+  // 最小单位小于当前单位时，需要进行小数位的格式化操作
   if (startIndex > currentIndex) {
     let [integer, decimal] = parseNum(offset)
     // down
@@ -82,7 +109,7 @@ function getOffsetTime(offset, unit = 'sec', option = {}) {
     }
     parseDownOffset(decimal, config.time.dict.list.slice(currentIndex + 1, startIndex + 1), data)
   }
-  // up
+  // 最大单位小于等于当前单位时，需要进行格式化操作
   parseUpOffset(offset, config.time.dict.list.slice(endIndex, currentIndex + 1), data)
   return data
 }
