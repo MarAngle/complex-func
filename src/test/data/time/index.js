@@ -3,7 +3,6 @@ import getOffsetTime from './../../../data/time/getOffsetTime'
 import getOffsetTimeStr from './../../../data/time/getOffsetTimeStr'
 
 runText(function({ checkSame, showError }) {
-
   checkSame(getOffsetTime((1200 + 30) * 60, 'sec', {
     start: 'hour',
     end: 'date'
@@ -41,5 +40,4 @@ runText(function({ checkSame, showError }) {
       fixed: true
     }
   }), '02时30分30秒', '由[分]转换到[秒-时]str fixed模式错误')
-
 }, 'time');

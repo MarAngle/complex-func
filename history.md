@@ -1,5 +1,6 @@
-### 2.1.15-beta
+### 2.1.15
 - 更新time测试用例
+- offsetTime中的数字计算优化，减少非预期小数的出现
 
 ### 2.1.14
 - 实现getOffsetTimeStr
