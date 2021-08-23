@@ -1,3 +1,6 @@
+### 2.1.15-beta
+- 更新time测试用例
+
 ### 2.1.14
 - 实现getOffsetTimeStr
 

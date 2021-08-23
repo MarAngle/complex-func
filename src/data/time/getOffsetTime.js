@@ -45,11 +45,9 @@ function parseUpOffset(offset, dictList, data) {
           currentData = offset
           offset = 0
         } else {
-          let [currentNumInteger, currentNumDecimal] = parseNum(currentNum)
+          let [currentNumInteger] = parseNum(currentNum)
+          currentData = offset - currentNumInteger * rate
           offset = currentNumInteger
-          // 此处理论值肯定为整数，避免精度丢失进行整数计算
-          // currentData = getNum(currentNumDecimal * rate, 'round', 2)
-          currentData = currentNumDecimal * rate
         }
       }
     } else {

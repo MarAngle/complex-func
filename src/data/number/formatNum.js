@@ -5,7 +5,7 @@ import isSymbol from '../type/isSymbol'
  * @param {string | number} originNum 数据
  * @returns {number}
  */
- function formatNum(value) {
+function formatNum(value) {
   if (typeof value === 'number') {
     return value
   }
