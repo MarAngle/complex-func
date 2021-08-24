@@ -1,3 +1,7 @@
+### 2.1.16-beta
+- appendPropBUG修复，从append修改为set方法
+- 添加关键词
+
 ### 2.1.15
 - 更新time测试用例
 - offsetTime中的数字计算优化，减少非预期小数的出现
