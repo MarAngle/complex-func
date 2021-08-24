@@ -1,12 +1,12 @@
 import axios from 'axios'
+import config from '../../config'
+import noticeData from './../option/noticeData'
+import { getEnv } from './../data/environment/index'
+import getType from '../data/type/getType'
+import isArray from '../data/type/isArray'
+import jsonToForm from './../data/object/jsonToForm'
 import SimpleData from './SimpleData'
 import RequireRule from './RequireRule'
-import { getEnv } from './../data/environment/index'
-import noticeData from './../option/noticeData'
-import jsonToForm from './../data/object/jsonToForm'
-import getType from '../data/type/getType'
-import config from '../../config'
-import isArray from '../data/type/isArray'
 
 class Require extends SimpleData {
   constructor (initdata) {

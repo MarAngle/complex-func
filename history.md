@@ -1,6 +1,7 @@
 ### 2.1.16-beta
 - appendPropBUG修复，从append修改为set方法
 - 添加关键词
+- 引用顺序修正
 
 ### 2.1.15
 - 更新time测试用例

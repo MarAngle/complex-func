@@ -1,5 +1,5 @@
-import RuleData from '../../build/RuleData'
 import option from './option/index'
+import RuleData from '../../build/RuleData'
 
 /**
  * 创建规则

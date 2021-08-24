@@ -1,8 +1,8 @@
-import SimpleData from './SimpleData'
+import config from '../../config'
 import getType from './../data/type/getType'
 import appendProp from './../data/object/appendProp'
+import SimpleData from './SimpleData'
 import TokenRule from './TokenRule'
-import config from '../../config'
 
 class RequireRule extends SimpleData {
   constructor ({
