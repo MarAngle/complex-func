@@ -14,6 +14,6 @@ mainfunc.install = function(Vue, options = {}) {
   }
 }
 
-export { notice, requiredata }
+export { notice, setData, requiredata }
 
 export default mainfunc

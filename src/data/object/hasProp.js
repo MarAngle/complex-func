@@ -1,3 +1,4 @@
+const hasOwnProperty = Object.prototype.hasOwnProperty
 
 /**
  * 判断对象是否存在对应属性
@@ -7,7 +8,7 @@
  */
 function hasProp(value, prop) {
   if (value[prop] === undefined) {
-    if (!Object.prototype.hasOwnProperty.call(value, prop)) {
+    if (!hasOwnProperty.call(value, prop)) {
       for (let n in value) {
         if (n == prop) {
           return true

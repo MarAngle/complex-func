@@ -1,6 +1,8 @@
 import { OBNAME } from './data/config'
 import Observer from './data/Observer'
 
+const hasOwnProperty = Object.prototype.hasOwnProperty
+
 /**
  * 设置观察者数据
  * @param {*} value 需要设置的数据
@@ -11,7 +13,7 @@ function observe(value) {
     return
   }
   let ob
-  if (Object.prototype.hasOwnProperty.call(value, OBNAME) && value[OBNAME] instanceof Observer) {
+  if (hasOwnProperty.call(value, OBNAME) && value[OBNAME] instanceof Observer) {
     ob = value[OBNAME]
   } else {
     ob = new Observer(value)
