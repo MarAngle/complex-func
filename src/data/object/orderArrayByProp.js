@@ -5,7 +5,7 @@ import getProp from './getProp'
  * @param {object[]} list 目标数组
  * @param {object} option 设置项
  * @param {string} option.prop 对比属性
- * @param {*[]} option.rule 设置项
+ * @param {*[]} option.rule 对比属性值列表
  */
 function orderArrayByProp(list, { prop, rule }) {
   for (let i = 0; i < rule.length; i++) {

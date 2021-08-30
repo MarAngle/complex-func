@@ -3,7 +3,7 @@ import updateData from './updateData'
 /**
  * 合并数据函数，可以理解为简化版本的add模式的updateData，基于源数据originData格式化目标数据targetData函数
  * @param {*} targetData 目标数据
- * @param {object} originData 源数据
+ * @param {*[]} originList 源数据列表
  * @returns targetdata
  */
 function mergeData(targetData, ...originList) {

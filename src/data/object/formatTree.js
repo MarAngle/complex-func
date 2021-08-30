@@ -7,14 +7,16 @@ import isArray from './../type/isArray'
  * @param {string} [option.id] id属性,默认值id
  * @param {string} [option.parentId] parentId属性,默认值parentId
  * @param {string} [option.children] 树形接口的子列表属性,默认值children
+ * @param {string} [option.type] 返回值类型，默认为list,map情况下将dataMap直接返回
+ * @param {function} [option.childrenFormat] 父类children属性存在时的格式化操作
  * @returns 树形数组
  */
 function formatTree(originList, option = {}) {
   const idProp = option.id || 'id'
   const parentIdProp = option.parentId || 'parentId'
   const childrenProp = option.children || 'children'
-  const type = option.type || 'list' // list/map获取属性值,map情况下将dataMap直接返回
-  const childrenFormat = option.childrenFormat // 父类children属性存在时的格式化操作
+  const type = option.type || 'list'
+  const childrenFormat = option.childrenFormat
 
   let dataMap = {}
   let treeList = []
