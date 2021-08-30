@@ -223,12 +223,11 @@
   > ### 说明
   > -  获取随机字符串
   > ### 参数
-  > - option:object，设置项
-  > > - option.size?:number，长度
-  > > - option.letter?:object，字符串库
-  > > > - option.letter.small?:boolean，字符串库设置,小写字母,默认为真
-  > > > - option.letter.big?:boolean，字符串库设置,大写字母,默认为真
-  > > > - option.letter.number?:boolean，字符串库设置,整数,默认为真
+  > - size:number，长度
+  > - letter?:object，字符串库
+  > > - letter.small?:boolean，字符串库设置,小写字母,默认为真
+  > > - letter.big?:boolean，字符串库设置,大写字母,默认为真
+  > > - letter.number?:boolean，字符串库设置,整数,默认为真
   > ### 返回值
   > - str:string
 ### getRandomInList

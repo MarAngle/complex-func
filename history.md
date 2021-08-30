@@ -1,9 +1,9 @@
 ### TODOLIST
-- 考虑getRandomData参数调整并说明
-- getRandomLetter默认值调整
 
 ### 2.1.17-beta
 - 添加函数说明
+- !getRandomData参数调整
+- getRandomLetter默认值调整
 
 ### 2.1.16
 - appendPropBUG修复，从append修改为set方法

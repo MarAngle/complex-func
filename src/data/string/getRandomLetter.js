@@ -26,19 +26,15 @@ for (let ni = 0; ni < 10; ni++) {
 function getRandomLetter(letter) {
   let list = []
   if (!letter) {
-    letter = {
-      small: true,
-      big: true,
-      number: true
-    }
+    letter = {}
   }
-  if (letter.small) {
+  if (letter.small === undefined || letter.small) {
     list = list.concat(letterData.small)
   }
-  if (letter.big) {
+  if (letter.big === undefined || letter.big) {
     list = list.concat(letterData.big)
   }
-  if (letter.number) {
+  if (letter.number === undefined || letter.number) {
     list = list.concat(letterData.number)
   }
   return getRandomInList(list)
