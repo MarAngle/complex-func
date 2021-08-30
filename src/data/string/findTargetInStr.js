@@ -7,7 +7,7 @@ import findTargetInStrNext from './findTargetInStrNext'
  * @param {string} target 需要查找的字符串
  * @param {object} [option] 设置项
  * @param {boolean} option.case 是否忽略大小写,默认不忽略
- * @param {false | number} option.limitNum 设置项,false不限制
+ * @param {false | number} option.limitNum 限制数量,false不限制
  * @returns {number[]}
  */
 function findTargetInStr(str, target, option = {}) {

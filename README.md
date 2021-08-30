@@ -186,13 +186,75 @@
 ---
 
 ## STRING字符串
-### fillString,
-### findTargetInStr,
-### findTargetInStrNext,
-### getRandomData,
-### getRandomInList,
-### getRandomLetter,
-### strCodeNum,
+### fillString
+  > ### 说明
+  > - 将目标字符串中指定未知填充指定字符串到指定长度
+  > ### 参数
+  > - str:string，目标字符串
+  > - targetLength?:number，目标长度，默认为2
+  > - padString?:string，填充字符串，默认为'0'
+  > - to?:'start' | 'end'，填充位置，默认为start
+  > - unDivision?:boolean，是否分割填充字符串，默认分割
+  > ### 返回值
+  > - str:string
+### findTargetInStr
+  > ### 说明
+  > -  查找target在目标字符串中的位置数组
+  > ### 参数
+  > - str:string，目标字符串
+  > - target:string，需要查找的字符串
+  > - option?:object，设置项
+  > > - option.case?:boolean，是否忽略大小写,默认不忽略
+  > > - option.limitNum?:false | number，限制数量，false不限制
+  > ### 返回值
+  > - list:number[]
+### findTargetInStrNext
+  > ### 说明
+  > -  获取指定字符串在目标字符串中的位置数组,理论上不单独调用
+  > ### 参数
+  > - str:string，目标字符串
+  > - target:string，需要查找的字符串
+  > - limitNum:false | number，限制数量，false不限制
+  > - list?:number[]，index位置数组
+  > - index?:number，开始查找的坐标
+  > ### 返回值
+  > - list:number[]
+### getRandomData
+  > ### 说明
+  > -  获取随机字符串
+  > ### 参数
+  > - option:object，设置项
+  > > - option.size?:number，长度
+  > > - option.letter?:object，字符串库
+  > > > - option.letter.small?:boolean，字符串库设置,小写字母,默认为真
+  > > > - option.letter.big?:boolean，字符串库设置,大写字母,默认为真
+  > > > - option.letter.number?:boolean，字符串库设置,整数,默认为真
+  > ### 返回值
+  > - str:string
+### getRandomInList
+  > ### 说明
+  > -  从列表中随机取值
+  > ### 参数
+  > - list:any[]
+  > ### 返回值
+  > - res:any
+### getRandomLetter
+  > ### 说明
+  > -  获取随机字符
+  > ### 参数
+  > - letter?:object，字符串库
+  > > - letter.small?:boolean，字符串库设置,小写字母,默认为真
+  > > - letter.big?:boolean，字符串库设置,大写字母,默认为真
+  > > - letter.number?:boolean，字符串库设置,整数,默认为真
+  > ### 返回值
+  > - str:string
+### strCodeNum
+  > ### 说明
+  > -  获取字符串每个字符的code值和
+  > ### 参数
+  > - str:string
+  > ### 返回值
+  > - num:number
 ---
 
 ## OBJECT对象
