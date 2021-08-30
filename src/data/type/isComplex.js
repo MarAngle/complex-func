@@ -1,6 +1,6 @@
 /**
  * 是否是复杂对象
- * @param {*} value 需要判断的数据
+ * @param {*} value 需要判断的类型值
  * @returns {boolean} value is 复杂对象
  */
 function isComplex(value) {

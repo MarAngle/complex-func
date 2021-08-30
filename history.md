@@ -1,3 +1,6 @@
+### 2.1.17-beta
+- 添加函数说明
+
 ### 2.1.16
 - appendPropBUG修复，从append修改为set方法
 - 添加关键词
