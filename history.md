@@ -1,7 +1,7 @@
 ### TODOLIST
 
-### 2.1.17-beta
-- 添加函数说明
+### 2.1.17
+- 添加函数说明，进行中
 - !getRandomData参数调整
 - getRandomLetter默认值调整
 
