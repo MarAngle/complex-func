@@ -332,7 +332,21 @@
   > > > - option.limit.list?:string[]，属性限制判断值limitData生成参数-list
   > ### 返回值
   > - copydata:any
-### defineProperty,
+### defineProperty
+  > ### 说明
+  > - 设置属性描述
+  > ### 参数
+  > - origindata:object，对象
+  > - prop:string，属性
+  > - descriptor:object，属性描述
+  > - descriptor.configurable?:boolean，可配置描述
+  > - descriptor.enumerable?:boolean，可遍历描述
+  > - descriptor.get?:function，getter
+  > - descriptor.set?:function，setter
+  > - descriptor.value?:any，值
+  > - descriptor.writable?:boolean，可读写描述
+  > ### 返回值
+  > - isSuccess:boolean
 ### formatDataByType
   > ### 说明
   > - 根据类型格式化对象,暂时只对number和boolean进行格式化
