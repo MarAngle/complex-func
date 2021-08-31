@@ -903,8 +903,23 @@
 ---
 
 ## RULE规则判断
-### buildRule,
-### checkRule,
+### buildRule
+  > ### 说明
+  > - 创建规则
+  > ### 参数
+  > - ruleOption:object,RuleData initdata
+  > - prop?:string,规则保存属性,不存在不保存
+  > ### 返回值
+  > - ruleItem:RuleData
+### checkRule
+  > ### 说明
+  > - 规则检查
+  > ### 参数
+  > - data:any,需要检查的值
+  > - prop:string,检查规则名称
+  > - ...args:any[],参数
+  > ### 返回值
+  > - isCheck:boolean
 ---
 
 ## REQUIRE请求和TOKEN设置

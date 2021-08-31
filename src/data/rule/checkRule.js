@@ -13,7 +13,7 @@ function checkRule(data, prop, ...args) {
     return ruleItem.check(data, ...args)
   } else {
     console.error(`rule不存在${prop}校验规则，请检查代码`)
-    return null
+    return false
   }
 }
 
