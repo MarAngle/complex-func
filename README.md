@@ -721,13 +721,60 @@
 ---
 
 ## ENVIRONMENT环境变量和可用功能
-### checkUseItem,
-### getCanUse,
-### getEnv,
-### getEnvMode,
-### setCanUse,
-### setEnv,
-### setEnvMode,
+### checkUseItem
+  > ### 说明
+  > - 检查全局函数是否可用
+  > ### 参数
+  > - Name:string，检查全局函数是否可用
+  > - prop:string，需要挂载的属性
+  > - showError?:boolean，是否显示错误信息
+  > ### 返回值
+  > - :void
+### getCanUse
+  > ### 说明
+  > - 判断prop是否可用
+  > ### 参数
+  > - prop:string
+  > ### 返回值
+  > - canUse:boolean
+### setCanUse
+  > ### 说明
+  > - 设置全局属性是否可用
+  > ### 参数
+  > - prop:string，属性
+  > - data:boolean，可用
+  > ### 返回值
+  > - :void
+### getEnv
+  > ### 说明
+  > - 获取环境变量
+  > ### 参数
+  > - prop:string，环境变量属性值,data为当前环境变量,real为当前真实的环境变量，默认为data
+  > ### 返回值
+  > - EnvData:string
+### getEnvMode
+  > ### 说明
+  > - 获取环境数据
+  > ### 参数
+  > - prop:string，环境数据属性值,data为当前环境数据,real为当前真实的环境数据，默认为data
+  > ### 返回值
+  > - EnvData:any
+### setEnv
+  > ### 说明
+  > - 设置环境变量
+  > ### 参数
+  > - data:string，环境变量
+  > - prop:string，环境变量属性值,data为当前环境变量,real为当前真实的环境变量，默认为data
+  > ### 返回值
+  > - :void
+### setEnvMode
+  > ### 说明
+  > - 设置环境数据
+  > ### 参数
+  > - data:string，环境数据
+  > - prop:string，环境数据属性值,data为当前环境数据,real为当前真实的环境数据，默认为data
+  > ### 返回值
+  > - :void
 ---
 
 ## WORKER多线程

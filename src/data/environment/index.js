@@ -18,7 +18,7 @@ let option = {
 /**
  * 设置环境变量
  * @param {*} data 环境变量
- * @param {'data' | 'real'} prop 环境变量,data为当前环境变量,real为当前真实的环境变量
+ * @param {'data' | 'real'} prop 环境变量属性值,data为当前环境变量,real为当前真实的环境变量
  */
  export function setEnv(data, prop = 'data') {
   option.env[prop] = data
@@ -26,7 +26,7 @@ let option = {
 
 /**
  * 获取环境变量
- * @param {'data' | 'real'} prop 环境变量,data为当前环境变量,real为当前真实的环境变量
+ * @param {'data' | 'real'} prop 环境变量属性值,data为当前环境变量,real为当前真实的环境变量
  */
  export function getEnv(prop = 'data') {
   return option.env[prop]
@@ -35,15 +35,15 @@ let option = {
 /**
  * 设置环境数据
  * @param {*} data 环境数据
- * @param {'data' | 'real'} prop 环境数据,data为当前环境数据,real为当前真实的环境数据
+ * @param {'data' | 'real'} prop 环境数据属性值,data为当前环境数据,real为当前真实的环境数据
  */
 export function setEnvMode(data, prop = 'data') {
   option.mode[prop] = data
 }
 
 /**
- * 获取环境变量
- * @param {'data' | 'real'} prop 环境变量,data为当前环境变量,real为当前真实的环境变量
+ * 获取环境数据
+ * @param {'data' | 'real'} prop 环境数据属性值,data为当前环境数据,real为当前真实的环境数据
  */
  export function getEnvMode(prop = 'data') {
   return option.mode[prop]
