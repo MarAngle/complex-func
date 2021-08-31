@@ -4,7 +4,7 @@ import Observer from './data/Observer'
 const hasOwnProperty = Object.prototype.hasOwnProperty
 
 /**
- * 设置观察者数据
+ * 将value设置为观察者数据
  * @param {*} value 需要设置的数据
  * @returns {Observer}
  */

@@ -542,13 +542,54 @@
 ---
 
 ## REACTIVE响应式
-### defineReactive,
-### defineWatch,
+### defineReactive
+  > ### 说明
+  > - 创建响应式数据
+  > ### 参数
+  > - origindata:object,对象
+  > - prop:string,属性
+  > - option:object,设置项
+  > - option.get?:function,属性获取拦截器
+  > - option.set?:function,属性设置拦截器
+  > > - option.descriptor?:object,属性描述设置项
+  > > - option.descriptor.configurable?:boolean,默认为真,指定对象的属性描述可配置(改变/删除)
+  > > - option.descriptor.enumerable?:boolean,默认为真,指定对象的属性可枚举
+  > - val:any,属性值
+  > ### 返回值
+  > - isSuccess:boolean
+### defineWatch
+  > ### 说明
+  > - 创建响应式数据
+  > ### 参数
+  > - origindata:object,对象
+  > - prop:string,属性
+  > - option:function | object,回调函数或者回调设置项
+  > - option.handler?:function,回调函数
+  > - option.deep?:boolean,深度监控
+  > - option.immediate?:boolean,立即调用
+  > ### 返回值
+  > - isSuccess:boolean
 ---
 
-## OBSERVE观察模式
-### observe,
-### Watcher,
+## OBSERVE观察者数据
+### observe
+  > ### 说明
+  > - 将value设置为观察者数据
+  > ### 参数
+  > - value:any,需要设置的数据
+  > ### 返回值
+  > - ob:Observer
+### Watcher:CLASS
+  > ### 说明
+  > - 创建watcher监控
+  > ### 参数
+  > - target:经过Observer包装的数据
+  > - expression:属性.结构
+  > - option:function | object,回调函数或者回调设置项
+  > - option.handler?:function,回调函数
+  > - option.deep?:boolean,深度监控
+  > ### 返回值
+  > - watcher:Watcher
 ---
 
 ## FUNCTION函数
