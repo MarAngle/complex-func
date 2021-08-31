@@ -619,19 +619,105 @@
 ---
 
 ## LOCAL本地缓存
-### buildLocalDataName,
-### setLocalDataPre,
-### getLocalData,
-### removeLocalData,
-### setLocalData,
+### buildLocalDataName
+  > ### 说明
+  > - 获取本地缓存name全称
+  > ### 参数
+  > - name:string
+  > ### 返回值
+  > - config.local.pre + name:string
+### setLocalDataPre
+  > ### 说明
+  > - 设置本地缓存的名称前缀[config.local.pre]
+  > ### 参数
+  > - pre:string
+  > ### 返回值
+  > - :void
+### getLocalData
+  > ### 说明
+  > - 获取缓存
+  > ### 参数
+  > - name:string
+  > - time?:number，获取的时间间隔限制,按秒进行
+  > - refresh?:boolean，重置缓存时间戳
+  > ### 返回值
+  > - localData:any | undefined
+### setLocalData
+  > ### 说明
+  > - 设置缓存
+  > ### 参数
+  > - name:string
+  > - value:any
+  > ### 返回值
+  > - :void
+### removeLocalData
+  > ### 说明
+  > - 清除缓存
+  > ### 参数
+  > - name:string
+  > ### 返回值
+  > - :void
 ---
 
 ## TIME时间
-### formatTime,
-### parseTime,
-### showTime,
-### getOffsetTime,
-### getOffsetTimeStr,
+### parseTime
+  > ### 说明
+  > - 将Date字符串转换为Date
+  > ### 参数
+  > - data:string，Date字符串
+  > - option?:string | object，设置项
+  > - option.format?:string，Date字符串格式YYYY-MM-DD HH:ss:mm
+  > - option.current?:string，未传递参数是否按照当前时间为基准
+  > ### 返回值
+  > - :Date
+### showTime
+  > ### 说明
+  > - 将Date对象转换为Date字符串
+  > ### 参数
+  > - data:Date
+  > - format?:string，Date字符串格式YYYY-MM-DD HH:ss:mm
+  > ### 返回值
+  > - DateStr:string
+### formatTime
+  > ### 说明
+  > - 将Date字符串根据格式转换为Date字符串
+  > ### 参数
+  > - data:string，Date字符串
+  > - parseOption?:string | object，设置项
+  > - parseOption.format?:string，Date字符串格式YYYY-MM-DD HH:ss:mm
+  > - parseOption.current?:string，未传递参数是否按照当前时间为基准
+  > - showFormat?:string，Date字符串格式YYYY-MM-DD HH:ss:mm
+  > ### 返回值
+  > - DateStr:string
+### getOffsetTime
+  > ### 说明
+  > - 获取时间间隔对象
+  > ### 参数
+  > - data:string，Date字符串
+  > - unit?:'sec' | 'min' | 'hour' | 'date'，时间间隔单位，默认为sec
+  > - option?:object，设置项
+  > - option.start?:'sec' | 'min' | 'hour' | 'date'，最小单位，默认为unit
+  > - option.end?:'sec' | 'min' | 'hour' | 'date'，最大单位，默认为date
+  > - option.complex?:boolean，是否返回复杂数据
+  > ### 返回值
+  > - offsetTime:object
+### getOffsetTimeStr
+  > ### 说明
+  > - 获取时间间隔字符串
+  > ### 参数
+  > - data:string，Date字符串
+  > - unit?:'sec' | 'min' | 'hour' | 'date'，时间间隔单位，默认为sec
+  > - option?:object，设置项
+  > - option.start?:'sec' | 'min' | 'hour' | 'date'，最小单位，默认为unit
+  > - option.end?:'sec' | 'min' | 'hour' | 'date'，最大单位，默认为date
+  > - option.format?:function | object，格式化设置项或函数
+  > - option.format.startShow?:boolean，开始为空是否显示
+  > - option.format.endShow?:boolean，结束为空是否显示，默认为真
+  > - option.format.middleShow?:boolean，中间为空是否显示，默认为真
+  > - option.format.fixed?:boolean，前缀补0判断值，根据code长度或者dict中的unit.fixed补充
+  > - option.format.dict?:object，字典对象
+  > ### 返回值
+  > - offsetTimeStr:string
 ---
 
 ## ENVIRONMENT环境变量和可用功能
@@ -656,15 +742,15 @@
 ---
 
 ## REQUIRE请求和TOKEN设置
-### ajax: requiredata.ajax.bind(requiredata),
-### require: requiredata.require.bind(requiredata),
-### get: requiredata.get.bind(requiredata),
-### post: requiredata.post.bind(requiredata),
-### postform: requiredata.postform.bind(requiredata),
-### postfile: requiredata.postfile.bind(requiredata),
-### setToken: requiredata.setToken.bind(requiredata),
-### getToken: requiredata.getToken.bind(requiredata),
-### removeToken: requiredata.removeToken.bind(requiredata),
+### ajax,
+### require,
+### get,
+### post,
+### postform,
+### postfile,
+### setToken,
+### getToken,
+### removeToken,
 ---
 
 # 文件结构

@@ -77,6 +77,16 @@ function parseOffset(offset, start, end, act) {
   return offset
 }
 
+/**
+ * 获取时间间隔对象
+ * @param {number} offset 时间间隔
+ * @param {'sec' | 'min' | 'hour' | 'date'} [unit] 时间间隔单位，默认为sec
+ * @param {object} [option] 设置项
+ * @param {'sec' | 'min' | 'hour' | 'date'} [option.start] 最小单位，默认为unit
+ * @param {'sec' | 'min' | 'hour' | 'date'} [option.end] 最大单位，默认为date
+ * @param {boolean} [option.complex] 是否返回复杂数据
+ * @returns {object}
+ */
 function getOffsetTime(offset, unit = 'sec', option = {}) {
   let startUnit = option.start || unit
   let endUnit = option.end || 'date'

@@ -58,6 +58,21 @@ function offsetTimeFormat(offsetTime, start, end, option = {}) {
   return str
 }
 
+/**
+ * 获取时间间隔字符串
+ * @param {number} offset 时间间隔
+ * @param {'sec' | 'min' | 'hour' | 'date'} [unit] 时间间隔单位
+ * @param {object} [option] 设置项
+ * @param {'sec' | 'min' | 'hour' | 'date'} [option.start] 最小单位，默认为unit
+ * @param {'sec' | 'min' | 'hour' | 'date'} [option.end] 最大单位，默认为date
+ * @param {function | object} [option.format] 格式化设置项或函数
+ * @param {boolean} [option.format.startShow] 开始为空是否显示
+ * @param {boolean} [option.format.endShow] 结束为空是否显示，默认为真
+ * @param {boolean} [option.format.middleShow] 中间为空是否显示，默认为真
+ * @param {boolean} [option.format.fixed] 前缀补0判断值，根据code长度或者dict中的unit.fixed补充
+ * @param {object} [option.format.dict] 字典对象
+ * @returns {string}
+ */
 function getOffsetTimeStr(offset, unit, option = {}) {
   option.complex = true
   let offsetTime = getOffsetTime(offset, unit, option)
