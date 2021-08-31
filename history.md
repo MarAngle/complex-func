@@ -1,5 +1,8 @@
 ### TODOLIST
 
+### 2.1.18-beta
+- !updateList函数调整，将各个操作添加判断值进行可操作判断
+
 ### 2.1.17
 - 添加函数说明，进行中
 - !getRandomData参数调整

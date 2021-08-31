@@ -441,14 +441,101 @@
   > - list.rule:any[]，对比属性值列表
   > ### 返回值
   > - targetData:object
-### setDefaultData,
-### setProp,
-### setPropByList,
-### setPropByType,
-### showArrayProp,
-### updateData,
-### updateDataWidthOption,
-### updateList,
+### setDefaultData
+  > ### 说明
+  > - 当value\[prop]不存在时设置默认值defaultData，存在时不做操作，注意判断条件是存在属性而不是属性值为真
+  > ### 参数
+  > - value:object，值
+  > - prop:string，属性
+  > - defaultData:any，默认值
+  > ### 返回值
+  > - :void
+### setProp
+  > ### 说明
+  > - 根据a.b字符串设置属性
+  > ### 参数
+  > - value:object，对应对象
+  > - prop:string，属性字符串a.b,,父属性不存在时会创建对象
+  > - propData:any，属性值
+  > - useSetData?:boolean，为真时通过setData进行赋值操作,主要针对框架中直接赋值无法响应的操作
+  > ### 返回值
+  > - isSuccess:boolean
+### setPropByList
+  > ### 说明
+  > - 根据属性列表设置属性值
+  > ### 参数
+  > - value:object，对应对象
+  > - propList:string[]，属性列表,父属性不存在时会创建对象
+  > - propData:any，属性值
+  > - useSetData?:boolean，为真时通过setData进行赋值操作,主要针对框架中直接赋值无法响应的操作
+  > ### 返回值
+  > - :void
+### setPropByType
+  > ### 说明
+  > - 根据type设置对象属性值
+  > ### 参数
+  > - value:object，对应对象
+  > - prop:string，属性字符串a.b,,父属性不存在时会创建对象
+  > - propData:any，属性值
+  > - type:string，属性值类型
+  > - useSetData?:boolean，为真时通过setData进行赋值操作,主要针对框架中直接赋值无法响应的操作
+  > ### 返回值
+  > - isSuccess:boolean
+### showArrayProp
+  > ### 说明
+  > - 数组属性快速输出到控制台
+  > ### 参数
+  > - list:object[]，目标数组
+  > - prop:string，属性字符串,.类型
+  > ### 返回值
+  > - :void
+### updateData
+  > ### 说明
+  > - 基于origindata更新targetdata数据,type默认为add
+  > ### 参数
+  > - targetdata:any，目标数据
+  > - origindata:any，数据源,以此数据为准对targetdata进行更新
+  > - option?:object，用户设置的设置项,通过updateDataWidthOption进行深拷贝
+  > > - option.type?:'total' | 'add'，全更新/附加更新判断值
+  > > - option.reset?:boolean，重置判断值，默认为真，类型不同且reset为真时，无法将以前的数据作为基准，将会对源数据的对应值根据类型重置后再进行深拷贝循环
+  > > - option.depth?:boolean | number，属性深度判断值
+  > > - option.limitData?:LimitData，属性限制判断值
+  > > - option.limit?:object，属性限制判断值limitData生成参数
+  > > > - option.limit.type?:'forbid' | 'allow'，属性限制判断值limitData生成参数-type
+  > > > - option.limit.list?:string[]，属性限制判断值limitData生成参数-list
+  > ### 返回值
+  > - targetdata:any
+### updateDataWidthOption
+  > ### 说明
+  > - 基于origindata更新targetdata数据,type默认为add
+  > ### 参数
+  > - targetdata:any，目标数据
+  > - origindata:any，数据源,以此数据为准对targetdata进行更新
+  > - option:object，用户设置的设置项,通过updateDataWidthOption进行深拷贝
+  > > - option.type:'total' | 'add'，全更新/附加更新判断值
+  > > - option.reset:boolean，重置判断值，默认为真，类型不同且reset为真时，无法将以前的数据作为基准，将会对源数据的对应值根据类型重置后再进行深拷贝循环
+  > > - option.depth:boolean | number，属性深度判断值
+  > > - option.limitData:LimitData，属性限制判断值
+  > - currentnum:number，当前深度,从1开始计算
+  > - currentprop:string，当前属性,多级按.
+  > - map:Map，循环引用缓存
+  > ### 返回值
+  > - targetdata:any
+### updateList
+  > ### 说明
+  > - 基于originlist更新targetlist列表数据
+  > ### 参数
+  > - targetlist:object[]，目标列表:需要进行更新的列表
+  > - originlist:object[]，源数据列表:最新数据，以此为基准对目标列表数据进行更新
+  > - option:object，设置项
+  > > - option.check:string | function | object，相同项检查,必传,object模式下取prop值进行对比,function时通过(targetItem, originItem)返回值对比,string时作为prop取值对比
+  > > - option.check.prop?:string，prop取值对比
+  > > - option.check.equal?:boolean，取值对比全等于判断
+  > > - option.update?:object | function，更新数据的设置值,默认空对象,object模式下调用updateData进行更新,此为设置项,function模式下(targetItem, originItem)进行更新
+  > > - option.destroy?:boolean | function，销毁函数,默认为真,targetlist中需要删除的数据会调用此方法，为否则不进行删除判断
+  > > - option.format?:boolean | function，格式化函数,默认为真,targetlist中需要push的数据会调用此方法，format仅对对象数据做格式化，返回值为是否添加到数组中,为否不进行push判断
+  > ### 返回值
+  > - :void
 ---
 
 ## REACTIVE响应式

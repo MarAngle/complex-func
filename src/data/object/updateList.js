@@ -7,13 +7,12 @@ import updateData from './updateData'
  * @param {*} targetlist 目标列表:需要进行更新的列表
  * @param {*} originlist 源数据列表:最新数据，以此为基准对目标列表数据进行更新
  * @param {object} option 设置项
- * @param {string | object | function} option.check 相同项检查,必传,string时作为prop取值对比,function时通过(targetItem, originItem)返回值对比
- * @param {boolean} [option.check.equal] option.check为string时,为真时则全等于判断
- * @param {'total' | 'clear'} [option.type] 更新类型,total合并更新,未命中数据不destroy,clear全复制,未命中数据destroy
- * @param {boolean} [option.push] 默认为真,新元素是否push的判断值,为否时新数据不会加入到targetlist
+ * @param {string | object | function} option.check 相同项检查,必传,object模式下取prop值进行对比,function时通过(targetItem, originItem)返回值对比,string时作为prop取值对比
+ * @param {string} [option.check.prop] prop取值对比
+ * @param {boolean} [option.check.equal] 取值对比全等于判断
  * @param {object | function} [option.update] 更新数据的设置值,默认空对象,object模式下调用updateData进行更新,此为设置项,function模式下(targetItem, originItem)进行更新
- * @param {function} [option.destroy] 销毁函数,targetlist中需要删除的数据会调用此方法
- * @param {function} [option.format] 格式化函数,targetlist中需要push的数据会调用此方法，不返回需要push的数据，因为此时需要的对象都是复杂格式，内存指针形式，因此format仅对对象数据做格式化，返回值为是否添加到数组中
+ * @param {boolean | function} [option.destroy] 销毁函数,默认为真,targetlist中需要删除的数据会调用此方法，为否则不进行删除判断
+ * @param {boolean | function} [option.format] 格式化函数,默认为真,targetlist中需要push的数据会调用此方法，format仅对对象数据做格式化，返回值为是否添加到数组中,为否不进行push判断
  * @returns
  */
 function updateList(targetlist, originlist, option = {}) {
@@ -36,22 +35,20 @@ function updateList(targetlist, originlist, option = {}) {
       }
     }
   }
-  // 默认方法类型
-  if (!option.type) {
-    option.type = 'total'
+  // 销毁和push的函数判断
+  let destroyIsFunc, formatIsFunc
+  if (option.destroy || option.destroy === undefined) {
+    destroyIsFunc = getType(option.destroy) === 'function'
   }
-  // 默认方法类型
-  if (option.push === undefined) {
-    option.push = true
+  if (option.format || option.destroy === undefined) {
+    formatIsFunc = getType(option.format) === 'function'
   }
   // 更新操作设置
   let updateType = 'option'
   if (!option.update) {
     option.update = {}
-  } else {
-    if (getType(option.update) == 'function') {
-      updateType = 'function'
-    }
+  } else if (getType(option.update) === 'function') {
+    updateType = 'function'
   }
   // 复制数组数据避免对原数据的修改=>仅限于数组层面
   let cacheOriginList = originlist.slice()
@@ -78,21 +75,21 @@ function updateList(targetlist, originlist, option = {}) {
     }
   }
   // 旧元素删除判断 => 当存在未命中的index且type为total时，更新整个数据，删除未命中的数据
-  if (cacheTargetPropList.length > 0 && option.type == 'total') {
+  if (cacheTargetPropList.length > 0 && option.destroy) {
     for (let n = cacheTargetPropList.length - 1; n >= 0; n--) {
       let index = cacheTargetPropList[n]
       let delList = targetlist.splice(index, 1)
-      if (option.destroy) {
+      if (destroyIsFunc) {
         option.destroy(delList[0])
       }
     }
   }
   // 新元素加入
-  if (option.push && cacheOriginList.length > 0) {
+  if (option.format && cacheOriginList.length > 0) {
     for (let k = 0; k < cacheOriginList.length; k++) {
       let originItem = cacheOriginList[k]
       let push = true
-      if (option.format) {
+      if (formatIsFunc) {
         push = option.format(originItem)
       }
       if (push) {
