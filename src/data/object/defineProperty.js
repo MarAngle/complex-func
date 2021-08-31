@@ -7,8 +7,8 @@ import printMsg from './../utils/printMsg'
  * @param {object} descriptor 属性描述
  * @param {boolean} [descriptor.configurable] 可配置描述
  * @param {boolean} [descriptor.enumerable] 可遍历描述
- * @param {function} [descriptor.get] 可遍历描述
- * @param {function} [descriptor.set] 可遍历描述
+ * @param {function} [descriptor.get] getter
+ * @param {function} [descriptor.set] setter
  * @param {*} [descriptor.value] 值
  * @param {boolean} [descriptor.writable] 可读写描述
  * @returns 操作成功
