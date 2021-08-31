@@ -208,17 +208,6 @@
   > > - option.limitNum?:false | number,限制数量,false不限制
   > ### 返回值
   > - list:number[]
-### findTargetInStrNext
-  > ### 说明
-  > - 获取指定字符串在目标字符串中的位置数组,理论上不单独调用
-  > ### 参数
-  > - str:string,目标字符串
-  > - target:string,需要查找的字符串
-  > - limitNum:false | number,限制数量,false不限制
-  > - list?:number[],index位置数组
-  > - index?:number,开始查找的坐标
-  > ### 返回值
-  > - list:number[]
 ### getRandomData
   > ### 说明
   > - 获取随机字符串
@@ -748,13 +737,6 @@
 ---
 
 ## LOCAL本地缓存
-### buildLocalDataName
-  > ### 说明
-  > - 获取本地缓存name全称
-  > ### 参数
-  > - name:string
-  > ### 返回值
-  > - config.local.pre + name:string
 ### setLocalDataPre
   > ### 说明
   > - 设置本地缓存的名称前缀[config.local.pre]

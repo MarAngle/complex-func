@@ -28,7 +28,6 @@ import parseNum from './data/number/parseNum'
 // string加载
 import fillString from './data/string/fillString'
 import findTargetInStr from './data/string/findTargetInStr'
-import findTargetInStrNext from './data/string/findTargetInStrNext'
 import getRandomData from './data/string/getRandomData'
 import getRandomInList from './data/string/getRandomInList'
 import getRandomLetter from './data/string/getRandomLetter'
@@ -97,7 +96,6 @@ import transformFile from './data/utils/transformFile'
 import trimData from './data/utils/trimData'
 // utils加载完成
 // local加载
-import buildLocalDataName from './data/local/buildLocalDataName'
 import getLocalData from './data/local/getLocalData'
 import removeLocalData from './data/local/removeLocalData'
 import setLocalData from './data/local/setLocalData'
@@ -122,9 +120,7 @@ import {
 } from './data/environment/index'
 // environment加载完成
 // worker加载
-import getWorkerContent from './data/worker/getWorkerContent'
 import setWorker from './data/worker/setWorker'
-import workerDo from './data/worker/workerDo'
 // worker加载完成
 // rule加载
 import buildRule from './data/rule/buildRule'
@@ -172,7 +168,6 @@ let mainfunc = {
   // string
   fillString,
   findTargetInStr,
-  findTargetInStrNext,
   getRandomData,
   getRandomInList,
   getRandomLetter,
@@ -237,7 +232,6 @@ let mainfunc = {
   transformFile,
   trimData,
   // local
-  buildLocalDataName,
   getLocalData,
   removeLocalData,
   setLocalData,
@@ -257,9 +251,7 @@ let mainfunc = {
   setEnv,
   setEnvMode,
   // worker
-  getWorkerContent,
   setWorker,
-  workerDo,
   // rule
   buildRule,
   checkRule,
