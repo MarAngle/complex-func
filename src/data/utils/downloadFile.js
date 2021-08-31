@@ -5,7 +5,7 @@ import openWindow from './openWindow'
 /**
  * 下载文件
  * @param {string | object} data
- * @returns {boolean} 是否成功
+ * @returns {boolean | Window | null} 是否成功
  */
 function downloadFile(data) {
   if (data) {
@@ -20,8 +20,7 @@ function downloadFile(data) {
     if (downloadFileByAnchor(url, name)) {
       return true
     } else {
-      openWindow(url)
-      return true
+      return openWindow(url)
     }
   } else {
     return false

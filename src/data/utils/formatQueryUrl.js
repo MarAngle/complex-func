@@ -1,7 +1,7 @@
 import localEncodeURIComponent from './localEncodeURIComponent'
 
 /**
- * 设置query url
+ * 设置queryUrl
  * @param {string} url
  * @param {object} data 值对象
  * @returns {string}
