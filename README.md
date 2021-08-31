@@ -870,21 +870,38 @@
 ---
 
 # 文件结构
->root
+> ## root
 > - index: 模块输出和Vue插件加载
-> - main: 模块整合
-> > ## build
-> > - LimitData: 限制数据格式类
-> > - Require: 请求模块实现类
-> > - RequireRule: 请求规则实现类
-> > - RuleData: 规则检查实现类ing
-> > - TimeData: 时间对象类ing
-> > ## data
-> > - environment: 环境判断
-> > - rule: 规则检查
-> > - utils: 功能
-> > ## option
-> > - noticeData: 警告弹窗模块
-> > - setData: 设置数据模块，为兼容Vue
+> - config: 全局设置项
+> > ## src:主要目录
+> > - main: 模块整合
+> > > ## build
+> > > - SimpleData: 基类
+> > > - LimitData: 限制数据格式类
+> > > - Require: 请求模块实现类
+> > > - RequireRule: 请求规则实现类
+> > > - RuleData: 规则校验数据
+> > > - TokenRule: Token规则实现类
+> > > - TimeData: 时间对象类ing
+> > > ## data
+> > > - current: 当前时间
+> > > > ## environment: 环境判断
+> > > > ## function: 函数相关
+> > > > ## local: 本地缓存相关
+> > > > ## number: 数字相关
+> > > > ## object: 对象相关
+> > > > ## observe: 观察者相关
+> > > > ## reactive: 响应式相关
+> > > > ## rule: 规则检查
+> > > > ## string: 字符串相关
+> > > > ## time: 时间相关
+> > > > ## type: 类型相关
+> > > > ## utils: 功能函数
+> > > > ## worker: 多线程相关
+> > > ## option
+> > > - noticeData: 警告弹窗模块
+> > > - setData: 设置数据模块，为兼容Vue
+> > > ## test
+> > > - index:测试相关
 ---
 [更新历史](./history.md)
