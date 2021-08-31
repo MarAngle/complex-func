@@ -232,7 +232,7 @@ class Require extends SimpleData {
    * @param {string} optionData.method 请求方式,默认为get
    * @param {object} optionData.params url(query参数)
    * @param {object} optionData.data body参数
-   * @param {string} optionData.headers header参数
+   * @param {object} optionData.headers header参数
    * @param {string | object | any[]} optionData.token token
    * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
    * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
