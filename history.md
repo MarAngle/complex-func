@@ -1,5 +1,9 @@
 ### TODOLIST
 
+### 2.1.20
+- 添加getCurrentUrl
+- axios依赖调整
+
 ### 2.1.19
 - axios依赖调整
 

@@ -82,6 +82,7 @@ import downloadFile from './data/utils/downloadFile'
 import downloadFileByAnchor from './data/utils/downloadFileByAnchor'
 import localEncodeURIComponent from './data/utils/localEncodeURIComponent'
 import formatQueryUrl from './data/utils/formatQueryUrl'
+import getCurrentUrl from './data/utils/getCurrentUrl'
 import getLimitData from './data/utils/getLimitData'
 import getQueryData from './data/utils/getQueryData'
 import getQueryUrl from './data/utils/getQueryUrl'
@@ -219,6 +220,7 @@ let mainfunc = {
   downloadFileByAnchor,
   localEncodeURIComponent,
   formatQueryUrl,
+  getCurrentUrl,
   getLimitData,
   getQueryData,
   getQueryUrl,
