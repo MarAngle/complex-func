@@ -1,5 +1,8 @@
 ### TODOLIST
 
+### 2.1.21-beta
+- 添加setDataByDefault函数
+
 ### 2.1.20
 - 添加getCurrentUrl
 - axios依赖调整

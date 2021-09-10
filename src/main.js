@@ -53,6 +53,7 @@ import hasProp from './data/object/hasProp'
 import jsonToForm from './data/object/jsonToForm'
 import mergeData from './data/object/mergeData'
 import orderArrayByProp from './data/object/orderArrayByProp'
+import setDataByDefault from './data/object/setDataByDefault'
 import setDefaultData from './data/object/setDefaultData'
 import setProp from './data/object/setProp'
 import setPropByList from './data/object/setPropByList'
@@ -193,6 +194,7 @@ let mainfunc = {
   jsonToForm,
   mergeData,
   orderArrayByProp,
+  setDataByDefault,
   setDefaultData,
   setProp,
   setPropByList,
