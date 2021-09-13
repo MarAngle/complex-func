@@ -1,6 +1,7 @@
 ### TODOLIST
+- setDataByDefault循环引用判断添加
 
-### 2.1.21-beta
+### 2.1.21
 - 添加setDataByDefault函数
 
 ### 2.1.20
