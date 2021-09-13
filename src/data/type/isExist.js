@@ -1,6 +1,5 @@
+import config from '../../../config';
 import isSame from './isSame';
-
-const defaultExistList = [false, 0]
 
 /**
  * 值是否存在
@@ -24,7 +23,7 @@ function isExist(value, existList, unExistList) {
     }
   }
   if (!existList) {
-    existList = defaultExistList
+    existList = config.object.existList
   }
   return existList.indexOf(value) > -1
 }

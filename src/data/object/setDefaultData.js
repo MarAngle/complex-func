@@ -1,3 +1,5 @@
+import getType from '../type/getType'
+import isExist from '../type/isExist'
 import hasProp from './hasProp'
 
 /**
@@ -5,9 +7,28 @@ import hasProp from './hasProp'
  * @param {object} value 对应值
  * @param {string} prop 属性
  * @param {*} defaultData 默认值
+ * @param {object | array} exist 存在判断值
  */
-function setDefaultData(value, prop, defaultData) {
-  if (!hasProp(value, prop)) {
+function setDefaultData(value, prop, defaultData, exist) {
+  let next = false
+  if (exist) {
+    let type = getType(exist)
+    if (type === 'array') {
+      if (!isExist(value[prop], exist)) {
+        next = true
+      }
+    } else {
+      if (type !== 'object') {
+        exist = {}
+      }
+      if (!isExist(value[prop], exist.existList, exist.unExistList)) {
+        next = true
+      }
+    }
+  } else if (!hasProp(value, prop)) {
+    next = true
+  }
+  if (next) {
     value[prop] = defaultData
   }
 }

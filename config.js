@@ -16,6 +16,9 @@ const config = {
   type: {
     emptyCheckList: ['object', 'array']
   },
+  object: {
+    existList: [false, 0]
+  },
   time: {
     format: {
       default: 'YYYY/MM/DD HH:mm:ss',

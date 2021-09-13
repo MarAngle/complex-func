@@ -450,13 +450,24 @@
   > - res:any
 ### setDefaultData
   > ### 说明
-  > - 当value\[prop]不存在时设置默认值defaultData,存在时不做操作,注意判断条件是存在属性而不是属性值为真
+  > - 当value\[prop]不存在时设置默认值defaultData,存在时不做操作
   > ### 参数
   > - value:object,值
   > - prop:string,属性
   > - defaultData:any,默认值
+  > - exist?:object | any[],存在判断设置项，数组格式则为existList
+  > - exist.existList?:any[],判断为否但需要判断为真的值列表
+  > - exist.unExistList?:any[],判断为真但需要判断为否的值列表
   > ### 返回值
   > - :void
+### setDataByDefault
+  > ### 说明
+  > - 根据defaultData默认值设置targetData
+  > ### 参数
+  > - targetData:object,目标值
+  > - defaultData:object,默认值
+  > ### 返回值
+  > - :targetData
 ### getProp
   > ### 说明
   > - 根据'mainprop.prop'格式字符串获取对象值
@@ -628,6 +639,14 @@
 ---
 
 ## UTILS工具
+### getCurrentUrl
+  > ### 说明
+  > - 获取当前URL
+  > ### 参数
+  > - option?:object,设置项
+  > - option.pathname?:boolean,是否添加pathname，默认添加，不添加false
+  > ### 返回值
+  > - url:string
 ### formatQueryUrl
   > ### 说明
   > - 设置queryUrl
