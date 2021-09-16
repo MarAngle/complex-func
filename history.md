@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.1.23
+- orderArrayByProp参数调整
+
 ### 2.1.22
 - 同步完成函数的函数说明
 - setDefaultData存在判断升级

@@ -521,9 +521,8 @@
   > - 根据rule数组顺序对list\[index]\[prop]的值进行排序
   > ### 参数
   > - list:object[],目标数组
-  > - option:object,设置项
-  > - list.prop:string,对比属性
-  > - list.rule:any[],对比属性值列表
+  > - prop:string,对比属性
+  > - ruleList:any[],对比属性值列表
   > ### 返回值
   > - targetData:object
 ### clearArray
