@@ -10,7 +10,10 @@ mainfunc.install = function(Vue, options = {}) {
     options.prop = '_func'
   }
   if (options.prop) {
-    Vue.prototype[options.prop] = this
+    Vue.set(Vue.prototype, options.prop, this)
+  }
+  if (options.toGlobal) {
+    window[options.prop] = this
   }
 }
 
