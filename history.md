@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.0-beta
+### 2.2.0
 - require相关调用方式调整
 - require相关实现token的delete/remove方法
 - TokenRule优化remove方法，实现remove的回调以及是否删除的判断值传递
