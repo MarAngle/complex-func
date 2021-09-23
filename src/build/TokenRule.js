@@ -18,8 +18,29 @@ class TokenRule {
     this.location = initdata.location || config.TokenRule.location
     this.empty = initdata.empty === undefined ? false : initdata.empty
     this.getCurrentData = initdata.getData || false
+    this.removeCurrentData = initdata.removeData || false
     this.checkCurrentData = initdata.checkData || function(data) {
       return data || data === 0
+    }
+  }
+  /**
+   * 生成local的name
+   * @param {string} parentProp 父RequireRule的prop属性
+   * @returns {string}
+   */
+  buildLocalTokenName(parentProp) {
+    return `${parentProp || ''}-${this.prop}`
+  }
+  /**
+   * 设置token值
+   * @param {string} parentProp 父RequireRule的prop属性
+   * @param {*} data token值
+   * @param {boolean} [noSave] 不保存到local的判断值
+   */
+  setData(parentProp, data, noSave) {
+    this.data = data
+    if (!noSave) {
+      setLocalData(this.buildLocalTokenName(parentProp), data)
     }
   }
   /**
@@ -43,33 +64,6 @@ class TokenRule {
     return data
   }
   /**
-   * 设置token值
-   * @param {string} parentProp 父RequireRule的prop属性
-   * @param {*} data token值
-   * @param {boolean} [noSave] 不保存到local的判断值
-   */
-  setData(parentProp, data, noSave) {
-    this.data = data
-    if (!noSave) {
-      setLocalData(this.buildLocalTokenName(parentProp), data)
-    }
-  }
-  /**
-   * remove token
-   * @param {string} parentProp 父RequireRule的prop属性
-   */
-  removeData(parentProp) {
-    removeLocalData(this.buildLocalTokenName(parentProp))
-  }
-  /**
-   * 生成local的name
-   * @param {string} parentProp 父RequireRule的prop属性
-   * @returns {string}
-   */
-  buildLocalTokenName(parentProp) {
-    return `${parentProp || ''}-${this.prop}`
-  }
-  /**
    * 检查值是否存在
    * @param {*} data 需要检查的值
    * @returns {'success' | 'fail' | ''}
@@ -82,12 +76,23 @@ class TokenRule {
         next = 'fail'
       } else if (!this.empty) {
         next = ''
-        // 值不存在切不要求时,empty为否不上传空值,此时为'',不进行append操作
+        // 值不存在且不要求时,empty为否不上传空值,此时为'',不进行append操作
       } else {
-        // 值不存在切不要求时,传递,此时为success
+        // 值不存在且不要求时,传递,此时为success
       }
     }
     return next
+  }
+  /**
+   * remove token
+   * @param {string} parentProp 父RequireRule的prop属性
+   */
+  removeData(parentProp) {
+    removeLocalData(this.buildLocalTokenName(parentProp))
+    this.data = undefined
+    if (this.removeCurrentData) {
+      this.removeCurrentData(parentProp)
+    }
   }
 }
 

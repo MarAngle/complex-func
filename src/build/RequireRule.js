@@ -186,36 +186,6 @@ class RequireRule extends SimpleData {
     }
   }
   /**
-   * 删除token数据
-   * @param {string} tokenName 需要删除的tokenName
-   * @returns {boolean}
-   */
-  removeToken (tokenName) {
-    if (tokenName) {
-      if (tokenName === true) {
-        for (let n in this.token.data) {
-          this.removeTokenByName(n)
-        }
-      } else {
-        this.removeTokenByName(tokenName)
-      }
-      return true
-    } else {
-      this.printMsg(`未指定需要删除的token`)
-      return false
-    }
-  }
-  /**
-   * 删除token数据Next
-   * @param {string} tokenName 需要删除的tokenName
-   */
-  removeTokenByName (tokenName) {
-    if (this.token.data[tokenName]) {
-      this.token.data[tokenName].removeData(this.prop)
-      delete this.token.data[tokenName]
-    }
-  }
-  /**
    * 获取token数据
    * @param {string} tokenName 需要获取的tokenName
    * @returns {boolean}
@@ -240,6 +210,69 @@ class RequireRule extends SimpleData {
       this.token.data[tokenName].setData(this.prop, data, noSave)
     }
   }
+
+  /**
+   * 清除token数据
+   * @param {string} tokenName 需要清除的tokenName
+   * @returns {boolean}
+   */
+  removeToken (tokenName) {
+    if (tokenName) {
+      if (tokenName === true) {
+        for (let n in this.token.data) {
+          this.removeTokenByName(n)
+        }
+      } else {
+        this.removeTokenByName(tokenName)
+      }
+      return true
+    } else {
+      this.printMsg(`未指定需要删除的token`)
+      return false
+    }
+  }
+  /**
+   * 清除token数据Next
+   * @param {string} tokenName 需要清除的tokenName
+   */
+  removeTokenByName (tokenName) {
+    if (this.token.data[tokenName]) {
+      this.token.data[tokenName].removeData(this.prop)
+    }
+  }
+
+  /**
+   * 删除token数据
+   * @param {string} tokenName 需要删除的tokenName
+   * @returns {boolean}
+   */
+  deleteToken (tokenName) {
+    if (tokenName) {
+      if (tokenName === true) {
+        for (let n in this.token.data) {
+          this.deleteTokenByName(n)
+        }
+      } else {
+        this.deleteTokenByName(tokenName)
+      }
+      return true
+    } else {
+      this.printMsg(`未指定需要删除的token`)
+      return false
+    }
+  }
+
+  /**
+   * 删除token数据Next
+   * @param {string} tokenName 需要删除的tokenName
+   */
+  deleteTokenByName (tokenName) {
+    if (this.token.data[tokenName]) {
+      this.token.data[tokenName].removeData(this.prop)
+      delete this.token.data[tokenName]
+    }
+  }
+
   _selfName() {
     return `(${this.constructor.name}:[${this.name}/${this.prop}])`
   }

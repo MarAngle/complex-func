@@ -486,7 +486,7 @@ class Require extends SimpleData {
     }
   }
   /**
-   * 删除token
+   * 清除token
    * @param {string} tokenName token名称
    * @param {string} prop 对应的rule.prop
    * @returns {boolean}
@@ -494,6 +494,20 @@ class Require extends SimpleData {
   removeToken (tokenName, prop = 'default') {
     if (this.rule[prop]) {
       return this.rule[prop].removeToken(tokenName)
+    } else {
+      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      return false
+    }
+  }
+  /**
+   * 删除token
+   * @param {string} tokenName token名称
+   * @param {string} prop 对应的rule.prop
+   * @returns {boolean}
+   */
+  deleteToken (tokenName, prop = 'default') {
+    if (this.rule[prop]) {
+      return this.rule[prop].deleteToken(tokenName)
     } else {
       this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false

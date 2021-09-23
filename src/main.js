@@ -286,6 +286,9 @@ let mainfunc = {
   removeToken: function(tokenName, prop) {
     return this.requiredata.removeToken(tokenName, prop)
   },
+  deleteToken: function(tokenName, prop) {
+    return this.requiredata.deleteToken(tokenName, prop)
+  },
   /**
    * 加载模块
    * @param {object} mod 对应的模块

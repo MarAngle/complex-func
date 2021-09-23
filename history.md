@@ -2,6 +2,11 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.0-beta
+- require相关调用方式调整
+- require/RequireRule实现token的delete/remove方法
+- TokenRule优化remove方法，实现remove的回调
+
 ### 2.1.24
 - 挂载到Vue的原型时使用Vue.set将func设置为响应式数据
 - install添加toGlobal选项，可直接挂载到window根属性下，默认不挂载
