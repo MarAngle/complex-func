@@ -6,6 +6,7 @@
 - require相关调用方式调整
 - require相关实现token的delete/remove方法
 - TokenRule优化remove方法，实现remove的回调以及是否删除的判断值传递
+- 删除requiredata相关暴露接口
 
 ### 2.1.24
 - 挂载到Vue的原型时使用Vue.set将func设置为响应式数据

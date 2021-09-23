@@ -1,4 +1,4 @@
-import mainfunc, { requiredata } from './src/main'
+import mainfunc from './src/main'
 import setData from './src/option/setData'
 import notice from './src/option/noticeData'
 
@@ -17,6 +17,6 @@ mainfunc.install = function(Vue, options = {}) {
   }
 }
 
-export { notice, setData, requiredata }
+export { notice, setData }
 
 export default mainfunc
