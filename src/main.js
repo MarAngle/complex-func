@@ -259,128 +259,30 @@ let mainfunc = {
   buildRule,
   checkRule,
   // require
-  /**
-   * 调用service进行axios请求
-   * @param {*} optionData
-   * @returns {Promise}
-   */
   ajax: function(optionData) {
     return this.requiredata.ajax(optionData)
   },
-  /**
-   * 请求主函数
-   * @param {object} optionData 参数
-   * @param {string} optionData.url 请求地址
-   * @param {string} optionData.method 请求方式,默认为get
-   * @param {object} optionData.params url(query参数)
-   * @param {object} optionData.data body参数
-   * @param {object} optionData.headers header参数
-   * @param {string | object | any[]} optionData.token token
-   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
-   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
-   * @param {object} [defaultOptionData] 默认参数重置method/requestDataType/requestCurrentDataType/responseType
-   * @returns {optionData}
-   */
   require: function(optionData, defaultOptionData) {
     return this.requiredata.require(optionData, defaultOptionData)
   },
-  /**
-   * get请求
-   * @param {object} optionData 参数
-   * @param {string} optionData.url 请求地址
-   * @param {string} optionData.method 请求方式,默认为get
-   * @param {object} optionData.params url(query参数)
-   * @param {object} optionData.data body参数
-   * @param {string} optionData.headers header参数
-   * @param {string | object | any[]} optionData.token token
-   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
-   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
-   * @returns {Promise}
-   */
   get: function(optionData) {
     return this.requiredata.get(optionData)
   },
-  /**
-   * post请求
-   * @param {object} optionData 参数
-   * @param {string} optionData.url 请求地址
-   * @param {string} optionData.method 请求方式,默认为post
-   * @param {object} optionData.params url(query参数)
-   * @param {object} optionData.data body参数
-   * @param {string} optionData.headers header参数
-   * @param {string | object | any[]} optionData.token token
-   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
-   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
-   * @returns {Promise}
-   */
   post: function(optionData) {
     return this.requiredata.post(optionData)
   },
-  /**
-   * post请求form类型,requestDataType默认为formdata
-   * @param {object} optionData 参数
-   * @param {string} optionData.url 请求地址
-   * @param {string} optionData.method 请求方式,默认为post
-   * @param {object} optionData.params url(query参数)
-   * @param {object} optionData.data body参数
-   * @param {string} optionData.headers header参数
-   * @param {string | object | any[]} optionData.token token
-   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
-   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
-   * @returns {Promise}
-   */
   postform: function(optionData) {
     return this.requiredata.postform(optionData)
   },
-  /**
-   * post请求formfile类型,requestDataType/requestCurrentDataType默认为formdata
-   * @param {object} optionData 参数
-   * @param {string} optionData.url 请求地址
-   * @param {string} optionData.method 请求方式,默认为post
-   * @param {object} optionData.params url(query参数)
-   * @param {object} optionData.data body参数
-   * @param {string} optionData.headers header参数
-   * @param {string | object | any[]} optionData.token token
-   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
-   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
-   * @returns {Promise}
-   */
   postfile: function(optionData) {
     return this.requiredata.postfile(optionData)
   },
-  /**
-   * 设置token
-   * @param {string} tokenName token名称
-   * @param {*} data token值
-   * @param {string} prop 对应的rule.prop
-   */
   setToken: function(tokenName, data, prop) {
     return this.requiredata.setToken(tokenName, data, prop)
   },
-  /**
-   * 获取指定token的值
-   * @param {string} tokenName token名称
-   * @param {string} prop 对应的rule.prop
-   */
   getToken: function(tokenName, prop) {
     return this.requiredata.getToken(tokenName, prop)
   },
-  /**
-   * 删除token
-   * @param {string} tokenName token名称
-   * @param {string} prop 对应的rule.prop
-   * @returns {boolean}
-   */
   removeToken: function(tokenName, prop) {
     return this.requiredata.removeToken(tokenName, prop)
   },
