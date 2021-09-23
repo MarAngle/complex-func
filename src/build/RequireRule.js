@@ -234,10 +234,14 @@ class RequireRule extends SimpleData {
   /**
    * 清除token数据Next
    * @param {string} tokenName 需要清除的tokenName
+   * @param {boolean} isDelete 是否进行删除
    */
-  removeTokenByName (tokenName) {
+  removeTokenByName (tokenName, isDelete) {
     if (this.token.data[tokenName]) {
-      this.token.data[tokenName].removeData(this.prop)
+      this.token.data[tokenName].removeData(this.prop, isDelete)
+      if (isDelete) {
+        delete this.token.data[tokenName]
+      }
     }
   }
 
@@ -250,26 +254,15 @@ class RequireRule extends SimpleData {
     if (tokenName) {
       if (tokenName === true) {
         for (let n in this.token.data) {
-          this.deleteTokenByName(n)
+          this.removeTokenByName(n, true)
         }
       } else {
-        this.deleteTokenByName(tokenName)
+        this.removeTokenByName(tokenName, true)
       }
       return true
     } else {
       this.printMsg(`未指定需要删除的token`)
       return false
-    }
-  }
-
-  /**
-   * 删除token数据Next
-   * @param {string} tokenName 需要删除的tokenName
-   */
-  deleteTokenByName (tokenName) {
-    if (this.token.data[tokenName]) {
-      this.token.data[tokenName].removeData(this.prop)
-      delete this.token.data[tokenName]
     }
   }
 

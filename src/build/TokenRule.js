@@ -84,14 +84,15 @@ class TokenRule {
     return next
   }
   /**
-   * remove token
+   * 清除token数据
    * @param {string} parentProp 父RequireRule的prop属性
+   * @param {boolean} isDelete 是否进行删除
    */
-  removeData(parentProp) {
+  removeData(parentProp, isDelete) {
     removeLocalData(this.buildLocalTokenName(parentProp))
     this.data = undefined
     if (this.removeCurrentData) {
-      this.removeCurrentData(parentProp)
+      this.removeCurrentData(isDelete, parentProp)
     }
   }
 }
