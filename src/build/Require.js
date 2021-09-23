@@ -441,7 +441,7 @@ class Require extends SimpleData {
   postform (optionData) {
     return this.require(optionData, { method: 'post', requestDataType: 'formdata' })
   }
-    /**
+  /**
    * post请求formfile类型,requestDataType/requestCurrentDataType默认为formdata
    * @param {object} optionData 参数
    * @param {string} optionData.url 请求地址
@@ -458,20 +458,6 @@ class Require extends SimpleData {
    */
   postfile (optionData) {
     return this.require(optionData, { method: 'post', requestDataType: 'formdata', requestCurrentDataType: 'formdata' })
-  }
-  /**
-   * 删除token
-   * @param {string} tokenName token名称
-   * @param {string} prop 对应的rule.prop
-   * @returns {boolean}
-   */
-  removeToken (tokenName, prop = 'default') {
-    if (this.rule[prop]) {
-      return this.rule[prop].removeToken(tokenName)
-    } else {
-      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
-      return false
-    }
   }
   /**
    * 设置token
@@ -494,6 +480,20 @@ class Require extends SimpleData {
   getToken (tokenName, prop = 'default') {
     if (this.rule[prop]) {
       return this.rule[prop].getToken(tokenName)
+    } else {
+      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      return false
+    }
+  }
+  /**
+   * 删除token
+   * @param {string} tokenName token名称
+   * @param {string} prop 对应的rule.prop
+   * @returns {boolean}
+   */
+  removeToken (tokenName, prop = 'default') {
+    if (this.rule[prop]) {
+      return this.rule[prop].removeToken(tokenName)
     } else {
       this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
