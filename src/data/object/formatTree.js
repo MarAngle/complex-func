@@ -1,4 +1,3 @@
-import isArray from './../type/isArray'
 
 /**
  * 格式化list为tree数组
@@ -8,42 +7,47 @@ import isArray from './../type/isArray'
  * @param {string} [option.parentId] parentId属性,默认值parentId
  * @param {string} [option.children] 树形接口的子列表属性,默认值children
  * @param {string} [option.type] 返回值类型，默认为list,map情况下将dataMap直接返回
- * @param {function} [option.childrenFormat] 父类children属性存在时的格式化操作
+ * @param {function} [option.format] 数据格式化函数
  * @returns 树形数组
  */
 function formatTree(originList, option = {}) {
+  // 配置参数获取
   const idProp = option.id || 'id'
   const parentIdProp = option.parentId || 'parentId'
   const childrenProp = option.children || 'children'
   const type = option.type || 'list'
-  const childrenFormat = option.childrenFormat
-
+  const format = option.format
+  // 缓存对象
   let dataMap = {}
+  // 树形数组
   let treeList = []
   for (let n = 0; n < originList.length; n++) {
     let originItem = originList[n]
     const id = originItem[idProp]
     const parentId = originItem[parentIdProp]
-
     let mapItem = dataMap[id]
     // 存在值则说明此时存在虚拟构建的数据
     if (mapItem) {
       mapItem.isFormat = true
-      for (let n in originItem) {
-        mapItem.data[n] = originItem[n]
+      if (!format) {
+        for (let n in originItem) {
+          mapItem.data[n] = originItem[n]
+        }
+      } else {
+        format(mapItem.data, originItem)
       }
     } else {
-      // 遍历到此时暂时未有该对象的子对象出现，因此直接实际构建数据
-      if (childrenFormat) {
-        // 存在childrenFormat则进行格式化操作
-        originItem[childrenProp] = childrenFormat(originItem[childrenProp], originItem)
-      } else if (!isArray(originItem[childrenProp])) {
-        // 不存在时格式不为array时进行重写，array不做任何操作
-        originItem[childrenProp] = []
-      }
-      mapItem = {
-        isFormat: true,
-        data: originItem
+      if (!format) {
+        mapItem = {
+          isFormat: true,
+          data: originItem
+        }
+      } else {
+        mapItem = {
+          isFormat: true,
+          data: {}
+        }
+        format(mapItem.data, originItem)
       }
       dataMap[id] = mapItem
     }
@@ -58,6 +62,9 @@ function formatTree(originList, option = {}) {
         }
       }
       dataMap[parentId] = parentMapItem
+    }
+    if (!parentMapItem.data[childrenProp]) {
+      parentMapItem.data[childrenProp] = []
     }
     parentMapItem.data[childrenProp].push(mapItem.data)
   }

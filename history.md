@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.1
+- formatTree删除childrenFormat配置项，添加format配置项
+
 ### 2.2.0
 - require相关调用方式调整
 - require相关实现token的delete/remove方法

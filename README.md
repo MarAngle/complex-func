@@ -375,7 +375,7 @@
   > > - option.parentId?:string,parentId属性,默认值parentId
   > > - option.children?:string,树形接口的子列表属性,默认值children
   > > - option.type?:string,返回值类型,默认为list,map情况下将dataMap直接返回
-  > > - option.childrenFormat?:function,父类children属性存在时的格式化操作
+  > > - option.format?:function,数据格式化函数
   > ### 返回值
   > - res:object[] | {object}
 ### appendProp
