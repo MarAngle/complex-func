@@ -242,34 +242,28 @@ class Require extends SimpleData {
    * @returns {optionData}
    */
   require (optionData, defaultOptionData) {
-    return new Promise((resolve, reject) => {
-      let check = this.check(optionData, defaultOptionData)
-      if (check.next) {
-        if (optionData.requestDataType == 'formdata') {
-          optionData.headers['Content-Type'] = 'multipart/form-data'
-          if (optionData.requestCurrentDataType == 'json') {
-            optionData.data = jsonToForm(optionData.data)
-          }
-        } else if (optionData.requestDataType == 'json') {
-          optionData.data = JSON.stringify(optionData.data)
+    let check = this.check(optionData, defaultOptionData)
+    if (check.next) {
+      if (optionData.requestDataType == 'formdata') {
+        optionData.headers['Content-Type'] = 'multipart/form-data'
+        if (optionData.requestCurrentDataType == 'json') {
+          optionData.data = jsonToForm(optionData.data)
         }
-        if (optionData.params) {
-          for (let n in optionData.params) {
-            if (isArray(optionData.params[n])) {
-              optionData.params[n] = optionData.params[n].join(',')
-            }
-          }
-        }
-        this.requireNext(optionData, check).then(res => {
-          resolve(res)
-        }, err => {
-          reject(err)
-        })
-      } else {
-        this.showFailMsg(true, optionData.failMsg, check.msg, 'error')
-        reject({ status: 'fail', ...check })
+      } else if (optionData.requestDataType == 'json') {
+        optionData.data = JSON.stringify(optionData.data)
       }
-    })
+      if (optionData.params) {
+        for (let n in optionData.params) {
+          if (isArray(optionData.params[n])) {
+            optionData.params[n] = optionData.params[n].join(',')
+          }
+        }
+      }
+      return this.requireNext(optionData, check)
+    } else {
+      this.showFailMsg(true, optionData.failMsg, check.msg, 'error')
+      return Promise.reject({ status: 'fail', ...check })
+    }
   }
   /**
    * 请求下一步操作

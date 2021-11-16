@@ -2,8 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.2-beta
+### 2.2.2
 - 添加resetEnvData函数
+- 优化Promise
 
 ### 2.2.1
 - formatTree删除childrenFormat配置项，添加format配置项

@@ -9,13 +9,7 @@ import workerDo from './workerDo'
  * @param {boolean} [option.log] 日志打印判断
  */
 function setWorker(option = {}) {
-  return new Promise((resolve, reject) => {
-    workerDo(option).then(res => {
-      resolve(res)
-    }, err => {
-      reject(err)
-    })
-  })
+  return workerDo(option)
 }
 
 export default setWorker
