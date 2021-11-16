@@ -118,7 +118,8 @@ import {
   getEnvMode,
   setCanUse,
   setEnv,
-  setEnvMode
+  setEnvMode,
+  resetEnvData
 } from './data/environment/index'
 // environment加载完成
 // worker加载
@@ -253,6 +254,7 @@ let mainfunc = {
   setCanUse,
   setEnv,
   setEnvMode,
+  resetEnvData,
   // worker
   setWorker,
   // rule

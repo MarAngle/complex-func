@@ -50,6 +50,22 @@ export function setEnvMode(data, prop = 'data') {
 }
 
 /**
+ * 真实环境为开发环境下数据变更函数
+ * @param {function} fn 需要触发的函数
+ * @param {string} info 控制台输出
+ * @param  {...any} args 函数参数
+ */
+ export function resetEnvData(fn, info = 'resetEnvData函数触发！', ...args) {
+  // 真实环境为开发环境时触发操作
+  if (getEnv('real') == 'development') {
+    console.error(new Error(info))
+    if (fn) {
+      fn(...args)
+    }
+  }
+}
+
+/**
  * 设置全局属性是否可用
  * @param {string} prop 属性
  * @param {boolean} data 可用

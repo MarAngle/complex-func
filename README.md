@@ -945,6 +945,15 @@
   > - prop:string,环境数据属性值,data为当前环境数据,real为当前真实的环境数据,默认为data
   > ### 返回值
   > - :void
+### resetEnvData
+  > ### 说明
+  > - 真实环境为开发环境下数据变更函数
+  > ### 参数
+  > - fn:string,需要触发的函数
+  > - info?:string,控制台输出
+  > - ...args?:any[],函数参数
+  > ### 返回值
+  > - :void
 ---
 
 ## WORKER多线程
