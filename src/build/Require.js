@@ -87,7 +87,7 @@ class Require extends SimpleData {
       this.rule.default = this.rule[firstProp]
     }
     if (getEnv('real') == 'development' && config.Require.devShowRule) {
-      this.printMsg(`默认的请求规则处理程序为[${this.rule.default._selfName()}]`, 'log')
+      this.exportSelfMsg(`默认的请求规则处理程序为[${this.rule.default._selfName()}]`, 'log')
     }
   }
   /**
@@ -463,7 +463,7 @@ class Require extends SimpleData {
     if (this.rule[prop]) {
       this.rule[prop].setToken(tokenName, data)
     } else {
-      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.exportSelfMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
     }
   }
   /**
@@ -475,7 +475,7 @@ class Require extends SimpleData {
     if (this.rule[prop]) {
       return this.rule[prop].getToken(tokenName)
     } else {
-      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.exportSelfMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
     }
   }
@@ -489,7 +489,7 @@ class Require extends SimpleData {
     if (this.rule[prop]) {
       return this.rule[prop].removeToken(tokenName)
     } else {
-      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.exportSelfMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
     }
   }
@@ -503,7 +503,7 @@ class Require extends SimpleData {
     if (this.rule[prop]) {
       return this.rule[prop].deleteToken(tokenName)
     } else {
-      this.printMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
+      this.exportSelfMsg(`未找到[${tokenName}:${prop}]对应的规则处理程序！`)
       return false
     }
   }

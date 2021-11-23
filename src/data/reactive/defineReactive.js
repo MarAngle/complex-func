@@ -1,4 +1,4 @@
-import printMsg from '../utils/printMsg'
+import exportSelfMsg from '../utils/exportSelfMsg'
 import defineProperty from '../object/defineProperty'
 
 /**
@@ -16,11 +16,11 @@ import defineProperty from '../object/defineProperty'
  */
 function defineReactive(obj, prop, option, val) {
   if (typeof obj != 'object') {
-    printMsg('defineReactive函数错误，obj需要对象格式')
+    exportSelfMsg('defineReactive函数错误，obj需要对象格式')
     return false
   }
   if (typeof option != 'object') {
-    printMsg('defineReactive函数错误，option需要对象格式')
+    exportSelfMsg('defineReactive函数错误，option需要对象格式')
     return false
   }
   const currentDescriptor = Object.getOwnPropertyDescriptor(obj, prop)
@@ -70,7 +70,7 @@ function defineReactive(obj, prop, option, val) {
       }
     }
   } else {
-    printMsg('defineReactive函数运行错误，obj的原descriptor配置中getter和setter未能同时配置，无法实现响应式')
+    exportSelfMsg('defineReactive函数运行错误，obj的原descriptor配置中getter和setter未能同时配置，无法实现响应式')
     return false
   }
   return defineProperty(obj, prop, descriptor)

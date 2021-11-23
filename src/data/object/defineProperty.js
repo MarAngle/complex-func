@@ -1,4 +1,4 @@
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 
 /**
  * 设置属性描述
@@ -15,11 +15,11 @@ import printMsg from './../utils/printMsg'
  */
 function defineProperty(obj, prop, descriptor) {
   if (typeof obj != 'object') {
-    printMsg('defineProperty中obj需要对象格式')
+    exportSelfMsg('defineProperty中obj需要对象格式')
     return false
   }
   if (typeof descriptor != 'object') {
-    printMsg('defineProperty中descriptor需要传递descriptor对象')
+    exportSelfMsg('defineProperty中descriptor需要传递descriptor对象')
     return false
   }
   if (descriptor.configurable === undefined) {

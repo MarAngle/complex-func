@@ -1,4 +1,4 @@
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 import findTargetInStrNext from './findTargetInStrNext'
 
 /**
@@ -21,7 +21,7 @@ function findTargetInStr(str, target, option = {}) {
     }
     return findTargetInStrNext(str, target, limitNum)
   } else {
-    printMsg('str/target参数不存在')
+    exportSelfMsg('str/target参数不存在')
     return []
   }
 }

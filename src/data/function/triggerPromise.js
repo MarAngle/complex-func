@@ -1,4 +1,4 @@
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 import isPromise from './../type/isPromise'
 import triggerFunc from './triggerFunc'
 
@@ -54,7 +54,7 @@ function triggerPromise({
     })
   } else {
     if (!triggerFunc(error, code)) {
-      printMsg(`triggerPromise函数运行错误，code: ${code}`)
+      exportSelfMsg(`triggerPromise函数运行错误，code: ${code}`)
     }
   }
 }

@@ -1,4 +1,4 @@
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 import getType from './../type/getType'
 import updateData from './updateData'
 
@@ -18,7 +18,7 @@ import updateData from './updateData'
 function updateList(targetlist, originlist, option = {}) {
   // 生成check函数
   if (!option.check) {
-    printMsg('请传递check函数判断相同对象')
+    exportSelfMsg('请传递check函数判断相同对象')
     return
   } else {
     let type = getType(option.check)

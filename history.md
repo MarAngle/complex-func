@@ -2,6 +2,10 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.3-beta
+- printMsgAct => exportMsg
+- printMsg => exportSelfMsg
+
 ### 2.2.2
 - 添加resetEnvData函数
 - 优化Promise
@@ -125,7 +129,7 @@
 ### 2.0.18
 - current注释
 - jsonToForm无法递归,使用JSON字符串实现逻辑
-- printMsgAct为引用isError的错误
+- exportMsg为引用isError的错误
 - tokenRule的类实现
 - SimpleData类实现
 - requiredata结构调整
@@ -145,7 +149,7 @@
 
 ### 2.0.14
 - hasProp逻辑优化，错误修复
-- printMsgAct优化，添加Error判断
+- exportMsg优化，添加Error判断
 - isError
 - utils代码格式优化
 - 暴露requiredata
@@ -176,6 +180,6 @@
 - 代码结构优化
 
 ### 2.0.10
-- 优化printMsg函数，添加printMsgAct函数，优化整体错误输出相关
+- 优化exportSelfMsg函数，添加exportMsg函数，优化整体错误输出相关
 - 全局类的_selfName函数逻辑统一，实现类实例的名称输出
 - 优化全局类的toString函数，统一调用_selfName函数输出

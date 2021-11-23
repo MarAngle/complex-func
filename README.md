@@ -668,7 +668,7 @@
   > - url:string
   > ### 返回值
   > - queryData:object
-### printMsg
+### exportSelfMsg
   > ### 说明
   > - complex-func错误信息输出函数
   > ### 参数
@@ -679,7 +679,7 @@
   > - object.type?:'error' | 'warn' | 'log',额外信息提示类型
   > ### 返回值
   > - :void
-### printMsgAct
+### exportMsg
   > ### 说明
   > - 错误信息输出函数
   > ### 参数

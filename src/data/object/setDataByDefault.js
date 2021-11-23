@@ -1,5 +1,5 @@
 import getType from '../type/getType'
-import printMsg from '../utils/printMsg'
+import exportSelfMsg from '../utils/exportSelfMsg'
 
 function setObject(targetData, defaultData, map = new Map()) {
   if (getType(targetData) !== 'object') {
@@ -48,7 +48,7 @@ function setDataByDefault(targetData, defaultData = {}) {
   } else if (type === 'array') {
     return setArray(targetData, defaultData)
   } else {
-    printMsg('setDataByDefault函数运行错误，defaultData参数仅可接收对象和数组格式！')
+    exportSelfMsg('setDataByDefault函数运行错误，defaultData参数仅可接收对象和数组格式！')
     return targetData
   }
 }

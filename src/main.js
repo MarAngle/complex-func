@@ -89,8 +89,8 @@ import getQueryData from './data/utils/getQueryData'
 import getQueryUrl from './data/utils/getQueryUrl'
 import loadContents from './data/utils/loadContents'
 import openWindow from './data/utils/openWindow'
-import printMsg from './data/utils/printMsg'
-import printMsgAct from './data/utils/printMsgAct'
+import exportSelfMsg from './data/utils/exportSelfMsg'
+import exportMsg from './data/utils/exportMsg'
 import promiseAllFinished from './data/utils/promiseAllFinished'
 import showJson from './data/utils/showJson'
 import throttle from './data/utils/throttle'
@@ -228,8 +228,8 @@ let mainfunc = {
   getQueryUrl,
   loadContents,
   openWindow,
-  printMsg,
-  printMsgAct,
+  exportSelfMsg,
+  exportMsg,
   promiseAllFinished,
   showJson,
   throttle,
@@ -340,9 +340,9 @@ let mainfunc = {
         append = true
       } else if (methodData.replace) {
         append = true
-        this.printMsg(`appendMethod: ${methodName} is replace`, 'warn')
+        this.exportSelfMsg(`appendMethod: ${methodName} is replace`, 'warn')
       } else {
-        this.printMsg(`appendMethod: ${methodName} is defined`)
+        this.exportSelfMsg(`appendMethod: ${methodName} is defined`)
       }
       if (append) {
         if (target) {
@@ -377,7 +377,7 @@ let mainfunc = {
     if (root) {
       for (let n in root) {
         if (this[n]) {
-          this.printMsg(`root属性${n}设置冲突，请检查!`)
+          this.exportSelfMsg(`root属性${n}设置冲突，请检查!`)
         } else {
           this[n] = root[n]
         }

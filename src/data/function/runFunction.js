@@ -1,5 +1,5 @@
 import isPromise from './../type/isPromise'
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 
 /**
  * 触发函数，通过回调的形式触发函数，存在callback时则直接进行下一步操作，可接收同步函数和Promise函数
@@ -36,7 +36,7 @@ function runFunction(func, args, callback) {
     }
   } else {
     mainRes.code = 'argsError'
-    printMsg(`triggerTargetFunc函数运行错误，code: ${mainRes.code}`)
+    exportSelfMsg(`triggerTargetFunc函数运行错误，code: ${mainRes.code}`)
     next(mainRes)
   }
 }

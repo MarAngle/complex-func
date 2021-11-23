@@ -1,4 +1,4 @@
-import printMsgAct from './../data/utils/printMsgAct'
+import exportMsg from './../data/utils/exportMsg'
 
 class SimpleData {
   /**
@@ -14,8 +14,8 @@ class SimpleData {
    * @param {string} type 类型
    * @param {object} [option] 额外信息
    */
-  printMsg(info, type = 'error', option) {
-    printMsgAct(this._selfName() + ':' + info, type, option)
+  exportSelfMsg(info, type = 'error', option) {
+    exportMsg(this._selfName() + ':' + info, type, option)
   }
   /**
    * toString方法改写

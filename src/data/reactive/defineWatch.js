@@ -1,4 +1,4 @@
-import printMsg from './../utils/printMsg'
+import exportSelfMsg from './../utils/exportSelfMsg'
 import defineProperty from './../object/defineProperty'
 import defineReactive from './defineReactive'
 
@@ -19,7 +19,7 @@ function defineWatch(obj, prop, option) {
       handler: option
     }
   } else if (optionType != 'object') {
-    printMsg(`defineWatch函数传参错误，option格式为:${optionType}`)
+    exportSelfMsg(`defineWatch函数传参错误，option格式为:${optionType}`)
     return false
   }
   let reactiveOption = {

@@ -1,5 +1,5 @@
 import getType from './../data/type/getType'
-import printMsgAct from './../data/utils/printMsgAct'
+import exportMsg from './../data/utils/exportMsg'
 
 const base = {
   num: '0-9',
@@ -27,7 +27,7 @@ class RuleData {
    */
   initMain(initdata) {
     if (!initdata) {
-      this.printMsg('init无参数!')
+      this.exportSelfMsg('init无参数!')
       return false
     }
     // 类型
@@ -160,8 +160,8 @@ class RuleData {
       return this.data(data, option)
     }
   }
-  printMsg(info, type = 'error', option) {
-    printMsgAct(this._selfName() + ':' + info, type, option)
+  exportSelfMsg(info, type = 'error', option) {
+    exportMsg(this._selfName() + ':' + info, type, option)
   }
   _selfName() {
     return `[${this.constructor.name}]`

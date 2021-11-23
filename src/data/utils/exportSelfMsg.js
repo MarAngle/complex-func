@@ -1,4 +1,4 @@
-import printMsgAct from './printMsgAct'
+import exportMsg from './exportMsg'
 /**
  * complex-func错误信息输出函数
  * @param {string} msg 错误信息内容
@@ -7,9 +7,9 @@ import printMsgAct from './printMsgAct'
  * @param {string} [option.data] 额外信息内容
  * @param {'error' | 'warn' | 'log'} [option.type] 额外信息提示类型
  */
-function printMsg(msg = '', type = 'error', option) {
-  let preMsg = `[complex-func]`
-  printMsgAct(preMsg + msg, type, option)
+function exportSelfMsg(msg = '', type = 'error', option) {
+  let preMsg = '[complex-func]'
+  exportMsg(preMsg + msg, type, option)
 }
 
-export default printMsg
+export default exportSelfMsg
