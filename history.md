@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.3-beta
+### 2.2.3
 - printMsgAct => exportMsg
 - printMsg => exportSelfMsg
 
