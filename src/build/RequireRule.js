@@ -227,7 +227,7 @@ class RequireRule extends SimpleData {
       }
       return true
     } else {
-      this.exportSelfMsg(`未指定需要删除的token`)
+      this.$exportMsg(`未指定需要删除的token`)
       return false
     }
   }
@@ -261,12 +261,12 @@ class RequireRule extends SimpleData {
       }
       return true
     } else {
-      this.exportSelfMsg(`未指定需要删除的token`)
+      this.$exportMsg(`未指定需要删除的token`)
       return false
     }
   }
 
-  _selfName() {
+  $selfName() {
     return `(${this.constructor.name}:[${this.name}/${this.prop}])`
   }
 }

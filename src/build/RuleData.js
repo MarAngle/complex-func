@@ -27,7 +27,7 @@ class RuleData {
    */
   initMain(initdata) {
     if (!initdata) {
-      this.exportSelfMsg('init无参数!')
+      this.$exportMsg('init无参数!')
       return false
     }
     // 类型
@@ -160,14 +160,14 @@ class RuleData {
       return this.data(data, option)
     }
   }
-  exportSelfMsg(info, type = 'error', option) {
-    exportMsg(this._selfName() + ':' + info, type, option)
+  $exportMsg(info, type = 'error', option) {
+    exportMsg(this.$selfName() + ':' + info, type, option)
   }
-  _selfName() {
+  $selfName() {
     return `[${this.constructor.name}]`
   }
   toString() {
-    return this._selfName()
+    return this.$selfName()
   }
 }
 

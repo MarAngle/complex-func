@@ -2,6 +2,12 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.4
+- 添加page模块
+- require
+- - exportSelfMsg => $exportMsg
+- - _selfName => $selfName
+
 ### 2.2.3
 - printMsgAct => exportMsg
 - printMsg => exportSelfMsg

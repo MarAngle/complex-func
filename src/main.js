@@ -129,6 +129,7 @@ import setWorker from './data/worker/setWorker'
 import buildRule from './data/rule/buildRule'
 import checkRule from './data/rule/checkRule'
 // rule加载完成
+import page from './data/page'
 import current from './data/current'
 import Require from './build/Require'
 import notice from './option/noticeData'
@@ -141,6 +142,7 @@ import notice from './option/noticeData'
 let mainfunc = {
   requiredata: new Require(),
   current: current,
+  page: page,
   data: {},
   // type
   checkComplex,
