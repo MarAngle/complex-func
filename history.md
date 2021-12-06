@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.5
+- page模块优化
+
 ### 2.2.4
 - 添加page模块
 - require
