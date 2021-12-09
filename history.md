@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.6
+- 拷贝数据相关添加原型判断和hasOwnProperty判断
+
 ### 2.2.5
 - page模块优化
 

@@ -15,9 +15,14 @@ function deepCloneData(origindata, map = new Map()) {
       return result
     } else {
       result = type === 'object' ? {} : []
+      if (Object.getPrototypeOf(result) !== Object.getPrototypeOf(origindata)) {
+        Object.setPrototypeOf(result, Object.getPrototypeOf(origindata))
+      }
       map.set(origindata, result)
       for (let key in origindata) {
-        result[key] = deepCloneData(origindata[key], map)
+        if (origindata.hasOwnProperty(key)) {
+          result[key] = deepCloneData(origindata[key], map)
+        }
       }
       return result
     }

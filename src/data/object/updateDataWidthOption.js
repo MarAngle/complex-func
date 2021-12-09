@@ -57,20 +57,25 @@ function updateDataWidthOption(targetdata, origindata, option, currentnum = 1, c
         } else if (option.type == 'total') {
           cachePropList = []
         }
+        if (Object.getPrototypeOf(targetdata) !== Object.getPrototypeOf(origindata)) {
+          Object.setPrototypeOf(targetdata, Object.getPrototypeOf(origindata))
+        }
         map.set(origindata, targetdata)
         for (let key in origindata) {
-          let nextprop = currentprop ? currentprop + '.' + key : key
-          // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
-          if (!option.limitData.getLimit(nextprop)) {
-            targetdata[key] = updateDataWidthOption(targetdata[key], origindata[key], option, currentnum, nextprop, map)
-            if (cachePropList) {
-              // 将进行赋值操作的属性进行缓存
-              cachePropList.push(key)
+          if (origindata.hasOwnProperty(key)) {
+            let nextprop = currentprop ? currentprop + '.' + key : key
+            // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
+            if (!option.limitData.getLimit(nextprop)) {
+              targetdata[key] = updateDataWidthOption(targetdata[key], origindata[key], option, currentnum, nextprop, map)
+              if (cachePropList) {
+                // 将进行赋值操作的属性进行缓存
+                cachePropList.push(key)
+              }
             }
           }
         }
         if (cachePropList && cachePropList.length > 0) {
-          // 存在缓存属性时说明此时模式为total模式，删除源数据未命中的属性
+          // 存在缓存属性时说明此时模式为total模式，删除目标数据未命中的属性
           for (let n in targetdata) {
             if (cachePropList.indexOf(n) < 0) {
               delete targetdata[n]
