@@ -3,7 +3,7 @@
 - setDataByDefault循环引用判断添加
 
 ### 2.2.7
-- 通过Vue.observable将complex-func转换为响应式数据
+- 通过Vue.observable将complex-func转换为响应式数据，仅对根属性存在的对象进行构建
 
 ### 2.2.6
 - 拷贝数据相关添加原型判断和hasOwnProperty判断

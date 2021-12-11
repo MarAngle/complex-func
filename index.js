@@ -10,7 +10,12 @@ mainfunc.install = function(Vue, options = {}) {
     options.prop = '_func'
   }
   if (options.prop) {
-    Vue.observable(this)
+    // 构建响应式数据
+    for (let prop in this) {
+      if (this.getType(this[prop] == 'object')) {
+        Vue.observable(this[prop])
+      }
+    }
     Vue.prototype[options.prop] = this
   }
   if (options.toGlobal) {
