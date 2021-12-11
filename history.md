@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.7
+- 通过Vue.observable将complex-func转换为响应式数据
+
 ### 2.2.6
 - 拷贝数据相关添加原型判断和hasOwnProperty判断
 
