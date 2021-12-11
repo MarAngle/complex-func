@@ -384,7 +384,7 @@ let mainfunc = {
           this[n] = root[n]
           let type = getType(this[n])
           if (type !== 'object') {
-            this.exportSelfMsg(`root属性${n}类型为${type}，非object的值推荐赋值到data对象中，否则无法构建为响应式数据！`, 'waring')
+            this.exportSelfMsg(`root属性${n}类型为${type}，非object的值推荐赋值到data对象中，否则无法构建为响应式数据！`, 'warn')
           }
         }
       }

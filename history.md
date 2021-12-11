@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.8
+- warn BUG 修复
+
 ### 2.2.7
 - 通过Vue.observable将complex-func转换为响应式数据，仅对根属性存在的对象进行构建
 
