@@ -5,11 +5,12 @@
  * @param {string} name
  * @returns {boolean} 是否成功
  */
-function downloadFileByAnchor(url, name = '') {
+function downloadFileByAnchor(url, name = '', target = '_blank') {
   let anchor = document.createElement('a')
   if ('download' in anchor) {
     anchor.setAttribute('download', name)
     anchor.href = url
+    anchor.target = target
     anchor.click()
     setTimeout(function() {
       anchor = null

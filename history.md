@@ -2,6 +2,10 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.9
+- git地址切换
+- downloadFileByAnchor下载默认新建窗口进行
+
 ### 2.2.8
 - warn BUG 修复
 
