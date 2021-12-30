@@ -68,8 +68,8 @@ import defineReactive from './data/reactive/defineReactive'
 import defineWatch from './data/reactive/defineWatch'
 // reactive加载
 // observe加载
-import observe from './data/observe/observe'
-import Watcher from './data/observe/Watcher'
+// import observe from './data/observe/observe'
+// import Watcher from './data/observe/Watcher'
 // observe加载
 // function加载
 import runFunction from './data/function/runFunction'
@@ -210,8 +210,8 @@ let mainfunc = {
   defineWatch,
   // reactive
   // reactive
-  observe,
-  Watcher,
+  // observe,
+  // Watcher,
   // reactive
   // function
   runFunction,
