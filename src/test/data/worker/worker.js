@@ -4,17 +4,17 @@ import setWorker from '../../../data/worker/setWorker';
 runText(function({ showError }) {
   setWorker({
     func: function(list) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve({ a: 1 })
-        }, 2000)
+          resolve({ a: 1, list: list })
+        }, 5000)
       })
     },
     args: [[1, 23]],
-    sync: false,
     log: true
   }).then(
     res => {
+      console.log(res)
       if (res.a != 1) {
         showError('worker数据错误')
       }
