@@ -17,8 +17,8 @@ function showError(error) {
 function checkSame(value, other, error) {
   if (!isSame(value, other)) {
     console.error(value, other)
-    console.error(JSON.stringify(value))
-    console.error(JSON.stringify(other))
+    // console.error(JSON.stringify(value))
+    // console.error(JSON.stringify(other))
     showError(error)
   }
 }

@@ -1,7 +1,7 @@
 
-function appendData(target, origin, propList) {
+function appendData(target, origin, childrenProp) {
   for (const prop in origin) {
-    if (propList.indexOf(prop) == -1) {
+    if (childrenProp != prop) {
       target[prop] = origin[prop]
     }
   }
@@ -25,6 +25,7 @@ function formatTree(originList, option = {}) {
   const childrenProp = option.children || 'children'
   const type = option.type || 'list'
   const format = option.format
+  const merge = option.merge
   // 缓存对象
   let dataMap = {}
   // 树形数组
@@ -37,13 +38,13 @@ function formatTree(originList, option = {}) {
     // 存在值则说明此时存在虚拟构建的数据
     if (mapItem) {
       mapItem.isFormat = true
-      appendData(mapItem.data, format ? format(originItem, 'append', mapItem.data) : originItem, [ childrenProp ])
+      appendData(mapItem.data, format ? format(originItem, 'append', mapItem.data) : originItem, childrenProp)
     } else {
       mapItem = {
         isFormat: true,
         data: {}
       }
-      appendData(mapItem.data, format ? format(originItem, 'init', mapItem.data) : originItem, [ childrenProp ])
+      appendData(mapItem.data, format ? format(originItem, 'init', mapItem.data) : originItem, childrenProp)
       dataMap[id] = mapItem
     }
     let parentMapItem = dataMap[parentId]
