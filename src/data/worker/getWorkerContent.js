@@ -14,7 +14,7 @@ function getWorkerContent(func, sync, log) {
         var func = ${func.toString()}
         var res = func.apply(null, e.data.args)
         postMessage({ status: 'success', data: res })
-        ${log ? 'console.log("Worker Finish: sync")' : '' }
+        ${log ? 'console.log("Worker Finish: success sync")' : '' }
       }
     `
   } else {

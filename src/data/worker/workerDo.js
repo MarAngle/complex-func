@@ -2,6 +2,8 @@ import { getCanUse } from './../environment/index'
 import getType from './../type/getType'
 import getWorkerContent from './getWorkerContent'
 
+let URL = window.URL || window.webkitURL
+
 /**
  * 进行worker调用,不可用时直接进行调用
  * @param {object} option 设置项
@@ -19,10 +21,11 @@ function workerDo({ func, args, option, sync, log }) {
       return new Promise((resolve, reject) => {
         let content = getWorkerContent(func, sync, log)
         let blob = new Blob([content], { type: 'text/javascript' })
-        let url = window.URL.createObjectURL(blob)
+        let url = URL.createObjectURL(blob)
         let dofunc = new Worker(url, option || {})
         dofunc.onerror = function (e) {
           reject({ status: 'fail', code: 'error', data: e })
+          URL.revokeObjectURL(url)
         }
         dofunc.onmessage = function (event) {
           let res = event.data
@@ -31,11 +34,11 @@ function workerDo({ func, args, option, sync, log }) {
           } else {
             reject(res.data)
           }
+          URL.revokeObjectURL(url)
         }
         dofunc.postMessage({
           args: args
         })
-        window.URL.revokeObjectURL(url)
       })
     } else {
       if (sync) {

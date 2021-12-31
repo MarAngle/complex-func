@@ -1,6 +1,8 @@
 import downloadFileByAnchor from './downloadFileByAnchor'
 import openWindow from './openWindow'
 
+let URL = window.URL || window.webkitURL
+
 /**
  * 下载blob文件
  * @param {*} blobValue
@@ -18,17 +20,15 @@ function downloadBlob(blobValue, type, name = '') {
     blobData.append(blobValue)
     blob = blobData.getBlob(type)
   }
-  let URL = window.URL || window.webkitURL
   let blobUrl = URL.createObjectURL(blob)
   if (downloadFileByAnchor(blobUrl, name)) {
-    return true
   } else if (navigator.msSaveBlob) {
     navigator.msSaveBlob(blob, name)
-    return true
   } else {
     openWindow(blobUrl)
-    return true
   }
+  URL.revokeObjectURL(blobUrl)
+  return true
 }
 
 export default downloadBlob
