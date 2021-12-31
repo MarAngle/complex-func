@@ -1,9 +1,26 @@
+import getType from '../type/getType'
 
-function appendData(target, origin, childrenProp) {
-  for (const prop in origin) {
+function appendData(targetData, originData, childrenProp, childrenMerge, childrenBuild) {
+  for (const prop in originData) {
     if (childrenProp != prop) {
-      target[prop] = origin[prop]
+      targetData[prop] = originData[prop]
+    } else {
+      if (childrenMerge) {
+        // 合并模式下
+        if (originData[prop] && originData[prop].length > 0) {
+          if (!targetData[prop]) {
+            targetData[prop] = originData[prop]
+          } else {
+            for (let i = 0; i < originData[prop].length; i++) {
+              targetData[prop].push(originData[prop][i])
+            }
+          }
+        }
+      }
     }
+  }
+  if (childrenBuild && !targetData[childrenProp]) {
+    targetData[childrenProp] = []
   }
 }
 
@@ -20,12 +37,22 @@ function appendData(target, origin, childrenProp) {
  */
 function formatTree(originList, option = {}) {
   // 配置参数获取
-  const idProp = option.id || 'id'
-  const parentIdProp = option.parentId || 'parentId'
-  const childrenProp = option.children || 'children'
   const type = option.type || 'list'
   const format = option.format
-  const merge = option.merge
+  const idProp = option.id || 'id'
+  const parentIdProp = option.parentId || 'parentId'
+  let childrenProp
+  let childrenMerge
+  let childrenBuild
+  const childrenOptionType = getType(option.children)
+  if (childrenOptionType !== 'object') {
+    childrenProp = option.children || 'children'
+  } else {
+    childrenProp = option.children.prop || 'children'
+    childrenMerge = option.children.merge
+    childrenBuild = option.children.build
+  }
+
   // 缓存对象
   let dataMap = {}
   // 树形数组
@@ -38,13 +65,13 @@ function formatTree(originList, option = {}) {
     // 存在值则说明此时存在虚拟构建的数据
     if (mapItem) {
       mapItem.isFormat = true
-      appendData(mapItem.data, format ? format(originItem, 'append', mapItem.data) : originItem, childrenProp)
+      appendData(mapItem.data, format ? format(originItem, 'append', mapItem.data) : originItem, childrenProp, childrenMerge, childrenBuild)
     } else {
       mapItem = {
         isFormat: true,
         data: {}
       }
-      appendData(mapItem.data, format ? format(originItem, 'init', mapItem.data) : originItem, childrenProp)
+      appendData(mapItem.data, format ? format(originItem, 'init', mapItem.data) : originItem, childrenProp, childrenMerge, childrenBuild)
       dataMap[id] = mapItem
     }
     let parentMapItem = dataMap[parentId]
