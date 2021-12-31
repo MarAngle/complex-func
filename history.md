@@ -2,10 +2,11 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.10-beta
+### 2.2.10
 - formatTree错误修正
 - 响应式数据相关不默认输出
 - Worker优化: url自动销毁，同步判断修正，逻辑优化
+- revokeObjectURL优化
 
 ### 2.2.9
 - git地址切换
