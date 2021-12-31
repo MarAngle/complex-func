@@ -1,4 +1,12 @@
 
+function appendData(target, origin, propList) {
+  for (const prop in origin) {
+    if (propList.indexOf(prop) == -1) {
+      target[prop] = origin[prop]
+    }
+  }
+}
+
 /**
  * 格式化list为tree数组
  * @param {object[]} originList 源数组
@@ -29,26 +37,13 @@ function formatTree(originList, option = {}) {
     // 存在值则说明此时存在虚拟构建的数据
     if (mapItem) {
       mapItem.isFormat = true
-      if (!format) {
-        for (let n in originItem) {
-          mapItem.data[n] = originItem[n]
-        }
-      } else {
-        format(mapItem.data, originItem)
-      }
+      appendData(mapItem.data, format ? format(originItem, 'append', mapItem.data) : originItem, [ childrenProp ])
     } else {
-      if (!format) {
-        mapItem = {
-          isFormat: true,
-          data: originItem
-        }
-      } else {
-        mapItem = {
-          isFormat: true,
-          data: {}
-        }
-        format(mapItem.data, originItem)
+      mapItem = {
+        isFormat: true,
+        data: {}
       }
+      appendData(mapItem.data, format ? format(originItem, 'init', mapItem.data) : originItem, [ childrenProp ])
       dataMap[id] = mapItem
     }
     let parentMapItem = dataMap[parentId]

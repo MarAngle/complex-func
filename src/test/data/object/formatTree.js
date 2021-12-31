@@ -89,13 +89,7 @@ runText(function({ checkSame }) {
     }
   ], 'formatTree未成功')
   let treeList2 = formatTree(list, {
-    parentId: 'pid',
-    childrenFormat: function(childrenList, originItem) {
-      if (childrenList) {
-        childrenList = []
-      }
-      return childrenList
-    }
+    parentId: 'pid'
   })
   checkSame(treeList2, [
     {
