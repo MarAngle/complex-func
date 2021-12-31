@@ -9,7 +9,7 @@ function appendData(targetData, originData, childrenProp, childrenMerge, childre
         // 合并模式下
         if (originData[prop] && originData[prop].length > 0) {
           if (!targetData[prop]) {
-            targetData[prop] = originData[prop]
+            targetData[prop] = [ ...originData[prop] ]
           } else {
             for (let i = 0; i < originData[prop].length; i++) {
               targetData[prop].push(originData[prop][i])

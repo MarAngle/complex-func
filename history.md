@@ -3,6 +3,7 @@
 - setDataByDefault循环引用判断添加
 
 ### 2.2.10-beta
+- formatTree错误修正
 - 响应式数据相关不默认输出
 - Worker优化: url自动销毁，同步判断修正，逻辑优化
 - 测试已开启
