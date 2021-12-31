@@ -61,8 +61,7 @@ runText(function({ checkSame }) {
             {
               pid: 3,
               id: 6,
-              name: '3-6',
-              children: []
+              name: '3-6'
             }
           ],
           pid: 2,
@@ -72,8 +71,7 @@ runText(function({ checkSame }) {
         {
           pid: 2,
           id: 5,
-          name: '2-5',
-          children: []
+          name: '2-5'
         }
       ]
     },
@@ -85,8 +83,7 @@ runText(function({ checkSame }) {
         {
           pid: 1,
           id: 4,
-          name: '1-4',
-          children: []
+          name: '1-4'
         }
       ]
     }

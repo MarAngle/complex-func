@@ -11,7 +11,7 @@ runText(function({ showError }) {
       })
     },
     args: [[1, 23]],
-    isSync: true,
+    sync: false,
     log: true
   }).then(
     res => {
