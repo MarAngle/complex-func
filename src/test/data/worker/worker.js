@@ -14,11 +14,28 @@ runText(function({ showError }) {
     log: true
   }).then(
     res => {
-      console.log(res)
+      // console.log(res)
       if (res.a != 1) {
         showError('worker数据错误')
       }
      },
+    err => { console.log(err) }
+  )
+
+  setWorker({
+    func: function(list) {
+      return 123
+    },
+    sync: true,
+    args: [[1, 23]],
+    log: true
+  }).then(
+    res => {
+      // console.log(res)
+      if (res != 123) {
+        showError('worker数据错误')
+      }
+    },
     err => { console.log(err) }
   )
 });

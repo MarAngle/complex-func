@@ -7,6 +7,7 @@ import getWorkerContent from './getWorkerContent'
  * @param {object} option 设置项
  * @param {function} option.func 函数体
  * @param {*[]} option.args 函数参数列表
+ * @param {object} [option.option] Worker设置项
  * @param {boolean} [option.sync] 是否同步函数
  * @param {boolean} [option.log] 日志打印判断
  * @returns {Promise} 分支运行的Promise
