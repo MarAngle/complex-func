@@ -28,7 +28,7 @@ class TokenRule {
    * @param {string} parentProp 父RequireRule的prop属性
    * @returns {string}
    */
-  buildLocalTokenName(parentProp) {
+  $buildLocalTokenName(parentProp) {
     return `${parentProp || ''}-${this.prop}`
   }
   /**
@@ -40,7 +40,7 @@ class TokenRule {
   setData(parentProp, data, noSave) {
     this.data = data
     if (!noSave) {
-      setLocalData(this.buildLocalTokenName(parentProp), data)
+      setLocalData(this.$buildLocalTokenName(parentProp), data)
     }
   }
   /**
@@ -56,7 +56,7 @@ class TokenRule {
       data = this.data
     }
     if (!this.checkCurrentData(data)) {
-      data = getLocalData(this.buildLocalTokenName(parentProp))
+      data = getLocalData(this.$buildLocalTokenName(parentProp))
       if (this.checkCurrentData(data)) {
         this.setData(parentProp, data, true)
       }
@@ -89,7 +89,7 @@ class TokenRule {
    * @param {boolean} isDelete 是否进行删除
    */
   removeData(parentProp, isDelete) {
-    removeLocalData(this.buildLocalTokenName(parentProp))
+    removeLocalData(this.$buildLocalTokenName(parentProp))
     this.data = undefined
     if (this.removeCurrentData) {
       this.removeCurrentData(isDelete, parentProp)

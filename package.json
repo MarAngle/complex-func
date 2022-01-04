@@ -1,6 +1,6 @@
 {
   "name": "complex-func",
-  "version": "2.2.10",
+  "version": "2.2.11-beta",
   "description": "a complex function",
   "main": "index.js",
   "repository": {

@@ -18,14 +18,14 @@ const base = {
 class RuleData {
   constructor (initdata) {
     if (initdata) {
-      this.initMain(initdata)
+      this.$initMain(initdata)
     }
   }
   /**
    * 加载
    * @param {*} initdata 参数
    */
-  initMain(initdata) {
+  $initMain(initdata) {
     if (!initdata) {
       this.$exportMsg('init无参数!')
       return false
@@ -33,19 +33,19 @@ class RuleData {
     // 类型
     this.type = initdata.type || 'reg'
     if (initdata.build) {
-      this.buildData(initdata)
+      this.$buildData(initdata)
     } else {
       this.data = initdata.data
     }
     // 是否组合模式
-    this.merge = this.formatMerge(initdata.merge)
+    this.merge = this.$formatMerge(initdata.merge)
   }
   /**
    * 格式化组合数据
    * @param {true | object} [mergeData] 组合式初始化数据
    * @returns {undefined | object}
    */
-  formatMerge(mergeData) {
+  $formatMerge(mergeData) {
     if (mergeData) {
       if (mergeData === true) {
         mergeData = {}
@@ -75,12 +75,12 @@ class RuleData {
    * 初始化数据
    * @param {object} initdata 数据
    */
-  buildData(initdata) {
+  $buildData(initdata) {
     if (this.type == 'reg') {
       if (initdata.merge === undefined) {
         initdata.merge = true
       }
-      let regData = this.buildRegData(initdata.build, base)
+      let regData = this.$buildRegData(initdata.build, base)
       this.data = regData
     }
   }
@@ -90,13 +90,13 @@ class RuleData {
    * @param {object} data 属性prop的归属数据
    * @returns {string}
    */
-  buildRegData(propObject, data) {
+  $buildRegData(propObject, data) {
     let regStr = ''
     if (propObject === true) {
       for (let n in data) {
         let info = data[n]
         if (getType(info) == 'object') {
-          regStr += this.buildRegData(true, info)
+          regStr += this.$buildRegData(true, info)
         } else {
           regStr += info
         }
@@ -108,7 +108,7 @@ class RuleData {
           let prop = propObject[i]
           let info = data[i]
           if (getType(info) === 'object') {
-            regStr += this.buildRegData(getType(prop) === 'string' ? true : prop, info)
+            regStr += this.$buildRegData(getType(prop) === 'string' ? true : prop, info)
           } else {
             regStr += info
           }
@@ -123,7 +123,7 @@ class RuleData {
    * @param {object} mergeData 组合数据
    * @returns {string}
    */
-  buildRegStr(regData, mergeData) {
+  $buildRegStr(regData, mergeData) {
     return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.end}`
   }
   /**
@@ -132,8 +132,8 @@ class RuleData {
    * @param {object} mergeData 组合数据
    * @returns {RegExp}
    */
-  buildReg(regData, mergeData) {
-    return new RegExp(this.buildRegStr(regData, mergeData))
+  $buildReg(regData, mergeData) {
+    return new RegExp(this.$buildRegStr(regData, mergeData))
   }
   /**
    * 检查数据
@@ -145,11 +145,11 @@ class RuleData {
     if (this.type == 'reg') {
       let reg = this.data
       if (option.merge) {
-        option.merge = this.formatMerge(option.merge)
+        option.merge = this.$formatMerge(option.merge)
       }
       let merge = option.merge || this.merge
       if (merge) {
-        reg = this.buildReg(reg, merge)
+        reg = this.$buildReg(reg, merge)
       }
       let type = getType(reg)
       if (type != 'regexp') {

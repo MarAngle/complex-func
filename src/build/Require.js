@@ -21,21 +21,21 @@ class Require extends SimpleData {
       504: '网络超时!'
     }
     if (initdata) {
-      this.initMain(initdata)
+      this.$initMain(initdata)
     }
   }
-  initMain({ api, option, rule, status }) {
-    this.initApi(api)
-    this.initService(option)
-    this.initRule(rule)
-    this.initStatus(status)
+  $initMain({ api, option, rule, status }) {
+    this.$initApi(api)
+    this.$initService(option)
+    this.$initRule(rule)
+    this.$initStatus(status)
   }
   /**
    * 加载api
    * @param {object} api
    * @param {string} api.baseURL
    */
-  initApi (api) {
+  $initApi (api) {
     if (api && api.baseURL) {
       this.api.baseURL = api.baseURL
     }
@@ -45,7 +45,7 @@ class Require extends SimpleData {
    * @param {object} option
    * @returns {object}
    */
-  buildOption (option = {}) {
+  $buildOption (option = {}) {
     if (!option.headers) {
       option.headers = {}
     }
@@ -59,22 +59,22 @@ class Require extends SimpleData {
    * @param {*} option
    * @returns {axios}
    */
-  buildService(option) {
-    return axios.create(this.buildOption(option))
+  $buildService(option) {
+    return axios.create(this.$buildOption(option))
   }
   /**
    * 创建service
    * @param {*} option
    */
-  initService (option) {
-    this.service = this.buildService(option)
+  $initService (option) {
+    this.service = this.$buildService(option)
   }
   /**
    * 加载规则
    * @param {object} rule
    * @param {RequireRule initdata} rule[prop]
    */
-  initRule (rule) {
+  $initRule (rule) {
     let firstProp
     for (let n in rule) {
       let ruleOption = rule[n]
@@ -94,7 +94,7 @@ class Require extends SimpleData {
    * 加载状态翻译值
    * @param {object} status
    */
-  initStatus (status = {}) {
+  $initStatus (status = {}) {
     for (let n in status) {
       this.status[n] = status[n]
     }
@@ -104,7 +104,7 @@ class Require extends SimpleData {
    * @param {string} url
    * @returns {RequireRule}
    */
-  checkRule (url) {
+  $checkRule (url) {
     for (let n in this.rule) {
       let fg = this.rule[n].checkUrl(url)
       if (fg) {
@@ -118,7 +118,7 @@ class Require extends SimpleData {
    * @param {string} url
    * @returns {string}
    */
-  _formatUrl (url) {
+  $formatUrl (url) {
     if (this.formatUrl) {
       return this.formatUrl(url, this.api.baseURL)
     } else {
@@ -159,7 +159,7 @@ class Require extends SimpleData {
    * @param {object} [defaultOptionData] 默认参数重置method/requestDataType/requestCurrentDataType/responseType
    * @returns {check}
    */
-  check (optionData, defaultOptionData = {}) {
+  $check (optionData, defaultOptionData = {}) {
     let check = {
       next: true,
       code: '',
@@ -171,7 +171,7 @@ class Require extends SimpleData {
       check.code = 'undefined optionData'
       check.msg = '未定义请求数据'
     } else {
-      optionData.url = this._formatUrl(optionData.url)
+      optionData.url = this.$formatUrl(optionData.url)
       // 检查URL
       if (!optionData.url) {
         check.next = false
@@ -179,7 +179,7 @@ class Require extends SimpleData {
         check.msg = '未定义请求地址'
       } else {
         // 检查RULE
-        let ruleItem = this.checkRule(optionData.url)
+        let ruleItem = this.$checkRule(optionData.url)
         if (!ruleItem) {
           check.next = false
           check.code = 'undefined rule'
@@ -242,7 +242,7 @@ class Require extends SimpleData {
    * @returns {optionData}
    */
   require (optionData, defaultOptionData) {
-    let check = this.check(optionData, defaultOptionData)
+    let check = this.$check(optionData, defaultOptionData)
     if (check.next) {
       if (optionData.requestDataType == 'formdata') {
         optionData.headers['Content-Type'] = 'multipart/form-data'
@@ -259,16 +259,16 @@ class Require extends SimpleData {
           }
         }
       }
-      return this.requireNext(optionData, check)
+      return this.$requireNext(optionData, check)
     } else {
-      this.showFailMsg(true, optionData.failMsg, check.msg, 'error')
+      this.$showFailMsg(true, optionData.failMsg, check.msg, 'error')
       return Promise.reject({ status: 'fail', ...check })
     }
   }
   /**
    * 请求下一步操作
    */
-  requireNext (optionData, check) {
+  $requireNext (optionData, check) {
     return new Promise((resolve, reject) => {
       this.ajax(optionData).then(response => {
         if (optionData.responseFormat && optionData.responseType == 'json') {
@@ -276,10 +276,10 @@ class Require extends SimpleData {
           if (nextdata.status == 'success') {
             resolve(nextdata)
           } else if (nextdata.status == 'login') {
-            this.showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
+            this.$showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
             reject(nextdata)
           } else if (nextdata.status == 'fail') {
-            this.showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
+            this.$showFailMsg(false, optionData.failMsg, nextdata.msg, 'error')
             reject(nextdata)
           }
         } else if (!optionData.responseFormat) {
@@ -298,7 +298,7 @@ class Require extends SimpleData {
       }, error => {
         console.error(error)
         let errRes = this.requireFail(error, optionData, check.ruleItem)
-        this.showFailMsg(true, optionData.failMsg, errRes.msg, 'error', '警告')
+        this.$showFailMsg(true, optionData.failMsg, errRes.msg, 'error', '警告')
         reject(errRes)
       })
     })
@@ -354,7 +354,7 @@ class Require extends SimpleData {
    * @param {*} type
    * @param {*} title
    */
-  showFailMsg (checkFail, failMsgOption, content, type, title) {
+  $showFailMsg (checkFail, failMsgOption, content, type, title) {
     if (failMsgOption === undefined || failMsgOption === true) {
       failMsgOption = {
         show: true

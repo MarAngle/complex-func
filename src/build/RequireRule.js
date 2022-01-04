@@ -19,14 +19,14 @@ class RequireRule extends SimpleData {
       fail: false, // token失败回调
       data: {}
     }
-    this.initToken(token)
-    this.initMethods(methods)
+    this.$initToken(token)
+    this.$initMethods(methods)
   }
   /**
    * 加载token判断相关参数
    * @param {object} [token] token总数据
    */
-  initToken (token = {}) {
+  $initToken (token = {}) {
     this.token.check = token.check === undefined ? true : token.check
     this.token.fail = token.fail || false
     this.token.data = {}
@@ -40,7 +40,7 @@ class RequireRule extends SimpleData {
    * 加载方法
    * @param {object} [methods] 挂载方法
    */
-  initMethods (methods) {
+  $initMethods (methods) {
     if (methods) {
       for (let n in methods) {
         this[n] = methods[n].bind(this)
@@ -98,27 +98,27 @@ class RequireRule extends SimpleData {
       if (type == 'string') {
         if (optionData.token === config.RequireRule.defaultTokenName) {
           for (let n in this.token.data) {
-            let check = this.appendTokenNext(optionData, n)
+            let check = this.$appendTokenNext(optionData, n)
             if (!check.next) {
               return check
             }
           }
         } else {
-          let check = this.appendTokenNext(optionData, optionData.token)
+          let check = this.$appendTokenNext(optionData, optionData.token)
           if (!check.next) {
             return check
           }
         }
       } else if (type == 'array') {
         for (let n in optionData.token) {
-          let check = this.appendTokenNext(optionData, optionData.token[n])
+          let check = this.$appendTokenNext(optionData, optionData.token[n])
           if (!check.next) {
             return check
           }
         }
       } else if (type == 'object') {
         for (let n in optionData.token) {
-          let check = this.appendTokenNext(optionData, n, optionData.token[n])
+          let check = this.$appendTokenNext(optionData, n, optionData.token[n])
           if (!check.next) {
             return check
           }
@@ -134,7 +134,7 @@ class RequireRule extends SimpleData {
    * @param {object} [tokenRuleOption] TokenRule的初始化数据
    * @returns {{ prop, next, code, msg }}
    */
-  appendTokenNext (optionData, prop, tokenRuleOption) {
+  $appendTokenNext (optionData, prop, tokenRuleOption) {
     let check = {
       prop: prop,
       next: true,

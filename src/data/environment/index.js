@@ -20,7 +20,7 @@ let option = {
  * @param {*} data 环境变量
  * @param {'data' | 'real'} prop 环境变量属性值,data为当前环境变量,real为当前真实的环境变量
  */
- export function setEnv(data, prop = 'data') {
+export function setEnv(data, prop = 'data') {
   option.env[prop] = data
 }
 
@@ -28,7 +28,7 @@ let option = {
  * 获取环境变量
  * @param {'data' | 'real'} prop 环境变量属性值,data为当前环境变量,real为当前真实的环境变量
  */
- export function getEnv(prop = 'data') {
+export function getEnv(prop = 'data') {
   return option.env[prop]
 }
 
@@ -45,7 +45,7 @@ export function setEnvMode(data, prop = 'data') {
  * 获取环境数据
  * @param {'data' | 'real'} prop 环境数据属性值,data为当前环境数据,real为当前真实的环境数据
  */
- export function getEnvMode(prop = 'data') {
+export function getEnvMode(prop = 'data') {
   return option.mode[prop]
 }
 
@@ -55,7 +55,7 @@ export function setEnvMode(data, prop = 'data') {
  * @param {string} info 控制台输出
  * @param  {...any} args 函数参数
  */
- export function resetEnvData(fn, info = 'resetEnvData函数触发！', ...args) {
+export function resetEnvData(fn, info = 'resetEnvData函数触发！', ...args) {
   // 真实环境为开发环境时触发操作
   if (getEnv('real') == 'development') {
     console.error(new Error(info))
@@ -70,7 +70,7 @@ export function setEnvMode(data, prop = 'data') {
  * @param {string} prop 属性
  * @param {boolean} data 可用
  */
- export function setCanUse(prop, data) {
+export function setCanUse(prop, data) {
   option.canUse[prop] = data
 }
 
@@ -89,7 +89,7 @@ export function getCanUse(prop) {
  * @param {string} prop 需要挂载的属性
  * @param {boolean} [showError] 是否显示错误信息
  */
- export function checkUseItem(Name, prop, showError) {
+export function checkUseItem(Name, prop, showError) {
   try {
     if (window[Name]) {
       setCanUse(prop || Name, true)
