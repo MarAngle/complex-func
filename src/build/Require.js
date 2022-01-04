@@ -21,10 +21,10 @@ class Require extends SimpleData {
       504: '网络超时!'
     }
     if (initdata) {
-      this.$initMain(initdata)
+      this.initMain(initdata)
     }
   }
-  $initMain({ api, option, rule, status }) {
+  initMain({ api, option, rule, status }) {
     this.$initApi(api)
     this.$initService(option)
     this.$initRule(rule)
