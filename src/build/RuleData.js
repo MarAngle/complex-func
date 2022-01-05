@@ -1,3 +1,4 @@
+import Data from './Data'
 import getType from './../data/type/getType'
 import exportMsg from './../data/utils/exportMsg'
 
@@ -15,8 +16,9 @@ const base = {
 }
 
 // 规则校验数据
-class RuleData {
+class RuleData extends Data {
   constructor (initdata) {
+    super()
     if (initdata) {
       this.$initMain(initdata)
     }
@@ -160,15 +162,8 @@ class RuleData {
       return this.data(data, option)
     }
   }
-  $exportMsg(info, type = 'error', option) {
-    exportMsg(this.$selfName() + ':' + info, type, option)
-  }
-  $selfName() {
-    return `[${this.constructor.name}]`
-  }
-  toString() {
-    return this.$selfName()
-  }
 }
+
+RuleData.$name = 'RuleData'
 
 export default RuleData

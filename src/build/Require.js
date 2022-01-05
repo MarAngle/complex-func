@@ -1,14 +1,14 @@
 import axios from 'axios'
+import Data from './Data'
 import config from '../../config'
+import RequireRule from './RequireRule'
 import noticeData from './../option/noticeData'
 import { getEnv } from './../data/environment/index'
 import getType from '../data/type/getType'
 import isArray from '../data/type/isArray'
 import jsonToForm from './../data/object/jsonToForm'
-import SimpleData from './SimpleData'
-import RequireRule from './RequireRule'
 
-class Require extends SimpleData {
+class Require extends Data {
   constructor (initdata) {
     super()
     this.api = {
@@ -512,8 +512,10 @@ class Require extends SimpleData {
     for (let n in this.rule) {
       ruleName.push(this.rule[n].$selfName())
     }
-    return `(${this.constructor.name}:[${ruleName.join(',')}])`
+    return `(${super.$selfName()}:[${ruleName.join(',')}])`
   }
 }
+
+Require.$name = 'Require'
 
 export default Require

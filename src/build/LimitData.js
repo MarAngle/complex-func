@@ -1,7 +1,9 @@
+import Data from './Data'
 // 限制数据格式
 // 需要保证类实例传递到initdata中依然能生成一个LimitData实例，保证数据的一致性
-class LimitData {
+class LimitData extends Data {
   constructor (initdata = {}, autoType) {
+    super()
     this.type = 'forbid'
     this.list = []
     this.setType(initdata.type, autoType)

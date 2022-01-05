@@ -1,11 +1,13 @@
+import Data from './Data'
 import config from '../../config'
 import getLocalData from '../data/local/getLocalData'
 import removeLocalData from '../data/local/removeLocalData'
 import setLocalData from '../data/local/setLocalData'
 import getType from './../data/type/getType'
 
-class TokenRule {
+class TokenRule extends Data {
   constructor (prop, initdata) {
+    super()
     let type = getType(initdata)
     if (type !== 'object') {
       initdata = {
@@ -96,5 +98,7 @@ class TokenRule {
     }
   }
 }
+
+TokenRule.$name = 'TokenRule'
 
 export default TokenRule

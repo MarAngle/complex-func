@@ -1,10 +1,10 @@
+import Data from './Data'
 import config from '../../config'
+import TokenRule from './TokenRule'
 import getType from './../data/type/getType'
 import appendProp from './../data/object/appendProp'
-import SimpleData from './SimpleData'
-import TokenRule from './TokenRule'
 
-class RequireRule extends SimpleData {
+class RequireRule extends Data {
   constructor ({
     name,
     prop,
@@ -267,8 +267,10 @@ class RequireRule extends SimpleData {
   }
 
   $selfName() {
-    return `(${this.constructor.name}:[${this.name}/${this.prop}])`
+    return `(${super.$selfName()}:[${this.name}/${this.prop}])`
   }
 }
+
+RequireRule.$name = 'RequireRule'
 
 export default RequireRule
