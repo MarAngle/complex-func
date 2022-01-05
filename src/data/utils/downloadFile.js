@@ -1,6 +1,5 @@
 import getType from './../type/getType'
 import downloadFileByAnchor from './downloadFileByAnchor'
-import openWindow from './openWindow'
 
 /**
  * 下载文件
@@ -17,11 +16,12 @@ function downloadFile(data) {
       url = data.url
       name = data.name
     }
-    if (downloadFileByAnchor(url, name)) {
-      return true
-    } else {
-      return openWindow(url)
-    }
+    return downloadFileByAnchor(url, name)
+    // if (downloadFileByAnchor(url, name)) {
+    //   return true
+    // } else {
+    //   return openWindow(url)
+    // }
   } else {
     return false
   }

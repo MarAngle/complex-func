@@ -1,31 +1,14 @@
-import isOriginUrl from './isOriginUrl'
-
-let checkAnchor = document.createElement('a')
-let supportDownload = 'download' in checkAnchor
-checkAnchor = null
+import openAnchor from './openAnchor'
 
 /**
  * 基于a标签下载文件
  * @param {string} url
- * @param {string} name
+ * @param {string} [name] 下载名称
+ * @param {string} [target] 窗口目标
  * @returns {boolean} 是否成功
  */
-function downloadFileByAnchor(url, name = '', target) {
-  if (supportDownload && isOriginUrl(url)) {
-    let anchor = document.createElement('a')
-    anchor.setAttribute('download', name)
-    anchor.href = url
-    if (target) {
-      anchor.target = target
-    }
-    anchor.click()
-    setTimeout(function() {
-      anchor = null
-    }, 100)
-    return true
-  } else {
-    return false
-  }
+function downloadFileByAnchor(url, name, target = '_blank') {
+  return openAnchor(url, target, name || true)
 }
 
 export default downloadFileByAnchor

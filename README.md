@@ -751,6 +751,15 @@
   > - fn?:function,回调函数，(moddata:模块(需要获取default), path: 模块路径, index: 顺序) => void
   > ### 返回值
   > - :void
+### openAnchor
+  > ### 说明
+  > - 基于a标签打开文件
+  > ### 参数
+  > - url:string
+  > - target?:string 窗口目标
+  > - download?:string 下载名称
+  > ### 返回值
+  > - isSuccess:boolean
 ### openWindow
   > ### 说明
   > - 参照window.open
@@ -769,6 +778,7 @@
   > ### 参数
   > - url:string
   > - name?:string
+  > - target?:string:_blank
   > ### 返回值
   > - isSuccess:boolean
 ### downloadFile

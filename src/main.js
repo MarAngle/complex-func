@@ -89,6 +89,7 @@ import getQueryData from './data/utils/getQueryData'
 import getQueryUrl from './data/utils/getQueryUrl'
 import isOriginUrl from './data/utils/isOriginUrl'
 import loadContents from './data/utils/loadContents'
+import openAnchor from './data/utils/openAnchor'
 import openWindow from './data/utils/openWindow'
 import exportSelfMsg from './data/utils/exportSelfMsg'
 import exportMsg from './data/utils/exportMsg'
@@ -232,6 +233,7 @@ let mainfunc = {
   getQueryUrl,
   isOriginUrl,
   loadContents,
+  openAnchor,
   openWindow,
   exportSelfMsg,
   exportMsg,
