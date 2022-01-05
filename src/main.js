@@ -275,6 +275,12 @@ let mainfunc = {
   post: function(optionData) {
     return this.requiredata.post(optionData)
   },
+  delete: function(optionData) {
+    return this.requiredata.delete(optionData)
+  },
+  put: function(optionData) {
+    return this.requiredata.put(optionData)
+  },
   postform: function(optionData) {
     return this.requiredata.postform(optionData)
   },

@@ -418,6 +418,42 @@ class Require extends Data {
     return this.require(optionData, { method: 'post' })
   }
   /**
+   * delete请求
+   * @param {object} optionData 参数
+   * @param {string} optionData.url 请求地址
+   * @param {string} optionData.method 请求方式,默认为delete
+   * @param {object} optionData.params url(query参数)
+   * @param {object} optionData.data body参数
+   * @param {string} optionData.headers header参数
+   * @param {string | object | any[]} optionData.token token
+   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
+   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
+   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
+   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
+   * @returns {Promise}
+   */
+  delete (optionData) {
+    return this.require(optionData, { method: 'delete' })
+  }
+  /**
+   * put请求
+   * @param {object} optionData 参数
+   * @param {string} optionData.url 请求地址
+   * @param {string} optionData.method 请求方式,默认为put
+   * @param {object} optionData.params url(query参数)
+   * @param {object} optionData.data body参数
+   * @param {string} optionData.headers header参数
+   * @param {string | object | any[]} optionData.token token
+   * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
+   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
+   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
+   * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
+   * @returns {Promise}
+   */
+  put (optionData) {
+    return this.require(optionData, { method: 'put' })
+  }
+  /**
    * post请求form类型,requestDataType默认为formdata
    * @param {object} optionData 参数
    * @param {string} optionData.url 请求地址
