@@ -5,6 +5,7 @@
 ### 2.2.11-beta
 - 内部函数更新为$开头
 - 优化相关类，继承优化，输出优化
+- setLocalData中对JSON.stringify进行错误catch
 
 ### 2.2.10
 - formatTree错误修正

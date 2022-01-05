@@ -11,7 +11,13 @@ function setLocalData(name, value) {
     value: value,
     time: Date.now()
   }
-  localStorage.setItem(name, JSON.stringify(localData))
+  try {
+    localStorage.setItem(name, JSON.stringify(localData))
+    return true
+  } catch (err) {
+    console.error(err)
+    return false
+  }
 }
 
 export default setLocalData
