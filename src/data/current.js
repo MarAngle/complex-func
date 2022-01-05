@@ -4,7 +4,7 @@ const defaultOffset = 1000 * 60 * 10 // 10分钟
 let callbackProp = 0
 
 let current = {
-  timer: undefined,
+  timer: null,
   data: {
     data: null
   },
@@ -87,9 +87,9 @@ let current = {
    * 清除更新
    */
   clear: function() {
-    if (this.timer !== undefined) {
+    if (this.timer !== null) {
       clearTimeout(this.timer)
-      this.timer = undefined
+      this.timer = null
     }
   },
   /**
