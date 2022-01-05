@@ -463,7 +463,7 @@ class Require extends Data {
    * @param {string} optionData.headers header参数
    * @param {string | object | any[]} optionData.token token
    * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
+   * @param {'formdata'} optionData.requestDataType 接口需要的数据类型
    * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
    * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
    * @returns {Promise}
@@ -481,8 +481,8 @@ class Require extends Data {
    * @param {string} optionData.headers header参数
    * @param {string | object | any[]} optionData.token token
    * @param {'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'} optionData.responseType 返回数据类型
-   * @param {'json' | 'formdata'} optionData.requestDataType 接口需要的数据类型
-   * @param {'json' | 'formdata'} optionData.requestCurrentDataType 当前data的数据类型
+   * @param {'formdata'} optionData.requestDataType 接口需要的数据类型
+   * @param {'formdata'} optionData.requestCurrentDataType 当前data的数据类型
    * @param {boolean} optionData.responseFormat 是否对返回数据进行分析和格式化,默认为true
    * @returns {Promise}
    */

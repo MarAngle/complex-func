@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.11-beta
+### 2.2.11
 - 内部函数更新为$开头
 - 优化相关类，继承优化，输出优化
 - setLocalData中对JSON.stringify进行错误catch
