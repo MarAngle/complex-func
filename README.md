@@ -668,6 +668,21 @@
   > - url:string
   > ### 返回值
   > - queryData:object
+### parseUrl
+  > ### 说明
+  > - 解析url为基本location对象
+  > ### 参数
+  > - url:string
+  > ### 返回值
+  > - location:object
+### isOriginUrl
+  > ### 说明
+  > - 判断2个URL是否同源
+  > ### 参数
+  > - url:string
+  > - otherUrl?:string 不存在时取当前url对应的location
+  > ### 返回值
+  > - isOrigin:boolean
 ### exportSelfMsg
   > ### 说明
   > - complex-func错误信息输出函数

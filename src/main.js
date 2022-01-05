@@ -87,10 +87,12 @@ import getCurrentUrl from './data/utils/getCurrentUrl'
 import getLimitData from './data/utils/getLimitData'
 import getQueryData from './data/utils/getQueryData'
 import getQueryUrl from './data/utils/getQueryUrl'
+import isOriginUrl from './data/utils/isOriginUrl'
 import loadContents from './data/utils/loadContents'
 import openWindow from './data/utils/openWindow'
 import exportSelfMsg from './data/utils/exportSelfMsg'
 import exportMsg from './data/utils/exportMsg'
+import parseUrl from './data/utils/parseUrl'
 import promiseAllFinished from './data/utils/promiseAllFinished'
 import showJson from './data/utils/showJson'
 import throttle from './data/utils/throttle'
@@ -228,10 +230,12 @@ let mainfunc = {
   getLimitData,
   getQueryData,
   getQueryUrl,
+  isOriginUrl,
   loadContents,
   openWindow,
   exportSelfMsg,
   exportMsg,
+  parseUrl,
   promiseAllFinished,
   showJson,
   throttle,

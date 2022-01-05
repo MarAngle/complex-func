@@ -19,6 +19,13 @@ const config = {
   object: {
     existList: [false, 0]
   },
+  url: {
+    protocolPort: {
+      'http:': 80,
+      'https:': 443,
+      'ftp:': 21
+    }
+  },
   time: {
     format: {
       default: 'YYYY/MM/DD HH:mm:ss',
