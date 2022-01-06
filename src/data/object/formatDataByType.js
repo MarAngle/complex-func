@@ -9,11 +9,7 @@ import getNum from './../number/getNum'
 function formatDataByType(value, type = 'string') {
   let data
   if (type == 'boolean') {
-    if (value) {
-      data = true
-    } else {
-      data = false
-    }
+    data = !!value
   } else if (type == 'number') {
     data = getNum(value, 'origin')
   } else {

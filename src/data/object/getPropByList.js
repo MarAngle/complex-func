@@ -7,16 +7,18 @@
  */
 function getPropByList(value, propList) {
   let data = value
-  for (let n = 0; n < propList.length; n++) {
-    let prop = propList[n]
-    if (prop || prop === 0) {
-      data = data[prop]
-      if (!data) {
-        break
+  try {
+    for (let n = 0; n < propList.length; n++) {
+      let prop = propList[n]
+      if (prop || prop === 0) {
+        data = data[prop]
       }
     }
+    return data
+  } catch (e) {
+    console.error(e)
+    return undefined
   }
-  return data
 }
 
 export default getPropByList

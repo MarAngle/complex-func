@@ -12,18 +12,22 @@ function getLocalData(name, time, refresh) {
   name = buildLocalDataName(name)
   let localDataStr = localStorage.getItem(name)
   if (localDataStr) {
-    let localData = JSON.parse(localDataStr)
-    if (time) {
-      let currentTime = Date.now()
-      time = time * 1000
-      if ((currentTime - localData.time) > time) {
-        localData.value = null
+    try {
+      let localData = JSON.parse(localDataStr)
+      if (time) {
+        let currentTime = Date.now()
+        time = time * 1000
+        if ((currentTime - localData.time) > time) {
+          localData.value = null
+        }
       }
+      if (refresh) {
+        setLocalData(name, localData.value)
+      }
+      return localData.value
+    } catch (e) {
+      return undefined
     }
-    if (refresh) {
-      setLocalData(name, localData.value)
-    }
-    return localData.value
   } else {
     return undefined
   }
