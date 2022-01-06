@@ -7,10 +7,7 @@ import localEncodeURIComponent from './localEncodeURIComponent'
  * @returns {string}
  */
 function formatQueryUrl(url, data) {
-  let type = 'init'
-  if (url.indexOf('?') > -1) {
-    type = 'extra'
-  }
+  let type = url.indexOf('?') > -1 ? 'extra' : 'init'
   if (type == 'init') {
     url += '?'
   } else if (type == 'extra') {

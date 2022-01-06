@@ -7,6 +7,8 @@ import isPromise from '../type/isPromise'
  */
 function promiseAllFinished(list) {
   return new Promise((resolve) => {
+    let remainder
+    let resList = []
     /**
      * next
      * @param {number} remainder
@@ -22,8 +24,6 @@ function promiseAllFinished(list) {
         resolve(resList)
       }
     }
-    var remainder
-    var resList = []
     if (list && list.length > 0) {
       let size = list.length
       remainder = size
