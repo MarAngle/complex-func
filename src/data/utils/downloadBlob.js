@@ -1,5 +1,4 @@
 import downloadFileByAnchor from './downloadFileByAnchor'
-import openWindow from './openWindow'
 
 let URL = window.URL || window.webkitURL
 
@@ -10,7 +9,7 @@ let URL = window.URL || window.webkitURL
  * @param {string} [name]
  * @returns {boolean} 是否成功
  */
-function downloadBlob(blobValue, type, name = '') {
+function downloadBlob(blobValue, type, name) {
   let blob
   if (typeof window.Blob == 'function') {
     blob = new Blob([blobValue], { type: type })
@@ -21,12 +20,7 @@ function downloadBlob(blobValue, type, name = '') {
     blob = blobData.getBlob(type)
   }
   let blobUrl = URL.createObjectURL(blob)
-  if (downloadFileByAnchor(blobUrl, name)) {
-  } else if (navigator.msSaveBlob) {
-    navigator.msSaveBlob(blob, name)
-  } else {
-    openWindow(blobUrl)
-  }
+  downloadFileByAnchor(blobUrl, name)
   URL.revokeObjectURL(blobUrl)
   return true
 }

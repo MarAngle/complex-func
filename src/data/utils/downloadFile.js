@@ -17,11 +17,6 @@ function downloadFile(data) {
       name = data.name
     }
     return downloadFileByAnchor(url, name)
-    // if (downloadFileByAnchor(url, name)) {
-    //   return true
-    // } else {
-    //   return openWindow(url)
-    // }
   } else {
     return false
   }

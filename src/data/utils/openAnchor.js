@@ -17,6 +17,9 @@ function openAnchor(url, target, download) {
     anchor.target = target
   }
   if (isSupportDownload && download) {
+    if (download === true) {
+      download = url.split('/').pop()
+    }
     anchor.setAttribute('download', download)
   }
   anchor.click()
