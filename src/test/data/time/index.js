@@ -1,8 +1,19 @@
 import runText from '../../main';
+import formatTime from './../../../data/time/formatTime'
 import getOffsetTime from './../../../data/time/getOffsetTime'
 import getOffsetTimeStr from './../../../data/time/getOffsetTimeStr'
 
 runText(function({ checkSame, showError }) {
+  checkSame(formatTime('2020/01/02 08:00:00', undefined, 'YYYYMMDDHHmmss'), '20200102080000', '基本日期字符串转换错误')
+
+  checkSame(formatTime('2020/02 08:00:00', {
+    format: 'YYYY/DD HH:mm:ss'
+  }, 'YYYYMMDDHHmmss'), '20200102080000', '基本日期字符串初始数据为空时转换错误')
+
+  checkSame(formatTime('2020/01/02 08:00:00', {
+    format: 'YYYY/MM/DD HH:mm:ss'
+  }, 'YYYYMMHHmmss'), '202001080000', '基本日期字符串显示数据为空时转换错误')
+
   checkSame(getOffsetTime((1200 + 30) * 60, 'sec', {
     start: 'hour',
     end: 'date'
