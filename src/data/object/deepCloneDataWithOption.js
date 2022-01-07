@@ -1,5 +1,4 @@
-import formatUpdateDataOption from './formatUpdateDataOption'
-import updateDataWidthOption from './updateDataWidthOption'
+import updateDataWidthOption, { formatUpdateDataOption } from './updateDataWidthOption'
 
 /**
  * 可定制的深拷贝

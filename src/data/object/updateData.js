@@ -1,5 +1,4 @@
-import formatUpdateDataOption from './formatUpdateDataOption'
-import updateDataWidthOption from './updateDataWidthOption'
+import updateDataWidthOption, { formatUpdateDataOption } from './updateDataWidthOption'
 
 /**
  * 基于origindata更新targetdata数据,type默认为add

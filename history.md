@@ -6,7 +6,7 @@
 - 优化parseTime
 - formatTime逻辑优化:简化时间字符串的格式化
 - BUG修正:日期格式化时之前不存在month生成时的offset未参与计算
-- 删除formatUpdateDataOption输出
+- 删除formatUpdateDataOption输出,优化formatUpdateDataOption位置
 
 ### 2.2.14
 - 优化下载逻辑
