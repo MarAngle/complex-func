@@ -33,7 +33,7 @@ function parseTime(data, option) {
       const dict = config.time.dict.data[prop]
       const index = format.indexOf(dict.code)
       if (index > -1) {
-        let item = Number(data.substr(index, dict.code.length))
+        let item = Number(data.substring(index, index + dict.code.length))
         if (dict.offset) {
           item = item - dict.offset
         }

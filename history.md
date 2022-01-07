@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.15-beta
+- 优化parseTime
+
 ### 2.2.14
 - 优化下载逻辑
 - 整体代码优化，添加trycatch
