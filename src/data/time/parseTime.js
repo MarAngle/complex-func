@@ -43,7 +43,7 @@ function parseTime(data, option) {
           if (!currentDate) {
             currentDate = new Date()
           }
-          args.push(currentDate[dict.func]() + dict.offset)
+          args.push(currentDate[dict.func]())
         } else {
           args.push(dict.default)
         }

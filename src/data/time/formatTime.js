@@ -19,8 +19,4 @@ function formatTime(data, parseOption, showFormat, complex) {
   }
 }
 
-console.log(formatTime('2020/01 11:28:00', 'YYYY/MM HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
-console.log(formatTime('2020/01-01 11:28', 'YYYY/MM-DD HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
-console.log(formatTime('2020/01-01 11:28', 'YYYY/MM-DD HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
-
 export default formatTime
