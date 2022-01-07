@@ -1,3 +1,4 @@
+import transformTime from './transformTime'
 import parseTime from './parseTime'
 import showTime from './showTime'
 
@@ -10,9 +11,16 @@ import showTime from './showTime'
  * @param {string} showFormat Date字符串格式YYYY-MM-DD HH:ss:mm
  * @returns {string}
  */
-function formatTime(data, parseOption, showFormat) {
-  let date = parseTime(data, parseOption)
-  return showTime(date, showFormat)
+function formatTime(data, parseOption, showFormat, complex) {
+  if (!complex) {
+    return transformTime(data, parseOption, showFormat)
+  } else {
+    return showTime(parseTime(data, parseOption), showFormat)
+  }
 }
+
+console.log(formatTime('2020/01 11:28:00', 'YYYY/MM HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
+console.log(formatTime('2020/01-01 11:28', 'YYYY/MM-DD HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
+console.log(formatTime('2020/01-01 11:28', 'YYYY/MM-DD HH:mm:ss', 'YYYY//MM-/DD HH:mm:/ss'))
 
 export default formatTime
