@@ -1,6 +1,18 @@
 import config from '../../../config'
 import getType from '../type/getType'
 
+export let parseTimeOption = function(option) {
+  if (getType(option) !== 'object') {
+    option = {
+      format: option
+    }
+  }
+  if (!option.format) {
+    option.format = config.time.format.default
+  }
+  return option
+}
+
 /**
  * 将Date字符串转换为Date
  * @param {string} data data
@@ -10,17 +22,7 @@ import getType from '../type/getType'
  * @returns {Date}
  */
 function parseTime(data, option) {
-  let format, current
-  let type = getType(option)
-  if (type === 'string') {
-    format = option
-  } else if (type === 'object') {
-    format = option.format
-    current = option.current
-  }
-  if (!format) {
-    format = config.time.format.default
-  }
+  let { format, current } = parseTimeOption(option)
   if (format === 'X') {
     return new Date(data * 1000)
   } else if (format === 'x') {

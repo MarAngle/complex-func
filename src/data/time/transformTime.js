@@ -1,19 +1,9 @@
 import config from '../../../config'
-import getType from '../type/getType'
 import fillString from '../string/fillString'
+import { parseTimeOption } from './parseTime'
 
 function transformTime(data, option, showFormat) {
-  let format, current
-  let type = getType(option)
-  if (type === 'string') {
-    format = option
-  } else if (type === 'object') {
-    format = option.format
-    current = option.current
-  }
-  if (!format) {
-    format = config.time.format.default
-  }
+  let { format, current } = parseTimeOption(option)
   let currentDate
   let dateStr = showFormat || config.time.format.default
   for (let i = 0; i < config.time.dict.list.length; i++) {

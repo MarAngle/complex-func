@@ -882,6 +882,7 @@
   > - parseOption.format?:string,Date字符串格式YYYY-MM-DD HH:ss:mm
   > - parseOption.current?:string,未传递参数是否按照当前时间为基准
   > - showFormat?:string,Date字符串格式YYYY-MM-DD HH:ss:mm
+  > - complex?:boolean,是否复杂数据:复杂数据会先生成Date后再进行字符串化
   > ### 返回值
   > - DateStr:string
 ### getOffsetTime
