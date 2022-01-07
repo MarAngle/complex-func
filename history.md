@@ -4,6 +4,7 @@
 
 ### 2.2.15-beta
 - 优化parseTime
+- formatTime逻辑优化
 - BUG修正:日期格式化时之前不存在month生成时的offset未参与计算
 
 ### 2.2.14
