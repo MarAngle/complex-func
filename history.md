@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.15-beta
+### 2.2.15
 - 优化parseTime
 - formatTime逻辑优化:简化时间字符串的格式化
 - BUG修正:日期格式化时之前不存在month生成时的offset未参与计算
