@@ -246,23 +246,6 @@
 ---
 
 ## OBJECT对象
-### formatUpdateDataOption
-  > ### 说明
-  > - 格式化UpdateOption,updateDataWidthOption函数的设置项
-  > ### 参数
-  > - option?:object,用户设置的设置项,通过updateDataWidthOption进行深拷贝
-  > > - option.type?:'total' | 'add',全更新/附加更新判断值
-  > > - option.reset?:boolean,重置判断值,默认为真,类型不同且reset为真时,无法将以前的数据作为基准,将会对源数据的对应值根据类型重置后再进行深拷贝循环
-  > > - option.depth?:boolean | number,属性深度判断值
-  > > - option.limitData?:LimitData,属性限制判断值
-  > > - option.limit?:object,属性限制判断值limitData生成参数
-  > > > - option.limit.type?:'forbid' | 'allow',属性限制判断值limitData生成参数-type
-  > > > - option.limit.list?:string[],属性限制判断值limitData生成参数-list
-  > - defaultOption?:object,默认的设置项
-  > > - defaultOption.type?:'total' | 'add',option.type不存在时默认值
-  > > - defaultOption.reset?:boolean,重置判断值,option.reset === undefined时默认值
-  > ### 返回值
-  > - option:object
 ### deepClone
   > ### 说明
   > - 深拷贝

@@ -45,7 +45,6 @@ import defineProperty from './data/object/defineProperty'
 import formatDataByType from './data/object/formatDataByType'
 import formatList from './data/object/formatList'
 import formatTree from './data/object/formatTree'
-import formatUpdateDataOption from './data/object/formatUpdateDataOption'
 import getDefaultData from './data/object/getDefaultData'
 import getProp from './data/object/getProp'
 import getPropByList from './data/object/getPropByList'
@@ -191,7 +190,6 @@ let mainfunc = {
   formatDataByType,
   formatList,
   formatTree,
-  formatUpdateDataOption,
   getDefaultData,
   getProp,
   getPropByList,
