@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.2.16-beta
+- resetEnvData将fn的返回值返回
+
 ### 2.2.15
 - 优化parseTime
 - formatTime逻辑优化:简化时间字符串的格式化

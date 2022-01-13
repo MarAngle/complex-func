@@ -60,7 +60,7 @@ export function resetEnvData(fn, info = 'resetEnvData函数触发！', ...args) 
   if (getEnv('real') == 'development') {
     console.error(new Error(info))
     if (fn) {
-      fn(...args)
+      return fn(...args)
     }
   }
 }
