@@ -252,6 +252,7 @@ class Require extends Data {
       } else if (optionData.requestDataType == 'json') {
         optionData.data = JSON.stringify(optionData.data)
       }
+      // 新版本单独处理此逻辑
       if (optionData.params) {
         for (let n in optionData.params) {
           if (isArray(optionData.params[n])) {

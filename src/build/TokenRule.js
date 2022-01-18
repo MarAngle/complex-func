@@ -4,6 +4,7 @@ import getLocalData from '../data/local/getLocalData'
 import removeLocalData from '../data/local/removeLocalData'
 import setLocalData from '../data/local/setLocalData'
 import getType from './../data/type/getType'
+import isExist from './../data/type/isExist'
 
 class TokenRule extends Data {
   constructor (prop, initdata) {
@@ -22,7 +23,7 @@ class TokenRule extends Data {
     this.getCurrentData = initdata.getData || false
     this.removeCurrentData = initdata.removeData || false
     this.checkCurrentData = initdata.checkData || function(data) {
-      return data || data === 0
+      return isExist(data)
     }
   }
   /**
@@ -51,12 +52,7 @@ class TokenRule extends Data {
    * @returns {*}
    */
   getData(parentProp) {
-    let data
-    if (this.getCurrentData) {
-      data = this.getCurrentData()
-    } else {
-      data = this.data
-    }
+    let data = this.getCurrentData ? this.getCurrentData() : this.data
     if (!this.checkCurrentData(data)) {
       data = getLocalData(this.$buildLocalTokenName(parentProp))
       if (this.checkCurrentData(data)) {
@@ -79,9 +75,8 @@ class TokenRule extends Data {
       } else if (!this.empty) {
         next = ''
         // 值不存在且不要求时,empty为否不上传空值,此时为'',不进行append操作
-      } else {
-        // 值不存在且不要求时,传递,此时为success
       }
+      // 值不存在且不要求时,传递,此时为success
     }
     return next
   }
