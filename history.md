@@ -4,6 +4,7 @@
 
 ### 2.2.16-beta
 - resetEnvData将fn的返回值返回
+- require代码优化
 
 ### 2.2.15
 - 优化parseTime
