@@ -2,9 +2,10 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.2.16-beta
+### 2.2.16
 - resetEnvData将fn的返回值返回
 - require代码优化
+- 兼容Vue3
 
 ### 2.2.15
 - 优化parseTime
