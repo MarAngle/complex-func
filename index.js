@@ -13,7 +13,10 @@ mainfunc.install = function(Vue, options = {}) {
   let version = Vue.version.split('.')[0]
   if (version == '2') {
     // 设置属性重置为Vue.set
-    setData.setVue(Vue)
+    setData.Vue = Vue
+    setData.set = function(target, prop, data) {
+      this.Vue.set(target, prop, data)
+    }
     if (options.prop) {
       // 构建响应式数据
       for (let prop in this) {

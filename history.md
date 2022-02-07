@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.3.0
+- 优化setData逻辑
+
 ### 2.2.16
 - resetEnvData将fn的返回值返回
 - require代码优化
