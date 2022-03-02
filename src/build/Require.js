@@ -245,7 +245,9 @@ class Require extends Data {
     let check = this.$check(optionData, defaultOptionData)
     if (check.next) {
       if (optionData.requestDataType == 'formdata') {
-        optionData.headers['Content-Type'] = 'multipart/form-data'
+        if (optionData.headers['Content-Type'] === undefined) {
+          optionData.headers['Content-Type'] = config.Require.formContentType
+        }
         if (optionData.requestCurrentDataType == 'json') {
           optionData.data = jsonToForm(optionData.data)
         }
