@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.3.2-beta
+- getPropByList输出优化
+
 ### 2.3.1
 - require传递form数据时的Content-Type不强制设置为multipart/form-data，而是根据config.Require.formContentType赋值，且存在时不进行强制切换赋值
 

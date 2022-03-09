@@ -458,6 +458,7 @@
   > - value:object,对应对象
   > - prop:string,对应属性
   > - intervalRepeat:boolean,分隔符.重复判断值, 默认为否;为真时连续.会全部删除,为否时连续和开始结束分隔符会保留,此时.视为属性,.a直接取[.a],a..b取\[.a]\[.b],理论上无法对\[a.]取值
+  > - showError?:boolean,显示错误输出
   > ### 返回值
   > - res:any
 ### getPropByList
@@ -466,6 +467,7 @@
   > ### 参数
   > - value:object,对应对象
   > - propList:string[],属性列表
+  > - showError?:boolean,显示错误输出
   > ### 返回值
   > - res:any
 ### setProp

@@ -5,9 +5,10 @@ import getPropByList from './getPropByList'
  * @param {object} value 对应对象
  * @param {string} prop 对应属性
  * @param {boolean} [intervalRepeat] 分隔符.重复判断值, 默认为否;为真时连续.会全部删除,为否时连续和开始结束分隔符会保留,此时.视为属性,.a直接取[.a],a..b取[.a][.b],理论上无法对[a.]取值
+ * @param {boolean} [showError] 显示错误输出
  * @returns
  */
-function getProp(value, prop, intervalRepeat = false) {
+function getProp(value, prop, intervalRepeat = false, showError) {
   if (!value || !prop) {
     return undefined
   } else {
@@ -30,7 +31,7 @@ function getProp(value, prop, intervalRepeat = false) {
     if (lastEmpty) {
       propList.push(interval.repeat(lastEmpty))
     }
-    return getPropByList(value, propList)
+    return getPropByList(value, propList, showError)
   }
 }
 

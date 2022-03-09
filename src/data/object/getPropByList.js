@@ -3,9 +3,10 @@
  * 根据属性列表获取对象属性
  * @param {object} value 对应对象
  * @param {string[]} propList 属性列表
+ * @param {boolean} [showError] 显示错误输出
  * @returns
  */
-function getPropByList(value, propList) {
+function getPropByList(value, propList, showError) {
   let data = value
   try {
     for (let n = 0; n < propList.length; n++) {
@@ -16,7 +17,9 @@ function getPropByList(value, propList) {
     }
     return data
   } catch (e) {
-    console.error(e)
+    if (showError) {
+      console.error(e)
+    }
     return undefined
   }
 }
