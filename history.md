@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.3.2-beta
+### 2.3.2
 - getPropByList输出优化
 
 ### 2.3.1
