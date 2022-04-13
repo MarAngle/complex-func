@@ -1,4 +1,6 @@
 
+let location = window.location
+
 /**
  * 获取当前URL
  * @param {object} [option] 设置项
@@ -6,7 +8,6 @@
  * @returns {string}
  */
 function getCurrentUrl(option = {}) {
-  let location = window.location
   let url = location.protocol + '//' + location.host
   if (option.pathname || option.pathname === undefined) {
     url += location.pathname
