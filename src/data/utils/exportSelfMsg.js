@@ -7,7 +7,7 @@ import exportMsg from './exportMsg'
  * @param {string} [option.data] 额外信息内容
  * @param {'error' | 'warn' | 'log'} [option.type] 额外信息提示类型
  */
-function exportSelfMsg(msg = '', type = 'error', option) {
+function exportSelfMsg(msg, type, option) {
   let preMsg = '[complex-func]'
   exportMsg(preMsg + msg, type, option)
 }

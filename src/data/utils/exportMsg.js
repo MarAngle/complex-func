@@ -7,7 +7,7 @@ import isError from '../type/isError'
  * @param {string} [option.data] 额外信息内容
  * @param {'error' | 'warn' | 'log'} [option.type] 额外信息提示类型
  */
-function exportMsg(msg, type = 'error', option = {}) {
+function exportMsg(msg, type = 'error', option) {
   if (type == 'error') {
     if (!isError(msg)) {
       console[type](new Error(msg))
@@ -17,7 +17,7 @@ function exportMsg(msg, type = 'error', option = {}) {
   } else {
     console[type](msg)
   }
-  if (option.data) {
+  if (option && option.data) {
     if (!option.type) {
       option.type = type
     }
