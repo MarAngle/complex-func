@@ -5,6 +5,7 @@
 ### 2.3.3-beta
 - 代码优化
 - exportMsg优化
+- 下载和url解析优化
 
 ### 2.3.2
 - getPropByList输出优化

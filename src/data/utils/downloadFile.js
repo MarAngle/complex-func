@@ -4,7 +4,7 @@ import downloadFileByAnchor from './downloadFileByAnchor'
 /**
  * 下载文件
  * @param {string | object} data
- * @returns {boolean | Window | null} 是否成功
+ * @returns {boolean} 是否成功
  */
 function downloadFile(data) {
   if (data) {

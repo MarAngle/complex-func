@@ -774,7 +774,7 @@
   > - data.url?:string
   > - data.name?:string
   > ### 返回值
-  > - isSuccess:boolean | Window | null
+  > - isSuccess:boolean
 ### transformFile
   > ### 说明
   > - 文件属性转换

@@ -22,9 +22,9 @@ const config = {
   },
   url: {
     protocolPort: {
-      'http:': 80,
-      'https:': 443,
-      'ftp:': 21
+      'http:': '80',
+      'https:': '443',
+      'ftp:': '21'
     }
   },
   time: {
