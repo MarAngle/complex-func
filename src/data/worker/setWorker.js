@@ -8,7 +8,7 @@ import workerDo from './workerDo'
  * @param {boolean} [option.isSync] 同步异步判断
  * @param {boolean} [option.log] 日志打印判断
  */
-function setWorker(option = {}) {
+function setWorker(option) {
   return workerDo(option)
 }
 

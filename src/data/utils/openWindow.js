@@ -23,10 +23,9 @@
  * [ toolbar=yes|no|1|0	是否显示浏览器工具栏.默认值是yes ]
  * [ top=pixels	窗口顶部的位置.仅限IE浏览器 ]
  * [ width=pixels	窗口的宽度.最小.值为100 ]
- * @param {boolean} [replace] [ true - URL 替换浏览历史中的当前条目 ] [ false - URL 在浏览历史中创建新的条目 ]
  */
- function openWindow(url, name = '_blank', features, replace) {
-  return window.open(url, name, features, replace)
+ function openWindow(url, name = '_blank', features) {
+  return window.open(url, name, features)
 }
 
 export default openWindow
