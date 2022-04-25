@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.3.3-beta
+### 2.3.3
 - 代码优化
 - exportMsg优化
 - 下载和url解析优化
