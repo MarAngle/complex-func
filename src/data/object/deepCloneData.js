@@ -1,5 +1,7 @@
 import getType from './../type/getType'
 
+const hasOwnProperty = Object.prototype.hasOwnProperty
+
 /**
  * 基础版本的深拷贝
  * @param {*} origindata 深拷贝对象
@@ -20,7 +22,7 @@ function deepCloneData(origindata, map = new Map()) {
       }
       map.set(origindata, result)
       for (let key in origindata) {
-        if (origindata.hasOwnProperty(key)) {
+        if (hasOwnProperty.call(origindata, key)) {
           result[key] = deepCloneData(origindata[key], map)
         }
       }

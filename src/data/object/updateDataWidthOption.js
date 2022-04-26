@@ -1,6 +1,8 @@
 import getType from './../type/getType'
 import getLimitData from './../utils/getLimitData'
 
+const hasOwnProperty = Object.prototype.hasOwnProperty
+
 /**
  * 格式化UpdateOption,updateDataWidthOption函数的设置项
  * @param {object} [option] 用户设置的设置项
@@ -103,7 +105,7 @@ function updateDataWidthOption(targetdata, origindata, option, currentnum = 1, c
         }
         map.set(origindata, targetdata)
         for (let key in origindata) {
-          if (origindata.hasOwnProperty(key)) {
+          if (hasOwnProperty.call(origindata, key)) {
             let nextprop = currentprop ? currentprop + '.' + key : key
             // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
             if (!option.limitData.getLimit(nextprop)) {

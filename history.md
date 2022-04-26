@@ -2,6 +2,9 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
+### 2.3.4
+- deepClone hasOwnPropertyBUG修正
+
 ### 2.3.3
 - 代码优化
 - exportMsg优化
