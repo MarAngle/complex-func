@@ -4,6 +4,7 @@
 
 ### 2.3.5-beta
 - 优化
+- getType使用修正
 
 ### 2.3.4
 - deepClone hasOwnPropertyBUG修正

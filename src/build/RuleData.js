@@ -153,7 +153,7 @@ class RuleData extends Data {
       if (merge) {
         reg = this.$buildReg(reg, merge)
       }
-      let type = getType(reg)
+      let type = getType(reg, true)
       if (type != 'regexp') {
         reg = new RegExp(reg)
       }
