@@ -15,7 +15,7 @@ import updateData from './updateData'
  * @param {boolean | function} [option.format] 格式化函数,默认为真,targetlist中需要push的数据会调用此方法，format仅对对象数据做格式化，返回值为是否添加到数组中,为否不进行push判断
  * @returns
  */
-function updateList(targetlist, originlist, option = {}) {
+function updateList(targetlist, originlist, option) {
   // 生成check函数
   if (!option.check) {
     exportSelfMsg('请传递check函数判断相同对象')
