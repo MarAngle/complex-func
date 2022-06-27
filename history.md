@@ -2,7 +2,7 @@
 - !函数说明持续完成优化！
 - setDataByDefault循环引用判断添加
 
-### 2.3.5-beta
+### 2.3.5
 - 优化
 - getType使用修正
 
