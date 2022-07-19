@@ -17,7 +17,7 @@ function traverse(val) {
  * @param {*} seen 缓存
  */
 function _traverse(val, seen) {
-  if (typeof val !== 'object') {
+  if (typeof val !== 'object' || val === null) {
     return
   }
   if (val[OBNAME]) {
