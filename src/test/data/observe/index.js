@@ -6,6 +6,7 @@ import Watcher from '../../../data/observe/Watcher'
 runText(function({ checkSame, showError }) {
   let data = {
     id: 'id',
+    list: [1],
     user: {
       id: 'uid',
       name: 'uname',
@@ -55,4 +56,13 @@ runText(function({ checkSame, showError }) {
     watchUserParent.stop()
     data.user.parent.id = 'puis+++'
   }, 0)
+  // let watchListTemp = {}
+  // let watchList = new Watcher(data, 'list', {
+  //   deep: true,
+  //   handler: (val, oldVal) => {
+  //     watchUserParentTemp.list = val
+  //     console.log(val, oldVal)
+  //   }
+  // })
+  // data.list.push(2)
 }, 'observe')

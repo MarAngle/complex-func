@@ -137,7 +137,7 @@ import Require from './build/Require'
 import notice from './option/noticeData'
 
 // 测试加载
-// import './test/index'
+import './test/index'
 // 自动引用加载
 // import './buildContentImport'
 

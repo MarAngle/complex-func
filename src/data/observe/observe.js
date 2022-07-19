@@ -9,7 +9,7 @@ const hasOwnProperty = Object.prototype.hasOwnProperty
  * @returns {Observer}
  */
 function observe(value) {
-  if (typeof value !== 'object') {
+  if (typeof value !== 'object' || value === null) {
     return
   }
   let ob
