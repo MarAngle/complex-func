@@ -1,5 +1,5 @@
 
-export const OBNAME = '____ob____'
+export const OBNAME = '$_ob_$'
 /**
  * 双向绑定原理
  * 通过object.defineProperty，实现对属性get/set的定义

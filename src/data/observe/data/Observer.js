@@ -68,7 +68,6 @@ function copyAugment (target, src, keys) {
 }
 
 let arrayKeys = Object.getOwnPropertyNames(arrayMethods);
-/*  */
 
 class Observer {
   constructor(value) {
