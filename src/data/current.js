@@ -84,12 +84,19 @@ let current = {
     this.clear()
     let current = new Date()
     this.setData(current)
-    let todayStr = showTime(current, 'YYYYMMDD')
-    let today = parseTime(todayStr, 'YYYYMMDD')
+
+    let todayStartStr = showTime(current, 'YYYYMMDD')
+    let today = parseTime(todayStartStr, 'YYYYMMDD')
     this.setData(today, 'today')
-    let nextdayStr = fillString(Number(todayStr) + 1, 8)
+
+    let todayEndStr = todayStartStr + '235959'
+    let todayEnd = parseTime(todayEndStr, 'YYYYMMDDHHmmss')
+    this.setData(todayEnd, 'todayEnd')
+
+    let nextdayStr = fillString(Number(todayStartStr) + 1, 8)
     let nextday = parseTime(nextdayStr, 'YYYYMMDD')
     this.setData(nextday, 'nextday')
+
     this.triggerCallback(this.getData(), from)
     this.timer = setTimeout(() => {
       this.update('update')
